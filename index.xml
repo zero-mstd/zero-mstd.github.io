@@ -1,616 +1,560 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>Five Six Seven Eight</title>
-        <link>/</link>
-        <description>五六七八，@zero@1234.as 的延伸.</description>
-        <generator>Hugo -- gohugo.io</generator>
-        
-            <language>zh-cn</language>
-        
-        
-        
-        
-        
-            <lastBuildDate>
-                2020-10-17
-            </lastBuildDate>
-        
-        
-        
-            <item>
-                <title>Matrix 的两种房间和八种桥</title>
-                <link>/bridges-of-matrix/</link>
-                <pubDate>2021-01-24</pubDate>
-                
-                <guid>/bridges-of-matrix/</guid>
-                <description>&lt;p&gt;今天注册了一个 &lt;a href=&#34;https://matrix.org/&#34;&gt;Matrix&lt;/a&gt; 玩了玩，最吸引我的是里面“桥（bridge）”的概念，它希望能做到和其他 IM 互通. 我简单地尝试了 Matrix 连 IRC，又仔细阅读了 Matrix 关于这部分的文档，稍稍有了一点自己的理解，在这里简单总结一下. 我阅读的两份材料是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Matrix 文档中对桥的简要介绍：&lt;a href=&#34;https://matrix.org/bridges/&#34;&gt;https://matrix.org/bridges/&lt;/a&gt;;&lt;/li&gt;
-&lt;li&gt;Matrix 文档中对桥的类型的介绍：&lt;a href=&#34;https://matrix.org/docs/guides/types-of-bridging&#34;&gt;https://matrix.org/docs/guides/types-of-bridging&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;请注意，我这里只是纸上谈兵，没有操作尝试过，只是阅读了这两份材料后的一个个人理解，未必是正确的，写这篇文章是为了得到指点和交流. 另外，我不是按照这两份材料中的方式来理解这个问题的，所以建议先去阅读这两份材料再看我下面写的东西，看看我的理解对不对. 以免我的理解本来就有问题，却被先入为主了.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;当我们说桥的时候我们在说什么&#34;&gt;当我们说“桥”的时候我们在说什么？&lt;/h2&gt;
-&lt;p&gt;Matrix 是一个聊天软件，世界上还有其他的聊天软件. 当我们说 Matrix 的桥可以让它与其他聊天软件互通时，互通的是什么东西呢？按我的理解，互通的是房间（room），是房间共享. 那么房间又是什么呢？最简单的一个例子，群组就是一个房间. 无论是 3 个人还是 30 个人还是 300 个人，如果这些人在一起建了一个群组，那么这个群组就是一个房间. 群组这个概念在很多聊天软件里都有，据我所知，Matrix 里有群组，telegram 有群组，IRC 的频道也是一个群组.&lt;/p&gt;
-&lt;p&gt;那么一对一的私聊是一个房间吗？看上去 Matrix 这里是这样的，Matrix 的 dm 的逻辑就是你开了一个房间然后邀请另一个人进来，这样就是一个私聊了.&lt;/p&gt;
-&lt;h2 id=&#34;好的那房间怎么互通呢&#34;&gt;好的，那房间怎么互通呢？&lt;/h2&gt;
-&lt;p&gt;按我的理解，房间的互通要分三种情况：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;a. 先有其他软件里的远程房间（remote room），如何在 Matrix 里加入那些远程房间？用“镜像”的语言来说就是，Matrix 怎么镜像其他软件的房间？&lt;/li&gt;
-&lt;li&gt;b. 先有 Matrix 房间，如何在其他的聊天软件里加入这个 Matrix 房间？用“镜像”的语言来说就是，别的软件怎么镜像 Matrix 的房间？&lt;/li&gt;
-&lt;li&gt;c. 无论先后顺序，已经有其他软件上的远程房间和 Matrix 上的房间了，这两个房间能不能合并到一起？&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;p&gt;对于情况 a，这个比较简单，Matrix 自己就有桥，这个桥可以透明地（transparently）加入到远程房间里，然后在 Matrix 这边形成一个房间，这个房间叫做一个 &lt;strong&gt;portal room&lt;/strong&gt;，Matrix 用户可以加入到这个 portal room 中去. 例子：在 IRC 的 freenode 节点已经有一个频道：##english@freenode.net，那么我可以在 Matrix 中搜索 #freenode_##english:matrix.org，然后点击创建频道. 然后 Matrix 会自动帮我搞一个桥，并显示：This room can&amp;rsquo;t be previewed. Do you want to join it? 点“加入”，于是，就成功进入了这个远程房间. 在 IRC 那边看到的就是 Matrix 的用户名后面加上一个“[m]”标记.&lt;/p&gt;
-&lt;p&gt;不过没有看到这样接入 telegram 房间的办法，这个可能只对 IRC 的 freenode 有效.&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;对于情况 b，要用户自己去设置桥. 这样的话，一个 Matrix 房间可以有多个远程房间. 用“镜像”的语言来说就是在不同的软件上有多个镜像. 这种其他软件上的远程的镜像房间，叫做 &lt;strong&gt;plumbed room&lt;/strong&gt;. 举个例子，Matrix 自己的官方的在 Matrix 上的房间 #matrix:matrix.org，就被镜像到了 IRC 上（#matrix@freenode.net）和 Slack 上（matrixdotorg/@matrix）.&lt;/p&gt;
-&lt;p&gt;这里我自然而然想到的一个问题就是：那么被 Plumbed 到 freenode 上的镜像房间能不能再 portal 回去呢？按照规则，我搜索了 #freenode_#matrix:matrix.org，结果是一个大大的感叹号. 我并不清楚这一步是发生了什么.&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;对于情况 c，就比较复杂了. 第二份材料里有这么一段话：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Migrating rooms between a portal &amp;amp; plumbed room is currently a bit of a mess, as there’s not yet a way for users to remove portal rooms once they’re created, so you can end up with a mix of portal &amp;amp; plumbed users bridged into a room, which looks weird from both the Matrix and non-Matrix viewpoints. &lt;a href=&#34;https://github.com/matrix-org/matrix-appservice-irc/issues/387&#34;&gt;https://github.com/matrix-org/matrix-appservice-irc/issues/387&lt;/a&gt; tracks this.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;我有点没看明白，不知道 plumbed room 指的是被镜像的 Matrix 房间还是我上面说的镜像出去的其他软件里的远程房间. 但无论如何我也不知道为什么会有把 portal room 和 plumbed room 合并的需求？难道不该是把原原本本的 Matrix 房间和原原本本的其他软件里的远程房间合并嘛？没看懂……&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;未完待续……好难，不想写了……&lt;/p&gt;
-</description>
-            </item>
-        
-            <item>
-                <title>季度嘟文精华展 - 2020 冬</title>
-                <link>/exhibition/2020-winter/</link>
-                <pubDate>2021-01-18</pubDate>
-                
-                <guid>/exhibition/2020-winter/</guid>
-                <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
-&lt;p&gt;谢谢你点了进来！这里除了有嘟文精选，还会简单写写发嘟的前因后果，以及少许的&lt;span style=&#34;background-color: #ff6600;&#34;&gt;未来计划&lt;/span&gt;. 对于陌生的路人，这是一个了解我的窗口；对于已经关注我的人，可以了解一些“幕后故事”；对于我自己，这是一个回顾过去、着眼未来的机会.&lt;/p&gt;
-&lt;p&gt;2020 年 10 月 18 日至 2021 年 1 月 17 日，一共发嘟 472 条，原创嘟文 113 条，包含媒体文件的 71 条. 精选了 62 条.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;初识联邦宇宙&#34;&gt;初识联邦宇宙&lt;/h2&gt;
-&lt;p&gt;2020 年 10 月因豆瓣的 hashtag 被禁我来到了这里. 我先是读了 Mastodon 的官方文档，又找到了一个&lt;a href=&#34;https://instances.social/list/advanced&#34;&gt;实例列表&lt;/a&gt;. 我设置了一些过滤条件，1234.as 排得比较靠前. 我记得宣传语里有一句话说，“本站欢迎专业人士”，我觉得很有意思，而且我非常喜欢这个站的域名. 最终吸引我来这里的是介绍里的一句话，“本站已经过滤掉访客原始 IP，管理后台无法看到用户的 IP”. 我感到很有安全感，于是我就注册了.&lt;/p&gt;
-&lt;p&gt;今天我依然很庆幸加入这里. 站长很厉害，也很低调. 站点的封禁规则十分简单，即“使用中国境内服务器的；使用中国境内域名注册商的”. 这三个月中我见过几次针对某账户或某实例的集体封禁行为，我们站长没有跟风，甚至没有发表任何意见. 我认为他把“站长”和“用户”这两个身份区分得很开，我很欣赏这一点. 向我站站长表示感谢.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105055479096348245/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;第一条嘟文说了一下我对社交网络的思考，现在看来这依然正确，我已经感受到了 Mastodon 上有几个小圈子了. 我绝对不会融入任何一个圈子中去，我要保持自我的独立，我要保持我的嘟文面向任何一个陌生的路人；我要保持开放的心态去结交新的朋友，认识新的人.&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;关于我的头像：&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105547191961904388/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105547205060197587/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105059670965125389/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;这是使用一天之后的总结. 里面关于“定期更新”的理解很有可能是错误的. 我后来发现了越来越多的奇怪的问题. 比如不同的实例下能看到的评论是不一样的. 这一点在一定程度上影响了我对 Mastodon 的好感，我觉得它越来越像朋友圈了. 我觉得这应该是 ActivityPub 协议的问题，目前看来 Zot 协议也许是更加优越的. &lt;span style=&#34;background-color: #ff6600;&#34;&gt;未来我会找个时间部署几个联邦宇宙软件好好研究研究这个问题&lt;/span&gt;，我觉得这可能比想象中要复杂得多.&lt;/p&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105101809555718881/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;这篇文章我也发在了这里一份，地址在&lt;a href=&#34;./fediverse/&#34;&gt;这里&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;哈哈哈这条嘟文是我的人生高光时刻！45 转 42 喜欢！不过 26 号到 28 号三天也只有 4 转 6 喜欢，11 月 11 日被一位有超多粉丝的大佬转发后得到了一波转发、喜欢的小高潮，11 月 25 日被另一位有超多粉丝的大佬转发以后得到了另一波转发、喜欢、评论的大高潮.&lt;/p&gt;
-&lt;p&gt;我从这件事中学习到的：即便是在长毛象这样的努力在去除意见领袖影响的社区，传播依然是被那些有超多关注者的人所左右的. 像后来的“2020 对嘟主的印象”、“猫/狗、姐姐/妹妹投票”、“长毛象资源分享日”这种引发广泛讨论的话题，其中都能看到那些意见领袖的身影，传播学的客观规律不可动摇. 这个领悟让我：第一，要保持低调，不要吸引太多人来关注我，因为能量越大责任越大嘛，我不喜欢负责任；第二，自己的好东西要学着去推广，比如放置顶，比如搞一个“季度嘟文精华展”……&lt;/p&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105226749093529594/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105305718605350174/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;目前依然没有横幅图片，我还是不知道发生了什么.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;生活小事&#34;&gt;生活小事&lt;/h2&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105077201448133017/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;哈哈哈这是走在路上偶然看到的，太有意思了！我非常喜欢这张照片.&lt;/p&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105130385477269727/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105139192207199920/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105150919851562926/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;美国大选时读到的美国青年的文字，让我看到另一个文化中的同龄人的思考，让我对我们这一代人抱有信心.&lt;/p&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105156780865049411/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105196443819123729/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105208439728422361/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105252649063566152/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105275222967595954/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105275239377849366/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105287407121851673/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;这居然拿了 33 个喜欢！好开心！不过我有引导点赞的嫌疑……说明只要引导一下，大家还是很配合的！象友真好！&lt;/p&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105374251642245276/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105474647944313822/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105525494849597720/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105230355193873777/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;那天下雨，我注意到路上的各种水坑，于是做了这样一首小诗.&lt;/p&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105571842067121006/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;技术问题&#34;&gt;技术问题&lt;/h2&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105315585471928484/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105458856278282553/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105556775122834979/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;奇奇怪怪的思考&#34;&gt;奇奇怪怪的思考&lt;/h2&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105099418613041773/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;这个思考的根源就是我上面写的那个关于 Mastodon 不同实例下能看到的评论不一样的事情. 我感到非常奇怪的一点是，这样的问题难道只有我遇到了么？为什么没见到其他人报告这个问题呢？难道它其实很无关紧要么？然后我进一步把问题抽象了一下，我就想还有什么事是那种无关紧要的呢？&lt;/p&gt;
-&lt;p&gt;刚好那天我肚子有点疼，但是我觉得还好，还不到去医院或者吃药的程度，所以我没有对任何人讲过我 10 月 26 日那天肚子有一点点疼. 然后我忽然想到的是，有没有一种可能，地球上所有的人都在那天肚子有一点疼呢……于是就写了这条嘟文.&lt;/p&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105189521491940446/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105214455959613869/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105355400714145281/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;这个问题一直没有得到回应.&lt;/p&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105372035662453462/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105524848062528721/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105564181175836937/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;观点与评论&#34;&gt;观点与评论&lt;/h2&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105112211813506278/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;这是对每日一文中王小波的《我是哪一种女权主义者》的评论. 那还是 10 月 28 号，我刚来 10 天，我已经知道了评论的展示机制是，只有同时关注了原作者与评论的人才会在主页上看到那个人的评论，我当时只有个位数的关注者，我以为我很安全. 结果还是被有很多粉丝的大佬看见然后给转了……然后我面对汹涌而来的转发和喜欢我就后悔了：我其实根本没有仔细思考过女权的问题，只是随便做了个测试，我就大放厥词，说别人不知道女权是什么……好在象友们也没人跟我计较，逃过一劫. 加入 flag：&lt;span style=&#34;background-color: #ff6600;&#34;&gt;我未来会认真学习女权主义的各个维度.&lt;/span&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105243862995869934/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;我非常敬佩吕翔同学. 但当时大家都在讨论清华学姐的事，讨论这件事的人比较少.&lt;/p&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105248514323657479/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105314625760010440/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105405769564754242/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 在探讨镜像别人帐号的合理性到底有没有一个标准，一位象友表示被镜像者是否知情同意可以作为评判标准，这条嘟文是在这样的背景下写出的.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105365701365866553/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 认为联邦宇宙和微博平台的互转问题在于隐私性与安全性，微博的转到长毛象对内容生产者没有风险，但长毛象的转到微博对内容生产者风险极大，这条嘟文是在这样的背景下写出的.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105401686080237797/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 询问直接被回复，与偶然在时间线上看到自己的嘟文被引用后发表观点，哪个更令人感到冒犯，这是我对此的思考.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105252074210099557/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;实际上，我来长毛象的时候看到过一篇科普文，说长毛象的设计理念（比如没有转评功能）就是为了防止网络霸凌. 长毛象鼓励大家有不同意见时就地展开讨论，而不是转发评论来发表意见. 我对此十分认同. 当一个文本被人截图或引用时，它就脱离了上下文，有断章取义的危险. 而且这样的意见有可能曲解了作者原意，且剥夺了作者对自己的内容做出解释的权利，也剥夺了作者为自己的发言负责任的义务.&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;如上所述，我一般遇到不同意见时都会主动去沟通. 但我没有想到还有特殊情况：&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105416440395204285/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;我来到长毛象以后学习了一个新词语：mansplaining，中文翻译为“男言之瘾”. 我已经被它驯服了. 我原本以为长毛象上大家能友好交流，但这个词语让我每每想要参与讨论时都犹豫再三，我会反复反思，自己有没有“男言之瘾”，有一些回复是不是不必要的.&lt;/p&gt;
-&lt;p&gt;直到我看到了这条嘟文里提到的那张网传图，我决定展开反击，于是写了这条嘟文. 我仍然认为，“mansplaining”这个词被滥用了，而且它的含义已经有了改变，变成了要去检查别人有没有问——这种改变是不好的.&lt;/p&gt;
-&lt;p&gt;这个词语最鸡贼的地方就在于它完全拒绝沟通——我根本没法去那张图下面表达我的观点——因为很显然，人家没问，人家觉得自己对“mansplaining”的解释非常完美，不需要任何人去发表不同意见. 这种情况下我再去提反对意见，不就直接成了“反面典型”了么？&lt;/p&gt;
-&lt;p&gt;我一向对沟通有着非常开放的心态，我欢迎任何沟通. 而且对于我来说，如果一个回复带来了足够的信息量，那么它是否有礼貌是可以不用去在意的（往往批评与反对是不容易做到有礼貌的）. 我更热爱内容，而不是形式.&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;不妨来评判评判我的这些与他人的交流是不是 manslpaining 呢？&lt;/p&gt;
-&lt;h2 id=&#34;与其他人的交流&#34;&gt;与其他人的交流&lt;/h2&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105175189267222980/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;原嘟文已经被删除了，是一位象友在月亮还没升起来的时候找月亮的事. 而且这不是唯一一次，一个月后我与另一位象友也发生过&lt;a href=&#34;https://1234.as/@zero/105339347142433022&#34;&gt;类似的对话&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;我是在高中的时候研究的关于月亮的这个问题，后来多次给自己身边的朋友科普过，那些朋友还真的没有一个人知道这件事，看上去好像了解月球运行原理的人不太多？&lt;span style=&#34;background-color: #ff6600;&#34;&gt;我以后有时间可以写一篇简单的科普介绍一下.&lt;/span&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. 原嘟文是一条新闻，是关于瑞德西韦有效性的讨论. 我觉得这是十分值得引起关注的事情，但大家对新冠肺炎的关心已经从用药治疗转向了疫苗预防.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105247253240752270/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 遇到了一个关于 tag 的问题，正好看到就做了回复，看上去还是对 OP 有所帮助.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105303066563518832/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP &lt;a href=&#34;https://mindpalace.michaelis.website/fedi-intro-trans.html&#34;&gt;翻译了&lt;/a&gt;一份&lt;a href=&#34;https://medium.com/@VirtualAdept/a-friendly-introduction-to-the-fediverse-5b4ef3f8ed0e&#34;&gt;关于联邦宇宙的介绍&lt;/a&gt;，翻译得非常好. 推荐大家去读一读.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105316178406532200/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. 这是关于垃圾分类到底是不是形式主义的讨论，讨论的上下文很长，最后话题有所偏离.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105345022752555491/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105345025867682830/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;这还是好久之前我读到过的一篇文章，就把基本观点和参考文献复制粘贴了一下给保存起来了，没有想到过了这么久居然还能找到还能用得上——否则的话我的观点将会多么空洞啊！我的思考是：应该把论据、素材的收集整理工作做好.&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 介绍了自己买服务器搭梯子的方法，并给出了一个一键教程. 我看到后做了补充.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105353916231702777/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，不过原嘟文已经被删. 大意是说，中国的大专及以上人口数与残疾人人数大致相当，身边有多少大学生，身边也就应该有多少残疾人. 然而我们现在的社会中好像看不到很多的残疾人，这说明我们的社会并没有包容到能让残疾人们自由地生活.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105372988684181298/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105373097023142200/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105373154295704045/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;出于对数据准确性的执着我就查了一下，于是发了这样的三条回复. 这件事中我学习到两点：&lt;/p&gt;
-&lt;p&gt;第一，残疾人与大学生数量相当发生在 2010 年左右，可以想象这个言论并非 OP 原创，而是 2010 年的人原创并从此流传了 10 年. 我们面对网络上的言论时，要关注其时效性，如果难以求证，至少应该附上原文链接作为引用.（这也是我反对截图、转述，支持就地评论或使用超链接的原因.）&lt;/p&gt;
-&lt;p&gt;第二，其实在求证过程中，我们会发现，残疾人的人数统计最近的就是在 2010 年，还是残疾人联合会根据人口普查估计出来的，统计年鉴中从来没有关于残疾人的数据. 已经过了 10 年了啊！残疾人的人数数据 10 年都没有更新了！这其实更能说明我们这个社会对残疾人缺乏关照啊！&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 讲述了自己的文学启蒙是《儿童文学》杂志，于是大家就此展开了讨论.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105376606651174408/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 同样回忆了自己对《儿童文学》的回忆，在下面的评论区中大家互相推荐了一波文章.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105376966834376855/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 介绍了 BiliBili 的国内版与国际版的区别，我对此做了一些补充.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105417913594173471/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;其实这里面的问题还挺有意思的，比如那个关于 Furry 的神奇的视频居然国际版看不了，我想这样的视频应该有很多，不知道会不会有人在做这样的对比.&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105421957456067711/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;这条留言其实很像是 mansplaining，因为 OP 完完全全没在说这回事，我的评论应该算是很 KY 了. 但我还是觉得发出来的价值更大，所以就发了，最后好像还好，OP 完全没有批评我~&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105489809363587744/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;这就更像是 mansplaining 了，发完之后我就后悔了……不过最后结果也还好的样子.&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 对南方周末的特稿《拼多多女孩“润肺”之死》进行了批评，我读了文章之后与 OP 进行了讨论.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105518356409977947/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105518731778081492/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;这两条其实也非常 mansplaining，不过我这次学聪明了，写了个“借地表达”. 最后的讨论非常有质量，OP 的回复也给了我非常多的启发. 我觉得人与人之间的交流就是这样，你不能知道和你对话的人会说出什么话，那些话会不会对你有所启发. 只有保持开放的心态与别人进行交流，即便是离题万里又有什么错呢？&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 介绍了一个神奇的德语单词，是用来表达情绪的.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105520377286105700/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;我已经非常熟练了，使用分割线来把回复和可能的“mansplaining”区分开，这样即便有点 mansplaining 对方也不会太责怪. 这里的 mansplaining 就是介绍了一本书，其实发之前我还看了一下那本书，确认了那本书中确实有这个单词，犹豫了半天我还是没有指出这一点，因为我好像感觉如果指出的话有一种高高在上，“你知道的我早就知道了哦”的感觉，可能对方会觉得我不礼貌？（希望这位象友不会点进来看我这篇文章，点进来看也没有看到这里，这里的坦白好像更欠揍的样子……）&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 询问是否有植物学的书籍推荐，侧重是植物分类，于是我就做了推荐.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105552501476883959/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;&lt;span style=&#34;background-color: #ff6600;&#34;&gt;说起来，我也真的该把植物学拿起来学一学了！&lt;/span&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 写了一篇文章，介绍了搭建博客的一些方案，我在下面做了补充.&lt;/p&gt;
-&lt;iframe src=&#34;https://1234.as/@zero/105558751741854413/embed&#34; class=&#34;mastodon-embed&#34; style=&#34;max-width: 100%; border: 0&#34; width=&#34;100%&#34; allowfullscreen=&#34;allowfullscreen&#34;&gt;&lt;/iframe&gt;
-&lt;p&gt;其实我的博客就是用我补充的方法搭的，这个 5678 站也是. 我对此确实还颇有一些心得. 如果想要选择使用 Hugo 的话，有任何问题可以找我来交流啊！&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;结尾&#34;&gt;结尾&lt;/h2&gt;
-&lt;p&gt;谢谢你看到了这里！有任何想说的，欢迎给我评论. 对某一条嘟文感兴趣也可以去那里评论！&lt;/p&gt;
-&lt;p&gt;不知道这种嵌入嘟文的模式大家觉得怎么样呢？会不会直接复制一下用引用的格式比较好呢？因为加载这样一篇文章还要频繁地去从我的 1234 站调取数据，一是加载可能会很慢，二是 1234 站也要分担一定的压力，三是 RSS 好像就没法显示了？&lt;/p&gt;
-&lt;script src=&#34;https://1234.as/embed.js&#34; async=&#34;async&#34;&gt;&lt;/script&gt;
-</description>
-            </item>
-        
-            <item>
-                <title>联邦宇宙概论</title>
-                <link>/fediverse/</link>
-                <pubDate>2020-10-26</pubDate>
-                
-                <guid>/fediverse/</guid>
-                <description>&lt;p&gt;使用长毛象一周了，我喜欢它. 我尽量多地看了一些用户、站长的经验分享，明白了一些事情的同时产生了更多的疑问：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://m.cmx.im/@leon007/105049117684292610&#34;&gt;Mastodon 是一个协议？misskey 协议是啥？pleroma 协议又是啥？activepub 大协议又是啥？&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://o3o.ca/@jess/105071002006438658&#34;&gt;fediverse 不是所有的实例集合在一起么？为什么还会有博客、图片、视频平台？write freely、pixelfed、peertube 和长毛象有什么关系？&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;我决定好好学习一下.&lt;/p&gt;
-&lt;p&gt;以下内容是我的学习成果，很多都是我自己的理解. 出于分享与梳理知识的目的，并假定读者对联邦宇宙一无所知，我适当补充了一些我在之前的学习生活中对相关技术的理解，但愿我能把我理解出来的联邦宇宙讲明白. 事实性的内容全都是现查的，而且只查了单一信源，没有做充分的交叉验证，读一读有个印象就好，请不要直接默认我写在这里的全是正确的. 这里写的东西&lt;strong&gt;不能&lt;/strong&gt;作为学术研究或任何严肃学习的材料. 非常乐意得到任何形式的反馈~&lt;/p&gt;
-&lt;h2 id=&#34;定义&#34;&gt;定义&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;联邦宇宙（fediverse）&lt;/strong&gt;：所有&lt;strong&gt;联邦服务（federated server）&lt;/strong&gt; 的集合叫做&lt;strong&gt;联邦宇宙&lt;/strong&gt;. 参考&lt;a href=&#34;https://en.wikipedia.org/wiki/Fediverse&#34;&gt;维基百科&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;联邦服务&lt;/strong&gt;：是指独立部署但能互相通信的服务. 这里的要点是能互相通信，功能是无关紧要的：社交网络、微博客、博客、普通网站、文件存储都可以. 通信以&lt;strong&gt;联邦协议&lt;/strong&gt;为标准.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;联邦协议&lt;/strong&gt;：&lt;strong&gt;联邦宇宙&lt;/strong&gt;中不同&lt;strong&gt;实例（instance）&lt;/strong&gt; 间互相通信的&lt;strong&gt;协议（protocol）&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;实例&lt;/strong&gt;：一个&lt;strong&gt;联邦服务&lt;/strong&gt;叫做一个&lt;strong&gt;实例&lt;/strong&gt;. 也有人管一个&lt;strong&gt;实例&lt;/strong&gt;叫一个 &lt;strong&gt;pod&lt;/strong&gt;. 任何人都可以自选&lt;strong&gt;联邦协议&lt;/strong&gt;写一个全新的&lt;strong&gt;实例&lt;/strong&gt;，但更流行的做法是选择一个&lt;strong&gt;联邦宇宙软件&lt;/strong&gt;生成一个&lt;strong&gt;实例&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;联邦宇宙软件&lt;/strong&gt;：方便他人快速部署新&lt;strong&gt;实例&lt;/strong&gt;的软件，可以按照某个&lt;strong&gt;联邦协议&lt;/strong&gt;设计软件 &lt;strong&gt;api&lt;/strong&gt;，也可以设计独有的 &lt;strong&gt;api&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;身份（identity）&lt;/strong&gt;：在&lt;strong&gt;实例&lt;/strong&gt;上注册的帐号叫做&lt;strong&gt;身份&lt;/strong&gt;. 在下文中我也会用&lt;strong&gt;用户&lt;/strong&gt;这个大家比较熟悉的词.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;协议&lt;/strong&gt;：一套约定好的标准. 协议相同意味着可以通信，即使两个&lt;strong&gt;实例&lt;/strong&gt;分属于不同的&lt;strong&gt;联邦宇宙软件&lt;/strong&gt;，只要协议相同就能通信. 因此&lt;strong&gt;联邦宇宙&lt;/strong&gt;是一个非常大的概念.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;api（应用程序编程接口）&lt;/strong&gt;：在一个&lt;strong&gt;联邦宇宙&lt;/strong&gt;中 &lt;strong&gt;api&lt;/strong&gt; 是指一个&lt;strong&gt;实例&lt;/strong&gt;留出来的、可供其他程序与该&lt;strong&gt;实例&lt;/strong&gt;通信的方法. 完全自己写的&lt;strong&gt;实例&lt;/strong&gt;要自己设计 &lt;strong&gt;api&lt;/strong&gt;，用&lt;strong&gt;联邦宇宙软件&lt;/strong&gt;生成的&lt;strong&gt;实例&lt;/strong&gt;一般就是直接使用&lt;strong&gt;联邦宇宙软件&lt;/strong&gt;设计的 &lt;strong&gt;api&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;关于协议与 api 的区别：协议只是标准，api 是协议的具体实现. api 可以完全遵守协议，也可以只遵守一部分协议，也可以设计协议以外的 api. 试着打个比方：假设全人类有共同的道德标准，那这套道德标准就是协议，各个国家的法律就是 api. 有更好的比方嘛？&lt;/p&gt;
-&lt;h2 id=&#34;联邦协议举例&#34;&gt;联邦协议举例&lt;/h2&gt;
-&lt;p&gt;常见的联邦协议有：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Zot 或 Zot/6 协议&lt;/strong&gt;：给独立网站提供通信、身份（用户）管理、权限控制的去中心化网络连接. 是一个近两年才出现的协议，但网站好像已经访问不了了，维基百科 Fediverse 词条中介绍到这里时给了一个官网的 InternetArchive 存档.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://diasporafoundation.org/&#34;&gt;Diaspora&lt;/a&gt; 协议&lt;/strong&gt;：&lt;a href=&#34;https://en.wikipedia.org/wiki/Diaspora_%28social_network%29&#34;&gt;维基百科&lt;/a&gt;上写的是非营利、用户所有、分布式社交网络；&lt;a href=&#34;https://github.com/diaspora/diaspora&#34;&gt;Github 主页&lt;/a&gt;上写的是隐私感知、分布式、开源社交网络.
-&lt;ul&gt;
-&lt;li&gt;使用这个协议的联邦宇宙软件应该只有 diaspora*，也就是他们自己在用. 这个联邦宇宙软件在 GitHub 上有 12.5k 的 star，2.9k 的 fork，2010 年开始的项目，到现在已经十年了，开发还是很活跃，release 有 88 个，但版本号升得很保守，才到 0.7.14.0.&lt;/li&gt;
-&lt;li&gt;说句题外话，在他们的 GitHub 主页我找到了一个&lt;a href=&#34;https://podupti.me/&#34;&gt;所有开源社交网络服务的列表&lt;/a&gt;，里面记录了非常多的实例，以及它们的实例版本、所用的联邦宇宙软件、使用的协议、服务在线的运行时间（多少百分比的时间里服务没有宕机）、是否支持 IPv6、网络延迟、是否开放注册、用户数量等等非常非常多的信息. 我试着搜索了一下我自己所在的实例 1234.as（万象千言），是可以搜索得到的. 这个列表更新及时，真是一个宝藏列表！&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;OStatus 协议&lt;/strong&gt;：根据&lt;a href=&#34;https://en.wikipedia.org/wiki/OStatus&#34;&gt;维基百科&lt;/a&gt;，这是一个专门搞联邦微博客的协议，像长毛象（Mastodon）最早就是使用的这个协议.
-&lt;ul&gt;
-&lt;li&gt;这个协议是老前辈协议了，2010 年左右就搞出来了. 2012 年 1 月 W3C 社区小组想维护并进一步开发这个协议，结果好景不长，2014 年 7 月来了个&lt;strong&gt;联邦社交网络工作小组（W3C Federated Social Web Working Group）&lt;/strong&gt;，这个联邦社交网络工作小组直接创造了一个新的协议，就把 Ostatus 协议给干趴下了.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;ActivityPub 协议&lt;/strong&gt;：这就是联邦社交网络工作小组创造出来的新协议，就是它掩盖了 Ostatus 协议的光芒.
-&lt;ul&gt;
-&lt;li&gt;按照维基百科、一个&lt;a href=&#34;https://github.com/w3c/activitypub/issues/228&#34;&gt;Github issue: Ostatus, pump,io 和 ActivityPub 有什么不同&lt;/a&gt;以及 &lt;a href=&#34;https://www.w3.org/TR/activitypub/#acknowledgements&#34;&gt;ActivityPub 协议最后的致谢部分&lt;/a&gt;来看，这个协议是基于 pump.io 的 api 设计的. 且在设计之初就充分吸取了 OStatus 的经验教训，最后成为了一个成功的协议.&lt;/li&gt;
-&lt;li&gt;这个地方不知道有没有大佬给讲讲它和 Ostatus 协议具体的区别和改进的点是什么呀~ 我没有深入去查，反正知道 ActivityPub 很厉害就对了.&lt;/li&gt;
-&lt;li&gt;2017 年 9 月长毛象开始使用 ActivityPub 协议；2018 年 1 月 W3C 把这个协议作为了推荐标准；2019 年 1 月长毛象&lt;a href=&#34;https://github.com/tootsuite/mastodon/pull/11205&#34;&gt;不再支持之前的 OStatus 协议&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;联邦宇宙列表&#34;&gt;联邦宇宙列表&lt;/h2&gt;
-&lt;p&gt;多亏了刚刚发现的宝藏列表（见上一小节 Diaspora 协议“说句题外话”），在这里我得以总结一些较有影响力的联邦宇宙软件，以及用这些联邦宇宙软件生成的著名实例. 对我来讲这就提供了一个对上述所有概念以及联邦宇宙本身的一个最直观、最感性的认识，可以感受到目前地球上全体人类在创造去中心化联邦宇宙的进程中处在一个怎么样的阶段，尤其是当所有联邦宇宙软件的用户都声称自己那里实例多、用户数量多、很活跃的时候，这个表格给了我一个客观的、量化的认识. （数据截至于 2020 年 10 月 25 日 14:00 左右）&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;联邦宇宙软件&lt;/th&gt;
-&lt;th style=&#34;text-align:left&#34;&gt;该软件的介绍&lt;/th&gt;
-&lt;th style=&#34;text-align:right&#34;&gt;使用这个软件的实例数&lt;/th&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;用户较多的实例&lt;/th&gt;
-&lt;th style=&#34;text-align:right&#34;&gt;这个实例的用户数量&lt;/th&gt;
-&lt;th style=&#34;text-align:right&#34;&gt;这个实例过去一个月的活跃用户数量&lt;/th&gt;
-&lt;th style=&#34;text-align:right&#34;&gt;这个实例的 post 总数&lt;/th&gt;
-&lt;th style=&#34;text-align:right&#34;&gt;这个实例已经运行了多长时间&lt;/th&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;这个实例所用的协议&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Mastodon&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;社交网络，类 twitter&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;2354&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;mastodon.social&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;538222&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;29241&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;26227755&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;11 个月（m）&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;ActivityPub&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;switter.at[1]&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;344114&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;21394&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;8593261&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;7 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;ActivityPub&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;m.cmx.im&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;5917&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;4801&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;251455&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;11 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;ActivityPub&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Pleroma&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;社交网络&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;697&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;social.myfreecams.com[2]&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;21668&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;未知&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;87184&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;15 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;ActivityPub&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;spinster.xyz&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;15654&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;未知&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;1085117&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;1 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;ActivityPub&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;PeerTube&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;视频平台，类 YouTue&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;496&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;bittube.video[3]&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;11101&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;未知&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;88237&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;8 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;ActivityPub&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;WriteFreely&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;写作平台&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;274&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;write.as&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;3452&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;未知&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;31196&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;15 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;ActivityPub&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;friendica&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;社交网络&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;229&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;libranet.de&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;1145&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;174&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;193573&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;44 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;dfrn,ActivityPub,Diaspora,OStatus&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Diaspora*&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;社交网络&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;216&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;joindiaspora.com[4]&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;316938&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;855&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;2642622&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;75 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Diaspora&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;diasp.org&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;99513&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;1001&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;728312&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;120 m[5]&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Diaspora&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Pixelfed&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;图片分享平台，类 Instagram&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;126&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;pixelfed.social&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;15885&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;2313&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;140503&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;15 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;ActivityPub&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Misskey&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;博客平台&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;115&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;misskey.io[6]&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;未知&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;未知&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;未知&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;15 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;ActivityPub&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Hubzilla&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;网页发布&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;102&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;start.hubzilla.org&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;6430&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;564&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;23968&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;32 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Zot&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;zotum.net&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;416&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;80&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;99937&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;24 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Zot,Diaspora,OStatus,ActivityPub&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Funkwhale&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;音乐平台，类 Grooveshark&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;48&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;open.audio&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;1673&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;121&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;未知&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;15 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;ActivityPub&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Plume&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;博客写作平台&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;35&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;fediverse.blog&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;3298&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;未知&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;1611&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;15 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;ActivityPub&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;GNU social&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;社交平台&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;21&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;loadaverage.org&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;2686&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;45&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;450191&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;14 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;XMPP,ActivityPub,OStatus&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;gnusocial.cc&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;367&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;29&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;55981&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;15 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;OStatus&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;MobilizeOn&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;活动管理，类 Slack 或钉钉[7]&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;8&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;test.mobilizon.org[8]&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;1106&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;未知&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;479&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;11 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;ActivityPub[9]&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;zap&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;社交网络&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;5&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;freetobe.social&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;181&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;29&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;6137&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;15 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Zot,ActivityPub&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;zap.dog&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;102&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;28&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;4830&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;1 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Zot&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;Lemmy&lt;/td&gt;
-&lt;td style=&#34;text-align:left&#34;&gt;社群平台，类 Reddit, HN&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;4[10]&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;dev.lemmy.ml&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;6000&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;未知&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;12880&lt;/td&gt;
-&lt;td style=&#34;text-align:right&#34;&gt;10 m&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;未知&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;注意：这个宝藏列表显然并没有收录所有的实例，比如新开的豆豉空间（douchi.space）我就没在这里面搜索到，可能是没有主动提交. 因此第三列的数值只能作为一个下界供参考，但序关系和数量级我觉得大体是准确的.&lt;/p&gt;
-&lt;p&gt;注释：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;[1] 这是一个性工作友好（sex work-friendly）的社交空间. 看到这句话的时候我还怕我理解错了，马上去注册了一个看了看，确认了这样翻译是没有问题的.（我注册仅仅是为了翻译的准确性，给读者们最好的阅读体验，嗯.）&lt;/li&gt;
-&lt;li&gt;[2] 不开放注册.&lt;/li&gt;
-&lt;li&gt;[3] 它的另一个域名：peertube.bittube.tv.&lt;/li&gt;
-&lt;li&gt;[4] 不开放注册.&lt;/li&gt;
-&lt;li&gt;[5] 十年的老实例！尊敬一下！我所在的实例能开十年么？&lt;/li&gt;
-&lt;li&gt;[6] 不能确定这个实例是用户数量最多的，只是这个看上去官方一点就写在这里了.&lt;/li&gt;
-&lt;li&gt;[7] 企业为打工人定制移动应用的解决方案，这样打工人就能随时随地打工了. “类 Slack 或钉钉”是我自己瞎写的，只是听着描述像. 这三个东西我都没有用过.&lt;/li&gt;
-&lt;li&gt;[8] 看地址是一个测试用的实例，后面的数据没有意义. 其他 7 个实例用户没有超过 100 个的，最多的是 66 个，毕竟是公司内部用嘛.&lt;/li&gt;
-&lt;li&gt;[9] 有没有觉得万物皆可 ActivityPub，万物皆可联邦宇宙？&lt;/li&gt;
-&lt;li&gt;[10] 这 4 个实例都显示不开放注册，但我点进一个是有注册页面的，也没提示不让注册. 不过我也没有时间去注册一个试试.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如果你到这个宝藏列表里去看一看，会发现大量的只有 1 个实例的联邦宇宙软件，但它们因为遵守相关协议，也应该看作是联邦宇宙的一部分. 两个用户数量比较多的实例（联邦宇宙软件）代表：&lt;a href=&#34;twista.283.cloud&#34;&gt;twista&lt;/a&gt; 和 &lt;a href=&#34;juick.com&#34;&gt;juick&lt;/a&gt;，前者是日本的一个大实例，有三百余人；后者是俄罗斯的一个大实例，有一万八千多人. 除此以外，在维基百科中还提到了一个 Nextcloud，是用来存储文件的，也是用的 ActivityPub 协议.&lt;/p&gt;
-&lt;h2 id=&#34;结尾&#34;&gt;结尾&lt;/h2&gt;
-&lt;p&gt;希望这个表格和前面的定义介绍可以帮助大家更全面地认识联邦宇宙，认识我们所用的长毛象在其中所在的位置. 也希望能给有技术、有野心的朋友提供一个稍全面的视野，除了建立长毛象实例以外，也许学习 ActivityPub 协议并创造一个新的联邦宇宙软件、甚至是创造一个新的协议——都是有可能的. 无论如何，我喜欢联邦宇宙，我觉得这差不多是互联网该有的样子了.&lt;/p&gt;
-&lt;p&gt;后记：随后看到了&lt;a href=&#34;https://slashine.onl/@slashine/104537788488035256&#34;&gt;闪站站长的推荐&lt;/a&gt;，和我发现的宝藏列表是类似的！在这里一并列出.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://fediverse.party/en/miscellaneous&#34;&gt;https://fediverse.party/en/miscellaneous&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://fediverse.network/&#34;&gt;https://fediverse.network/&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.fediverse.space/instances&#34;&gt;https://www.fediverse.space/instances&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;（CC BY-NC-SA 4.0）&lt;/p&gt;
-</description>
-            </item>
-        
-            <item>
-                <title>关于</title>
-                <link>/about/</link>
-                <pubDate>2020-10-18</pubDate>
-                
-                <guid>/about/</guid>
-                <description>&lt;h2 id=&#34;本站的定位&#34;&gt;本站的定位&lt;/h2&gt;
-&lt;p&gt;本站的名字是：5678 站. 本站是我在 Mastodon 帐号 &lt;a href=&#34;https://1234.as/@zero&#34;&gt;@zero@1234.as&lt;/a&gt; 的延伸，完全是配合那个帐号在使用的. 囿于 Mastodon 的“微博客”属性，500 字的限制使我不能长篇大论，写长文章时需要一个临时的外部平台.&lt;/p&gt;
-&lt;p&gt;另一方面，日复一日的、凌乱不堪的，好的、坏的，有内容的、没内容的嘟文全都一股脑地按时间顺序散落在 Mastodon 上，这会让我感到有些有价值的东西被遗弃了，甚是可惜. 所以决定搞一个“季度嘟文精华展”，每三个月集中整理一次，榨干它的剩余价值，对我、对其他人都是一件好事. 本站也将承载这个功能.&lt;/p&gt;
-&lt;h2 id=&#34;本站的技术&#34;&gt;本站的技术&lt;/h2&gt;
-&lt;p&gt;本站由静态网站生成器 &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;生成. 主题是 &lt;a href=&#34;https://github.com/zwbetz-gh/cupper-hugo-theme&#34;&gt;Cupper&lt;/a&gt;. 部署于 &lt;a href=&#34;https://www.netlify.com/&#34;&gt;Netlify&lt;/a&gt; 和 &lt;a href=&#34;https://pages.github.com/&#34;&gt;GitHub Pages&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;联系我&#34;&gt;联系我&lt;/h2&gt;
-&lt;p&gt;通过邮件联系我：zer0zero-mstd [AT] yahoo [DOT] com. 如需要给我发送加密邮件：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;uid: &lt;code&gt;A551B8F6A13D8A90&lt;/code&gt; (zer0zero &amp;lt;zer0zero@yahoo.com&amp;gt;)；&lt;/li&gt;
-&lt;li&gt;fingerprint: &lt;code&gt;AD3F 2207 E311 7C13 155D  40D1 A551 B8F6 A13D 8A90&lt;/code&gt;；&lt;/li&gt;
-&lt;li&gt;public key:&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre&gt;&lt;code&gt;-----BEGIN PGP PUBLIC KEY BLOCK-----
-
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Five Six Seven Eight</title><link>/</link><description>五六七八，@zero@1234.as 的延伸.</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>
+2020-10-17</lastBuildDate><item><title>Matrix 的两种房间和八种桥</title><link>/bridges-of-matrix/</link><pubDate>2021-01-24</pubDate><guid>/bridges-of-matrix/</guid><description>&lt;p>今天注册了一个 &lt;a href="https://matrix.org/">Matrix&lt;/a> 玩了玩，最吸引我的是里面“桥（bridge）”的概念，它希望能做到和其他 IM 互通. 我简单地尝试了 Matrix 连 IRC，又仔细阅读了 Matrix 关于这部分的文档，稍稍有了一点自己的理解，在这里简单总结一下. 我阅读的两份材料是：&lt;/p>
+&lt;ul>
+&lt;li>Matrix 文档中对桥的简要介绍：&lt;a href="https://matrix.org/bridges/">https://matrix.org/bridges/&lt;/a>;&lt;/li>
+&lt;li>Matrix 文档中对桥的类型的介绍：&lt;a href="https://matrix.org/docs/guides/types-of-bridging">https://matrix.org/docs/guides/types-of-bridging&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;p>请注意，我这里只是纸上谈兵，没有操作尝试过，只是阅读了这两份材料后的一个个人理解，未必是正确的，写这篇文章是为了得到指点和交流. 另外，我不是按照这两份材料中的方式来理解这个问题的，所以建议先去阅读这两份材料再看我下面写的东西，看看我的理解对不对. 以免我的理解本来就有问题，却被先入为主了.&lt;/p>
+&lt;hr>
+&lt;h2 id="当我们说桥的时候我们在说什么">当我们说“桥”的时候我们在说什么？&lt;/h2>
+&lt;p>Matrix 是一个聊天软件，世界上还有其他的聊天软件. 当我们说 Matrix 的桥可以让它与其他聊天软件互通时，互通的是什么东西呢？按我的理解，互通的是房间（room），是房间共享. 那么房间又是什么呢？最简单的一个例子，群组就是一个房间. 无论是 3 个人还是 30 个人还是 300 个人，如果这些人在一起建了一个群组，那么这个群组就是一个房间. 群组这个概念在很多聊天软件里都有，据我所知，Matrix 里有群组，telegram 有群组，IRC 的频道也是一个群组.&lt;/p>
+&lt;p>那么一对一的私聊是一个房间吗？看上去 Matrix 这里是这样的，Matrix 的 dm 的逻辑就是你开了一个房间然后邀请另一个人进来，这样就是一个私聊了.&lt;/p>
+&lt;h2 id="好的那房间怎么互通呢">好的，那房间怎么互通呢？&lt;/h2>
+&lt;p>按我的理解，房间的互通要分三种情况：&lt;/p>
+&lt;ul>
+&lt;li>a. 先有其他软件里的远程房间（remote room），如何在 Matrix 里加入那些远程房间？用“镜像”的语言来说就是，Matrix 怎么镜像其他软件的房间？&lt;/li>
+&lt;li>b. 先有 Matrix 房间，如何在其他的聊天软件里加入这个 Matrix 房间？用“镜像”的语言来说就是，别的软件怎么镜像 Matrix 的房间？&lt;/li>
+&lt;li>c. 无论先后顺序，已经有其他软件上的远程房间和 Matrix 上的房间了，这两个房间能不能合并到一起？&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>对于情况 a，这个比较简单，Matrix 自己就有桥，这个桥可以透明地（transparently）加入到远程房间里，然后在 Matrix 这边形成一个房间，这个房间叫做一个 &lt;strong>portal room&lt;/strong>，Matrix 用户可以加入到这个 portal room 中去. 例子：在 IRC 的 freenode 节点已经有一个频道：##english@freenode.net，那么我可以在 Matrix 中搜索 #freenode_##english:matrix.org，然后点击创建频道. 然后 Matrix 会自动帮我搞一个桥，并显示：This room can&amp;rsquo;t be previewed. Do you want to join it? 点“加入”，于是，就成功进入了这个远程房间. 在 IRC 那边看到的就是 Matrix 的用户名后面加上一个“[m]”标记.&lt;/p>
+&lt;p>不过没有看到这样接入 telegram 房间的办法，这个可能只对 IRC 的 freenode 有效.&lt;/p>
+&lt;hr>
+&lt;p>对于情况 b，要用户自己去设置桥. 这样的话，一个 Matrix 房间可以有多个远程房间. 用“镜像”的语言来说就是在不同的软件上有多个镜像. 这种其他软件上的远程的镜像房间，叫做 &lt;strong>plumbed room&lt;/strong>. 举个例子，Matrix 自己的官方的在 Matrix 上的房间 #matrix:matrix.org，就被镜像到了 IRC 上（#matrix@freenode.net）和 Slack 上（matrixdotorg/@matrix）.&lt;/p>
+&lt;p>这里我自然而然想到的一个问题就是：那么被 Plumbed 到 freenode 上的镜像房间能不能再 portal 回去呢？按照规则，我搜索了 #freenode_#matrix:matrix.org，结果是一个大大的感叹号. 我并不清楚这一步是发生了什么.&lt;/p>
+&lt;hr>
+&lt;p>对于情况 c，就比较复杂了. 第二份材料里有这么一段话：&lt;/p>
+&lt;blockquote>
+&lt;p>Migrating rooms between a portal &amp;amp; plumbed room is currently a bit of a mess, as there’s not yet a way for users to remove portal rooms once they’re created, so you can end up with a mix of portal &amp;amp; plumbed users bridged into a room, which looks weird from both the Matrix and non-Matrix viewpoints. &lt;a href="https://github.com/matrix-org/matrix-appservice-irc/issues/387">https://github.com/matrix-org/matrix-appservice-irc/issues/387&lt;/a> tracks this.&lt;/p>
+&lt;/blockquote>
+&lt;p>我有点没看明白，不知道 plumbed room 指的是被镜像的 Matrix 房间还是我上面说的镜像出去的其他软件里的远程房间. 但无论如何我也不知道为什么会有把 portal room 和 plumbed room 合并的需求？难道不该是把原原本本的 Matrix 房间和原原本本的其他软件里的远程房间合并嘛？没看懂……&lt;/p>
+&lt;hr>
+&lt;p>未完待续……好难，不想写了……&lt;/p></description></item><item><title>季度嘟文精华展 - 2020 冬</title><link>/exhibition/2020-winter/</link><pubDate>2021-01-18</pubDate><guid>/exhibition/2020-winter/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>谢谢你点了进来！这里除了有嘟文精选，还会简单写写发嘟的前因后果，以及少许的&lt;span style="background-color: #ff6600;">未来计划&lt;/span>. 对于陌生的路人，这是一个了解我的窗口；对于已经关注我的人，可以了解一些“幕后故事”；对于我自己，这是一个回顾过去、着眼未来的机会.&lt;/p>
+&lt;p>2020 年 10 月 18 日至 2021 年 1 月 17 日，一共发嘟 472 条，原创嘟文 113 条，包含媒体文件的 71 条. 精选了 62 条.&lt;/p>
+&lt;hr>
+&lt;h2 id="初识联邦宇宙">初识联邦宇宙&lt;/h2>
+&lt;p>2020 年 10 月因豆瓣的 hashtag 被禁我来到了这里. 我先是读了 Mastodon 的官方文档，又找到了一个&lt;a href="https://instances.social/list/advanced">实例列表&lt;/a>. 我设置了一些过滤条件，1234.as 排得比较靠前. 我记得宣传语里有一句话说，“本站欢迎专业人士”，我觉得很有意思，而且我非常喜欢这个站的域名. 最终吸引我来这里的是介绍里的一句话，“本站已经过滤掉访客原始 IP，管理后台无法看到用户的 IP”. 我感到很有安全感，于是我就注册了.&lt;/p>
+&lt;p>今天我依然很庆幸加入这里. 站长很厉害，也很低调. 站点的封禁规则十分简单，即“使用中国境内服务器的；使用中国境内域名注册商的”. 这三个月中我见过几次针对某账户或某实例的集体封禁行为，我们站长没有跟风，甚至没有发表任何意见. 我认为他把“站长”和“用户”这两个身份区分得很开，我很欣赏这一点. 向我站站长表示感谢.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105055479096348245/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>第一条嘟文说了一下我对社交网络的思考，现在看来这依然正确，我已经感受到了 Mastodon 上有几个小圈子了. 我绝对不会融入任何一个圈子中去，我要保持自我的独立，我要保持我的嘟文面向任何一个陌生的路人；我要保持开放的心态去结交新的朋友，认识新的人.&lt;/p>
+&lt;hr>
+&lt;p>关于我的头像：&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105547191961904388/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;iframe src="https://1234.as/@zero/105547205060197587/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105059670965125389/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>这是使用一天之后的总结. 里面关于“定期更新”的理解很有可能是错误的. 我后来发现了越来越多的奇怪的问题. 比如不同的实例下能看到的评论是不一样的. 这一点在一定程度上影响了我对 Mastodon 的好感，我觉得它越来越像朋友圈了. 我觉得这应该是 ActivityPub 协议的问题，目前看来 Zot 协议也许是更加优越的. &lt;span style="background-color: #ff6600;">未来我会找个时间部署几个联邦宇宙软件好好研究研究这个问题&lt;/span>，我觉得这可能比想象中要复杂得多.&lt;/p>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105101809555718881/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>这篇文章我也发在了这里一份，地址在&lt;a href="./fediverse/">这里&lt;/a>.&lt;/p>
+&lt;p>哈哈哈这条嘟文是我的人生高光时刻！45 转 42 喜欢！不过 26 号到 28 号三天也只有 4 转 6 喜欢，11 月 11 日被一位有超多粉丝的大佬转发后得到了一波转发、喜欢的小高潮，11 月 25 日被另一位有超多粉丝的大佬转发以后得到了另一波转发、喜欢、评论的大高潮.&lt;/p>
+&lt;p>我从这件事中学习到的：即便是在长毛象这样的努力在去除意见领袖影响的社区，传播依然是被那些有超多关注者的人所左右的. 像后来的“2020 对嘟主的印象”、“猫/狗、姐姐/妹妹投票”、“长毛象资源分享日”这种引发广泛讨论的话题，其中都能看到那些意见领袖的身影，传播学的客观规律不可动摇. 这个领悟让我：第一，要保持低调，不要吸引太多人来关注我，因为能量越大责任越大嘛，我不喜欢负责任；第二，自己的好东西要学着去推广，比如放置顶，比如搞一个“季度嘟文精华展”……&lt;/p>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105226749093529594/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105305718605350174/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>目前依然没有横幅图片，我还是不知道发生了什么.&lt;/p>
+&lt;hr>
+&lt;h2 id="生活小事">生活小事&lt;/h2>
+&lt;iframe src="https://1234.as/@zero/105077201448133017/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>哈哈哈这是走在路上偶然看到的，太有意思了！我非常喜欢这张照片.&lt;/p>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105130385477269727/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105139192207199920/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105150919851562926/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>美国大选时读到的美国青年的文字，让我看到另一个文化中的同龄人的思考，让我对我们这一代人抱有信心.&lt;/p>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105156780865049411/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105196443819123729/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105208439728422361/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105252649063566152/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105275222967595954/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;iframe src="https://1234.as/@zero/105275239377849366/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105287407121851673/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>这居然拿了 33 个喜欢！好开心！不过我有引导点赞的嫌疑……说明只要引导一下，大家还是很配合的！象友真好！&lt;/p>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105374251642245276/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105474647944313822/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105525494849597720/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105230355193873777/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>那天下雨，我注意到路上的各种水坑，于是做了这样一首小诗.&lt;/p>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105571842067121006/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;h2 id="技术问题">技术问题&lt;/h2>
+&lt;iframe src="https://1234.as/@zero/105315585471928484/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105458856278282553/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105556775122834979/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;h2 id="奇奇怪怪的思考">奇奇怪怪的思考&lt;/h2>
+&lt;iframe src="https://1234.as/@zero/105099418613041773/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>这个思考的根源就是我上面写的那个关于 Mastodon 不同实例下能看到的评论不一样的事情. 我感到非常奇怪的一点是，这样的问题难道只有我遇到了么？为什么没见到其他人报告这个问题呢？难道它其实很无关紧要么？然后我进一步把问题抽象了一下，我就想还有什么事是那种无关紧要的呢？&lt;/p>
+&lt;p>刚好那天我肚子有点疼，但是我觉得还好，还不到去医院或者吃药的程度，所以我没有对任何人讲过我 10 月 26 日那天肚子有一点点疼. 然后我忽然想到的是，有没有一种可能，地球上所有的人都在那天肚子有一点疼呢……于是就写了这条嘟文.&lt;/p>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105189521491940446/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105214455959613869/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105355400714145281/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>这个问题一直没有得到回应.&lt;/p>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105372035662453462/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105524848062528721/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105564181175836937/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;h2 id="观点与评论">观点与评论&lt;/h2>
+&lt;iframe src="https://1234.as/@zero/105112211813506278/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>这是对每日一文中王小波的《我是哪一种女权主义者》的评论. 那还是 10 月 28 号，我刚来 10 天，我已经知道了评论的展示机制是，只有同时关注了原作者与评论的人才会在主页上看到那个人的评论，我当时只有个位数的关注者，我以为我很安全. 结果还是被有很多粉丝的大佬看见然后给转了……然后我面对汹涌而来的转发和喜欢我就后悔了：我其实根本没有仔细思考过女权的问题，只是随便做了个测试，我就大放厥词，说别人不知道女权是什么……好在象友们也没人跟我计较，逃过一劫. 加入 flag：&lt;span style="background-color: #ff6600;">我未来会认真学习女权主义的各个维度.&lt;/span>&lt;/p>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105243862995869934/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>我非常敬佩吕翔同学. 但当时大家都在讨论清华学姐的事，讨论这件事的人比较少.&lt;/p>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105248514323657479/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105314625760010440/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;iframe src="https://1234.as/@zero/105405769564754242/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 在探讨镜像别人帐号的合理性到底有没有一个标准，一位象友表示被镜像者是否知情同意可以作为评判标准，这条嘟文是在这样的背景下写出的.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105365701365866553/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 认为联邦宇宙和微博平台的互转问题在于隐私性与安全性，微博的转到长毛象对内容生产者没有风险，但长毛象的转到微博对内容生产者风险极大，这条嘟文是在这样的背景下写出的.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105401686080237797/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 询问直接被回复，与偶然在时间线上看到自己的嘟文被引用后发表观点，哪个更令人感到冒犯，这是我对此的思考.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105252074210099557/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>实际上，我来长毛象的时候看到过一篇科普文，说长毛象的设计理念（比如没有转评功能）就是为了防止网络霸凌. 长毛象鼓励大家有不同意见时就地展开讨论，而不是转发评论来发表意见. 我对此十分认同. 当一个文本被人截图或引用时，它就脱离了上下文，有断章取义的危险. 而且这样的意见有可能曲解了作者原意，且剥夺了作者对自己的内容做出解释的权利，也剥夺了作者为自己的发言负责任的义务.&lt;/p>
+&lt;hr>
+&lt;p>如上所述，我一般遇到不同意见时都会主动去沟通. 但我没有想到还有特殊情况：&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105416440395204285/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>我来到长毛象以后学习了一个新词语：mansplaining，中文翻译为“男言之瘾”. 我已经被它驯服了. 我原本以为长毛象上大家能友好交流，但这个词语让我每每想要参与讨论时都犹豫再三，我会反复反思，自己有没有“男言之瘾”，有一些回复是不是不必要的.&lt;/p>
+&lt;p>直到我看到了这条嘟文里提到的那张网传图，我决定展开反击，于是写了这条嘟文. 我仍然认为，“mansplaining”这个词被滥用了，而且它的含义已经有了改变，变成了要去检查别人有没有问——这种改变是不好的.&lt;/p>
+&lt;p>这个词语最鸡贼的地方就在于它完全拒绝沟通——我根本没法去那张图下面表达我的观点——因为很显然，人家没问，人家觉得自己对“mansplaining”的解释非常完美，不需要任何人去发表不同意见. 这种情况下我再去提反对意见，不就直接成了“反面典型”了么？&lt;/p>
+&lt;p>我一向对沟通有着非常开放的心态，我欢迎任何沟通. 而且对于我来说，如果一个回复带来了足够的信息量，那么它是否有礼貌是可以不用去在意的（往往批评与反对是不容易做到有礼貌的）. 我更热爱内容，而不是形式.&lt;/p>
+&lt;hr>
+&lt;p>不妨来评判评判我的这些与他人的交流是不是 manslpaining 呢？&lt;/p>
+&lt;h2 id="与其他人的交流">与其他人的交流&lt;/h2>
+&lt;iframe src="https://1234.as/@zero/105175189267222980/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>原嘟文已经被删除了，是一位象友在月亮还没升起来的时候找月亮的事. 而且这不是唯一一次，一个月后我与另一位象友也发生过&lt;a href="https://1234.as/@zero/105339347142433022">类似的对话&lt;/a>.&lt;/p>
+&lt;p>我是在高中的时候研究的关于月亮的这个问题，后来多次给自己身边的朋友科普过，那些朋友还真的没有一个人知道这件事，看上去好像了解月球运行原理的人不太多？&lt;span style="background-color: #ff6600;">我以后有时间可以写一篇简单的科普介绍一下.&lt;/span>&lt;/p>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. 原嘟文是一条新闻，是关于瑞德西韦有效性的讨论. 我觉得这是十分值得引起关注的事情，但大家对新冠肺炎的关心已经从用药治疗转向了疫苗预防.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105247253240752270/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 遇到了一个关于 tag 的问题，正好看到就做了回复，看上去还是对 OP 有所帮助.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105303066563518832/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP &lt;a href="https://mindpalace.michaelis.website/fedi-intro-trans.html">翻译了&lt;/a>一份&lt;a href="https://medium.com/@VirtualAdept/a-friendly-introduction-to-the-fediverse-5b4ef3f8ed0e">关于联邦宇宙的介绍&lt;/a>，翻译得非常好. 推荐大家去读一读.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105316178406532200/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. 这是关于垃圾分类到底是不是形式主义的讨论，讨论的上下文很长，最后话题有所偏离.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105345022752555491/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;iframe src="https://1234.as/@zero/105345025867682830/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>这还是好久之前我读到过的一篇文章，就把基本观点和参考文献复制粘贴了一下给保存起来了，没有想到过了这么久居然还能找到还能用得上——否则的话我的观点将会多么空洞啊！我的思考是：应该把论据、素材的收集整理工作做好.&lt;/p>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 介绍了自己买服务器搭梯子的方法，并给出了一个一键教程. 我看到后做了补充.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105353916231702777/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;p>这是一条回复，不过原嘟文已经被删. 大意是说，中国的大专及以上人口数与残疾人人数大致相当，身边有多少大学生，身边也就应该有多少残疾人. 然而我们现在的社会中好像看不到很多的残疾人，这说明我们的社会并没有包容到能让残疾人们自由地生活.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105372988684181298/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;iframe src="https://1234.as/@zero/105373097023142200/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;iframe src="https://1234.as/@zero/105373154295704045/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>出于对数据准确性的执着我就查了一下，于是发了这样的三条回复. 这件事中我学习到两点：&lt;/p>
+&lt;p>第一，残疾人与大学生数量相当发生在 2010 年左右，可以想象这个言论并非 OP 原创，而是 2010 年的人原创并从此流传了 10 年. 我们面对网络上的言论时，要关注其时效性，如果难以求证，至少应该附上原文链接作为引用.（这也是我反对截图、转述，支持就地评论或使用超链接的原因.）&lt;/p>
+&lt;p>第二，其实在求证过程中，我们会发现，残疾人的人数统计最近的就是在 2010 年，还是残疾人联合会根据人口普查估计出来的，统计年鉴中从来没有关于残疾人的数据. 已经过了 10 年了啊！残疾人的人数数据 10 年都没有更新了！这其实更能说明我们这个社会对残疾人缺乏关照啊！&lt;/p>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 讲述了自己的文学启蒙是《儿童文学》杂志，于是大家就此展开了讨论.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105376606651174408/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 同样回忆了自己对《儿童文学》的回忆，在下面的评论区中大家互相推荐了一波文章.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105376966834376855/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 介绍了 BiliBili 的国内版与国际版的区别，我对此做了一些补充.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105417913594173471/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>其实这里面的问题还挺有意思的，比如那个关于 Furry 的神奇的视频居然国际版看不了，我想这样的视频应该有很多，不知道会不会有人在做这样的对比.&lt;/p>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105421957456067711/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>这条留言其实很像是 mansplaining，因为 OP 完完全全没在说这回事，我的评论应该算是很 KY 了. 但我还是觉得发出来的价值更大，所以就发了，最后好像还好，OP 完全没有批评我~&lt;/p>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105489809363587744/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>这就更像是 mansplaining 了，发完之后我就后悔了……不过最后结果也还好的样子.&lt;/p>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 对南方周末的特稿《拼多多女孩“润肺”之死》进行了批评，我读了文章之后与 OP 进行了讨论.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105518356409977947/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;iframe src="https://1234.as/@zero/105518731778081492/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>这两条其实也非常 mansplaining，不过我这次学聪明了，写了个“借地表达”. 最后的讨论非常有质量，OP 的回复也给了我非常多的启发. 我觉得人与人之间的交流就是这样，你不能知道和你对话的人会说出什么话，那些话会不会对你有所启发. 只有保持开放的心态与别人进行交流，即便是离题万里又有什么错呢？&lt;/p>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 介绍了一个神奇的德语单词，是用来表达情绪的.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105520377286105700/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>我已经非常熟练了，使用分割线来把回复和可能的“mansplaining”区分开，这样即便有点 mansplaining 对方也不会太责怪. 这里的 mansplaining 就是介绍了一本书，其实发之前我还看了一下那本书，确认了那本书中确实有这个单词，犹豫了半天我还是没有指出这一点，因为我好像感觉如果指出的话有一种高高在上，“你知道的我早就知道了哦”的感觉，可能对方会觉得我不礼貌？（希望这位象友不会点进来看我这篇文章，点进来看也没有看到这里，这里的坦白好像更欠揍的样子……）&lt;/p>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 询问是否有植物学的书籍推荐，侧重是植物分类，于是我就做了推荐.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105552501476883959/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>&lt;span style="background-color: #ff6600;">说起来，我也真的该把植物学拿起来学一学了！&lt;/span>&lt;/p>
+&lt;hr>
+&lt;p>这是一条回复，建议点开链接查看上下文，不要断章取义，并按照发言顺序阅读，避免先入为主. OP 写了一篇文章，介绍了搭建博客的一些方案，我在下面做了补充.&lt;/p>
+&lt;iframe src="https://1234.as/@zero/105558751741854413/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="100%" allowfullscreen="allowfullscreen">&lt;/iframe>
+&lt;p>其实我的博客就是用我补充的方法搭的，这个 5678 站也是. 我对此确实还颇有一些心得. 如果想要选择使用 Hugo 的话，有任何问题可以找我来交流啊！&lt;/p>
+&lt;hr>
+&lt;h2 id="结尾">结尾&lt;/h2>
+&lt;p>谢谢你看到了这里！有任何想说的，欢迎给我评论. 对某一条嘟文感兴趣也可以去那里评论！&lt;/p>
+&lt;p>不知道这种嵌入嘟文的模式大家觉得怎么样呢？会不会直接复制一下用引用的格式比较好呢？因为加载这样一篇文章还要频繁地去从我的 1234 站调取数据，一是加载可能会很慢，二是 1234 站也要分担一定的压力，三是 RSS 好像就没法显示了？&lt;/p>
+&lt;script src="https://1234.as/embed.js" async="async">&lt;/script></description></item><item><title>联邦宇宙概论</title><link>/fediverse/</link><pubDate>2020-10-26</pubDate><guid>/fediverse/</guid><description>&lt;p>使用长毛象一周了，我喜欢它. 我尽量多地看了一些用户、站长的经验分享，明白了一些事情的同时产生了更多的疑问：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://m.cmx.im/@leon007/105049117684292610">Mastodon 是一个协议？misskey 协议是啥？pleroma 协议又是啥？activepub 大协议又是啥？&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://o3o.ca/@jess/105071002006438658">fediverse 不是所有的实例集合在一起么？为什么还会有博客、图片、视频平台？write freely、pixelfed、peertube 和长毛象有什么关系？&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>我决定好好学习一下.&lt;/p>
+&lt;p>以下内容是我的学习成果，很多都是我自己的理解. 出于分享与梳理知识的目的，并假定读者对联邦宇宙一无所知，我适当补充了一些我在之前的学习生活中对相关技术的理解，但愿我能把我理解出来的联邦宇宙讲明白. 事实性的内容全都是现查的，而且只查了单一信源，没有做充分的交叉验证，读一读有个印象就好，请不要直接默认我写在这里的全是正确的. 这里写的东西&lt;strong>不能&lt;/strong>作为学术研究或任何严肃学习的材料. 非常乐意得到任何形式的反馈~&lt;/p>
+&lt;h2 id="定义">定义&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>联邦宇宙（fediverse）&lt;/strong>：所有&lt;strong>联邦服务（federated server）&lt;/strong> 的集合叫做&lt;strong>联邦宇宙&lt;/strong>. 参考&lt;a href="https://en.wikipedia.org/wiki/Fediverse">维基百科&lt;/a>.&lt;/li>
+&lt;li>&lt;strong>联邦服务&lt;/strong>：是指独立部署但能互相通信的服务. 这里的要点是能互相通信，功能是无关紧要的：社交网络、微博客、博客、普通网站、文件存储都可以. 通信以&lt;strong>联邦协议&lt;/strong>为标准.&lt;/li>
+&lt;li>&lt;strong>联邦协议&lt;/strong>：&lt;strong>联邦宇宙&lt;/strong>中不同&lt;strong>实例（instance）&lt;/strong> 间互相通信的&lt;strong>协议（protocol）&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>实例&lt;/strong>：一个&lt;strong>联邦服务&lt;/strong>叫做一个&lt;strong>实例&lt;/strong>. 也有人管一个&lt;strong>实例&lt;/strong>叫一个 &lt;strong>pod&lt;/strong>. 任何人都可以自选&lt;strong>联邦协议&lt;/strong>写一个全新的&lt;strong>实例&lt;/strong>，但更流行的做法是选择一个&lt;strong>联邦宇宙软件&lt;/strong>生成一个&lt;strong>实例&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>联邦宇宙软件&lt;/strong>：方便他人快速部署新&lt;strong>实例&lt;/strong>的软件，可以按照某个&lt;strong>联邦协议&lt;/strong>设计软件 &lt;strong>api&lt;/strong>，也可以设计独有的 &lt;strong>api&lt;/strong>.&lt;/li>
+&lt;li>&lt;strong>身份（identity）&lt;/strong>：在&lt;strong>实例&lt;/strong>上注册的帐号叫做&lt;strong>身份&lt;/strong>. 在下文中我也会用&lt;strong>用户&lt;/strong>这个大家比较熟悉的词.&lt;/li>
+&lt;li>&lt;strong>协议&lt;/strong>：一套约定好的标准. 协议相同意味着可以通信，即使两个&lt;strong>实例&lt;/strong>分属于不同的&lt;strong>联邦宇宙软件&lt;/strong>，只要协议相同就能通信. 因此&lt;strong>联邦宇宙&lt;/strong>是一个非常大的概念.&lt;/li>
+&lt;li>&lt;strong>api（应用程序编程接口）&lt;/strong>：在一个&lt;strong>联邦宇宙&lt;/strong>中 &lt;strong>api&lt;/strong> 是指一个&lt;strong>实例&lt;/strong>留出来的、可供其他程序与该&lt;strong>实例&lt;/strong>通信的方法. 完全自己写的&lt;strong>实例&lt;/strong>要自己设计 &lt;strong>api&lt;/strong>，用&lt;strong>联邦宇宙软件&lt;/strong>生成的&lt;strong>实例&lt;/strong>一般就是直接使用&lt;strong>联邦宇宙软件&lt;/strong>设计的 &lt;strong>api&lt;/strong>.&lt;/li>
+&lt;/ul>
+&lt;p>关于协议与 api 的区别：协议只是标准，api 是协议的具体实现. api 可以完全遵守协议，也可以只遵守一部分协议，也可以设计协议以外的 api. 试着打个比方：假设全人类有共同的道德标准，那这套道德标准就是协议，各个国家的法律就是 api. 有更好的比方嘛？&lt;/p>
+&lt;h2 id="联邦协议举例">联邦协议举例&lt;/h2>
+&lt;p>常见的联邦协议有：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Zot 或 Zot/6 协议&lt;/strong>：给独立网站提供通信、身份（用户）管理、权限控制的去中心化网络连接. 是一个近两年才出现的协议，但网站好像已经访问不了了，维基百科 Fediverse 词条中介绍到这里时给了一个官网的 InternetArchive 存档.&lt;/li>
+&lt;li>&lt;strong>&lt;a href="https://diasporafoundation.org/">Diaspora&lt;/a> 协议&lt;/strong>：&lt;a href="https://en.wikipedia.org/wiki/Diaspora_%28social_network%29">维基百科&lt;/a>上写的是非营利、用户所有、分布式社交网络；&lt;a href="https://github.com/diaspora/diaspora">Github 主页&lt;/a>上写的是隐私感知、分布式、开源社交网络.
+&lt;ul>
+&lt;li>使用这个协议的联邦宇宙软件应该只有 diaspora*，也就是他们自己在用. 这个联邦宇宙软件在 GitHub 上有 12.5k 的 star，2.9k 的 fork，2010 年开始的项目，到现在已经十年了，开发还是很活跃，release 有 88 个，但版本号升得很保守，才到 0.7.14.0.&lt;/li>
+&lt;li>说句题外话，在他们的 GitHub 主页我找到了一个&lt;a href="https://podupti.me/">所有开源社交网络服务的列表&lt;/a>，里面记录了非常多的实例，以及它们的实例版本、所用的联邦宇宙软件、使用的协议、服务在线的运行时间（多少百分比的时间里服务没有宕机）、是否支持 IPv6、网络延迟、是否开放注册、用户数量等等非常非常多的信息. 我试着搜索了一下我自己所在的实例 1234.as（万象千言），是可以搜索得到的. 这个列表更新及时，真是一个宝藏列表！&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>OStatus 协议&lt;/strong>：根据&lt;a href="https://en.wikipedia.org/wiki/OStatus">维基百科&lt;/a>，这是一个专门搞联邦微博客的协议，像长毛象（Mastodon）最早就是使用的这个协议.
+&lt;ul>
+&lt;li>这个协议是老前辈协议了，2010 年左右就搞出来了. 2012 年 1 月 W3C 社区小组想维护并进一步开发这个协议，结果好景不长，2014 年 7 月来了个&lt;strong>联邦社交网络工作小组（W3C Federated Social Web Working Group）&lt;/strong>，这个联邦社交网络工作小组直接创造了一个新的协议，就把 Ostatus 协议给干趴下了.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>ActivityPub 协议&lt;/strong>：这就是联邦社交网络工作小组创造出来的新协议，就是它掩盖了 Ostatus 协议的光芒.
+&lt;ul>
+&lt;li>按照维基百科、一个&lt;a href="https://github.com/w3c/activitypub/issues/228">Github issue: Ostatus, pump,io 和 ActivityPub 有什么不同&lt;/a>以及 &lt;a href="https://www.w3.org/TR/activitypub/#acknowledgements">ActivityPub 协议最后的致谢部分&lt;/a>来看，这个协议是基于 pump.io 的 api 设计的. 且在设计之初就充分吸取了 OStatus 的经验教训，最后成为了一个成功的协议.&lt;/li>
+&lt;li>这个地方不知道有没有大佬给讲讲它和 Ostatus 协议具体的区别和改进的点是什么呀~ 我没有深入去查，反正知道 ActivityPub 很厉害就对了.&lt;/li>
+&lt;li>2017 年 9 月长毛象开始使用 ActivityPub 协议；2018 年 1 月 W3C 把这个协议作为了推荐标准；2019 年 1 月长毛象&lt;a href="https://github.com/tootsuite/mastodon/pull/11205">不再支持之前的 OStatus 协议&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="联邦宇宙列表">联邦宇宙列表&lt;/h2>
+&lt;p>多亏了刚刚发现的宝藏列表（见上一小节 Diaspora 协议“说句题外话”），在这里我得以总结一些较有影响力的联邦宇宙软件，以及用这些联邦宇宙软件生成的著名实例. 对我来讲这就提供了一个对上述所有概念以及联邦宇宙本身的一个最直观、最感性的认识，可以感受到目前地球上全体人类在创造去中心化联邦宇宙的进程中处在一个怎么样的阶段，尤其是当所有联邦宇宙软件的用户都声称自己那里实例多、用户数量多、很活跃的时候，这个表格给了我一个客观的、量化的认识. （数据截至于 2020 年 10 月 25 日 14:00 左右）&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">联邦宇宙软件&lt;/th>
+&lt;th style="text-align:left">该软件的介绍&lt;/th>
+&lt;th style="text-align:right">使用这个软件的实例数&lt;/th>
+&lt;th style="text-align:center">用户较多的实例&lt;/th>
+&lt;th style="text-align:right">这个实例的用户数量&lt;/th>
+&lt;th style="text-align:right">这个实例过去一个月的活跃用户数量&lt;/th>
+&lt;th style="text-align:right">这个实例的 post 总数&lt;/th>
+&lt;th style="text-align:right">这个实例已经运行了多长时间&lt;/th>
+&lt;th style="text-align:center">这个实例所用的协议&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">Mastodon&lt;/td>
+&lt;td style="text-align:left">社交网络，类 twitter&lt;/td>
+&lt;td style="text-align:right">2354&lt;/td>
+&lt;td style="text-align:center">mastodon.social&lt;/td>
+&lt;td style="text-align:right">538222&lt;/td>
+&lt;td style="text-align:right">29241&lt;/td>
+&lt;td style="text-align:right">26227755&lt;/td>
+&lt;td style="text-align:right">11 个月（m）&lt;/td>
+&lt;td style="text-align:center">ActivityPub&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:left">&lt;/td>
+&lt;td style="text-align:right">&lt;/td>
+&lt;td style="text-align:center">switter.at[1]&lt;/td>
+&lt;td style="text-align:right">344114&lt;/td>
+&lt;td style="text-align:right">21394&lt;/td>
+&lt;td style="text-align:right">8593261&lt;/td>
+&lt;td style="text-align:right">7 m&lt;/td>
+&lt;td style="text-align:center">ActivityPub&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:left">&lt;/td>
+&lt;td style="text-align:right">&lt;/td>
+&lt;td style="text-align:center">m.cmx.im&lt;/td>
+&lt;td style="text-align:right">5917&lt;/td>
+&lt;td style="text-align:right">4801&lt;/td>
+&lt;td style="text-align:right">251455&lt;/td>
+&lt;td style="text-align:right">11 m&lt;/td>
+&lt;td style="text-align:center">ActivityPub&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Pleroma&lt;/td>
+&lt;td style="text-align:left">社交网络&lt;/td>
+&lt;td style="text-align:right">697&lt;/td>
+&lt;td style="text-align:center">social.myfreecams.com[2]&lt;/td>
+&lt;td style="text-align:right">21668&lt;/td>
+&lt;td style="text-align:right">未知&lt;/td>
+&lt;td style="text-align:right">87184&lt;/td>
+&lt;td style="text-align:right">15 m&lt;/td>
+&lt;td style="text-align:center">ActivityPub&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:left">&lt;/td>
+&lt;td style="text-align:right">&lt;/td>
+&lt;td style="text-align:center">spinster.xyz&lt;/td>
+&lt;td style="text-align:right">15654&lt;/td>
+&lt;td style="text-align:right">未知&lt;/td>
+&lt;td style="text-align:right">1085117&lt;/td>
+&lt;td style="text-align:right">1 m&lt;/td>
+&lt;td style="text-align:center">ActivityPub&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">PeerTube&lt;/td>
+&lt;td style="text-align:left">视频平台，类 YouTue&lt;/td>
+&lt;td style="text-align:right">496&lt;/td>
+&lt;td style="text-align:center">bittube.video[3]&lt;/td>
+&lt;td style="text-align:right">11101&lt;/td>
+&lt;td style="text-align:right">未知&lt;/td>
+&lt;td style="text-align:right">88237&lt;/td>
+&lt;td style="text-align:right">8 m&lt;/td>
+&lt;td style="text-align:center">ActivityPub&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">WriteFreely&lt;/td>
+&lt;td style="text-align:left">写作平台&lt;/td>
+&lt;td style="text-align:right">274&lt;/td>
+&lt;td style="text-align:center">write.as&lt;/td>
+&lt;td style="text-align:right">3452&lt;/td>
+&lt;td style="text-align:right">未知&lt;/td>
+&lt;td style="text-align:right">31196&lt;/td>
+&lt;td style="text-align:right">15 m&lt;/td>
+&lt;td style="text-align:center">ActivityPub&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">friendica&lt;/td>
+&lt;td style="text-align:left">社交网络&lt;/td>
+&lt;td style="text-align:right">229&lt;/td>
+&lt;td style="text-align:center">libranet.de&lt;/td>
+&lt;td style="text-align:right">1145&lt;/td>
+&lt;td style="text-align:right">174&lt;/td>
+&lt;td style="text-align:right">193573&lt;/td>
+&lt;td style="text-align:right">44 m&lt;/td>
+&lt;td style="text-align:center">dfrn,ActivityPub,Diaspora,OStatus&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Diaspora*&lt;/td>
+&lt;td style="text-align:left">社交网络&lt;/td>
+&lt;td style="text-align:right">216&lt;/td>
+&lt;td style="text-align:center">joindiaspora.com[4]&lt;/td>
+&lt;td style="text-align:right">316938&lt;/td>
+&lt;td style="text-align:right">855&lt;/td>
+&lt;td style="text-align:right">2642622&lt;/td>
+&lt;td style="text-align:right">75 m&lt;/td>
+&lt;td style="text-align:center">Diaspora&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:left">&lt;/td>
+&lt;td style="text-align:right">&lt;/td>
+&lt;td style="text-align:center">diasp.org&lt;/td>
+&lt;td style="text-align:right">99513&lt;/td>
+&lt;td style="text-align:right">1001&lt;/td>
+&lt;td style="text-align:right">728312&lt;/td>
+&lt;td style="text-align:right">120 m[5]&lt;/td>
+&lt;td style="text-align:center">Diaspora&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Pixelfed&lt;/td>
+&lt;td style="text-align:left">图片分享平台，类 Instagram&lt;/td>
+&lt;td style="text-align:right">126&lt;/td>
+&lt;td style="text-align:center">pixelfed.social&lt;/td>
+&lt;td style="text-align:right">15885&lt;/td>
+&lt;td style="text-align:right">2313&lt;/td>
+&lt;td style="text-align:right">140503&lt;/td>
+&lt;td style="text-align:right">15 m&lt;/td>
+&lt;td style="text-align:center">ActivityPub&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Misskey&lt;/td>
+&lt;td style="text-align:left">博客平台&lt;/td>
+&lt;td style="text-align:right">115&lt;/td>
+&lt;td style="text-align:center">misskey.io[6]&lt;/td>
+&lt;td style="text-align:right">未知&lt;/td>
+&lt;td style="text-align:right">未知&lt;/td>
+&lt;td style="text-align:right">未知&lt;/td>
+&lt;td style="text-align:right">15 m&lt;/td>
+&lt;td style="text-align:center">ActivityPub&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Hubzilla&lt;/td>
+&lt;td style="text-align:left">网页发布&lt;/td>
+&lt;td style="text-align:right">102&lt;/td>
+&lt;td style="text-align:center">start.hubzilla.org&lt;/td>
+&lt;td style="text-align:right">6430&lt;/td>
+&lt;td style="text-align:right">564&lt;/td>
+&lt;td style="text-align:right">23968&lt;/td>
+&lt;td style="text-align:right">32 m&lt;/td>
+&lt;td style="text-align:center">Zot&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:left">&lt;/td>
+&lt;td style="text-align:right">&lt;/td>
+&lt;td style="text-align:center">zotum.net&lt;/td>
+&lt;td style="text-align:right">416&lt;/td>
+&lt;td style="text-align:right">80&lt;/td>
+&lt;td style="text-align:right">99937&lt;/td>
+&lt;td style="text-align:right">24 m&lt;/td>
+&lt;td style="text-align:center">Zot,Diaspora,OStatus,ActivityPub&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Funkwhale&lt;/td>
+&lt;td style="text-align:left">音乐平台，类 Grooveshark&lt;/td>
+&lt;td style="text-align:right">48&lt;/td>
+&lt;td style="text-align:center">open.audio&lt;/td>
+&lt;td style="text-align:right">1673&lt;/td>
+&lt;td style="text-align:right">121&lt;/td>
+&lt;td style="text-align:right">未知&lt;/td>
+&lt;td style="text-align:right">15 m&lt;/td>
+&lt;td style="text-align:center">ActivityPub&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Plume&lt;/td>
+&lt;td style="text-align:left">博客写作平台&lt;/td>
+&lt;td style="text-align:right">35&lt;/td>
+&lt;td style="text-align:center">fediverse.blog&lt;/td>
+&lt;td style="text-align:right">3298&lt;/td>
+&lt;td style="text-align:right">未知&lt;/td>
+&lt;td style="text-align:right">1611&lt;/td>
+&lt;td style="text-align:right">15 m&lt;/td>
+&lt;td style="text-align:center">ActivityPub&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">GNU social&lt;/td>
+&lt;td style="text-align:left">社交平台&lt;/td>
+&lt;td style="text-align:right">21&lt;/td>
+&lt;td style="text-align:center">loadaverage.org&lt;/td>
+&lt;td style="text-align:right">2686&lt;/td>
+&lt;td style="text-align:right">45&lt;/td>
+&lt;td style="text-align:right">450191&lt;/td>
+&lt;td style="text-align:right">14 m&lt;/td>
+&lt;td style="text-align:center">XMPP,ActivityPub,OStatus&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:left">&lt;/td>
+&lt;td style="text-align:right">&lt;/td>
+&lt;td style="text-align:center">gnusocial.cc&lt;/td>
+&lt;td style="text-align:right">367&lt;/td>
+&lt;td style="text-align:right">29&lt;/td>
+&lt;td style="text-align:right">55981&lt;/td>
+&lt;td style="text-align:right">15 m&lt;/td>
+&lt;td style="text-align:center">OStatus&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">MobilizeOn&lt;/td>
+&lt;td style="text-align:left">活动管理，类 Slack 或钉钉[7]&lt;/td>
+&lt;td style="text-align:right">8&lt;/td>
+&lt;td style="text-align:center">test.mobilizon.org[8]&lt;/td>
+&lt;td style="text-align:right">1106&lt;/td>
+&lt;td style="text-align:right">未知&lt;/td>
+&lt;td style="text-align:right">479&lt;/td>
+&lt;td style="text-align:right">11 m&lt;/td>
+&lt;td style="text-align:center">ActivityPub[9]&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">zap&lt;/td>
+&lt;td style="text-align:left">社交网络&lt;/td>
+&lt;td style="text-align:right">5&lt;/td>
+&lt;td style="text-align:center">freetobe.social&lt;/td>
+&lt;td style="text-align:right">181&lt;/td>
+&lt;td style="text-align:right">29&lt;/td>
+&lt;td style="text-align:right">6137&lt;/td>
+&lt;td style="text-align:right">15 m&lt;/td>
+&lt;td style="text-align:center">Zot,ActivityPub&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;/td>
+&lt;td style="text-align:left">&lt;/td>
+&lt;td style="text-align:right">&lt;/td>
+&lt;td style="text-align:center">zap.dog&lt;/td>
+&lt;td style="text-align:right">102&lt;/td>
+&lt;td style="text-align:right">28&lt;/td>
+&lt;td style="text-align:right">4830&lt;/td>
+&lt;td style="text-align:right">1 m&lt;/td>
+&lt;td style="text-align:center">Zot&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">Lemmy&lt;/td>
+&lt;td style="text-align:left">社群平台，类 Reddit, HN&lt;/td>
+&lt;td style="text-align:right">4[10]&lt;/td>
+&lt;td style="text-align:center">dev.lemmy.ml&lt;/td>
+&lt;td style="text-align:right">6000&lt;/td>
+&lt;td style="text-align:right">未知&lt;/td>
+&lt;td style="text-align:right">12880&lt;/td>
+&lt;td style="text-align:right">10 m&lt;/td>
+&lt;td style="text-align:center">未知&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>注意：这个宝藏列表显然并没有收录所有的实例，比如新开的豆豉空间（douchi.space）我就没在这里面搜索到，可能是没有主动提交. 因此第三列的数值只能作为一个下界供参考，但序关系和数量级我觉得大体是准确的.&lt;/p>
+&lt;p>注释：&lt;/p>
+&lt;ul>
+&lt;li>[1] 这是一个性工作友好（sex work-friendly）的社交空间. 看到这句话的时候我还怕我理解错了，马上去注册了一个看了看，确认了这样翻译是没有问题的.（我注册仅仅是为了翻译的准确性，给读者们最好的阅读体验，嗯.）&lt;/li>
+&lt;li>[2] 不开放注册.&lt;/li>
+&lt;li>[3] 它的另一个域名：peertube.bittube.tv.&lt;/li>
+&lt;li>[4] 不开放注册.&lt;/li>
+&lt;li>[5] 十年的老实例！尊敬一下！我所在的实例能开十年么？&lt;/li>
+&lt;li>[6] 不能确定这个实例是用户数量最多的，只是这个看上去官方一点就写在这里了.&lt;/li>
+&lt;li>[7] 企业为打工人定制移动应用的解决方案，这样打工人就能随时随地打工了. “类 Slack 或钉钉”是我自己瞎写的，只是听着描述像. 这三个东西我都没有用过.&lt;/li>
+&lt;li>[8] 看地址是一个测试用的实例，后面的数据没有意义. 其他 7 个实例用户没有超过 100 个的，最多的是 66 个，毕竟是公司内部用嘛.&lt;/li>
+&lt;li>[9] 有没有觉得万物皆可 ActivityPub，万物皆可联邦宇宙？&lt;/li>
+&lt;li>[10] 这 4 个实例都显示不开放注册，但我点进一个是有注册页面的，也没提示不让注册. 不过我也没有时间去注册一个试试.&lt;/li>
+&lt;/ul>
+&lt;p>如果你到这个宝藏列表里去看一看，会发现大量的只有 1 个实例的联邦宇宙软件，但它们因为遵守相关协议，也应该看作是联邦宇宙的一部分. 两个用户数量比较多的实例（联邦宇宙软件）代表：&lt;a href="twista.283.cloud">twista&lt;/a> 和 &lt;a href="juick.com">juick&lt;/a>，前者是日本的一个大实例，有三百余人；后者是俄罗斯的一个大实例，有一万八千多人. 除此以外，在维基百科中还提到了一个 Nextcloud，是用来存储文件的，也是用的 ActivityPub 协议.&lt;/p>
+&lt;h2 id="结尾">结尾&lt;/h2>
+&lt;p>希望这个表格和前面的定义介绍可以帮助大家更全面地认识联邦宇宙，认识我们所用的长毛象在其中所在的位置. 也希望能给有技术、有野心的朋友提供一个稍全面的视野，除了建立长毛象实例以外，也许学习 ActivityPub 协议并创造一个新的联邦宇宙软件、甚至是创造一个新的协议——都是有可能的. 无论如何，我喜欢联邦宇宙，我觉得这差不多是互联网该有的样子了.&lt;/p>
+&lt;p>后记：随后看到了&lt;a href="https://slashine.onl/@slashine/104537788488035256">闪站站长的推荐&lt;/a>，和我发现的宝藏列表是类似的！在这里一并列出.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://fediverse.party/en/miscellaneous">https://fediverse.party/en/miscellaneous&lt;/a>.&lt;/li>
+&lt;li>&lt;a href="https://fediverse.network/">https://fediverse.network/&lt;/a>.&lt;/li>
+&lt;li>&lt;a href="https://www.fediverse.space/instances">https://www.fediverse.space/instances&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;p>（CC BY-NC-SA 4.0）&lt;/p></description></item><item><title>关于</title><link>/about/</link><pubDate>2020-10-18</pubDate><guid>/about/</guid><description>&lt;h2 id="本站的定位">本站的定位&lt;/h2>
+&lt;p>本站的名字是：5678 站. 本站是我在 Mastodon 帐号 &lt;a href="https://1234.as/@zero">@zero@1234.as&lt;/a> 的延伸，完全是配合那个帐号在使用的. 囿于 Mastodon 的“微博客”属性，500 字的限制使我不能长篇大论，写长文章时需要一个临时的外部平台.&lt;/p>
+&lt;p>另一方面，日复一日的、凌乱不堪的，好的、坏的，有内容的、没内容的嘟文全都一股脑地按时间顺序散落在 Mastodon 上，这会让我感到有些有价值的东西被遗弃了，甚是可惜. 所以决定搞一个“季度嘟文精华展”，每三个月集中整理一次，榨干它的剩余价值，对我、对其他人都是一件好事. 本站也将承载这个功能.&lt;/p>
+&lt;h2 id="本站的技术">本站的技术&lt;/h2>
+&lt;p>本站由静态网站生成器 &lt;a href="https://gohugo.io/">Hugo&lt;/a>生成. 主题是 &lt;a href="https://github.com/zwbetz-gh/cupper-hugo-theme">Cupper&lt;/a>. 部署于 &lt;a href="https://www.netlify.com/">Netlify&lt;/a> 和 &lt;a href="https://pages.github.com/">GitHub Pages&lt;/a>.&lt;/p>
+&lt;h2 id="联系我">联系我&lt;/h2>
+&lt;p>通过邮件联系我：zer0zero-mstd [AT] yahoo [DOT] com. 如需要给我发送加密邮件：&lt;/p>
+&lt;ul>
+&lt;li>uid: &lt;code>A551B8F6A13D8A90&lt;/code> (zer0zero &amp;lt;zer0zero@yahoo.com&amp;gt;)；&lt;/li>
+&lt;li>fingerprint: &lt;code>AD3F 2207 E311 7C13 155D 40D1 A551 B8F6 A13D 8A90&lt;/code>；&lt;/li>
+&lt;li>public key:&lt;/li>
+&lt;/ul>
+&lt;pre>&lt;code>-----BEGIN PGP PUBLIC KEY BLOCK-----
 mQENBF4N4FIBCACzySXW+/MYM6fUPXsJj89icJ9hVfsQQldNVZ3QQeUdU5htQH4E
 XcxYT+OIEO9c+O3dcUJvaP2LrOCjdSvz3sOVDZ7QCLIyxzbDkWowaaF2LouI8Ixt
 wnfd7rHD6aJxgDsjSEFJ+mE0rdQVnVp8mkwQq9m0yW1f97KD9kIyPEYAioV7DTgG
@@ -639,9 +583,4 @@ g/iSvStzHFhUnLIoPRF0YeYBuUjiBh9Xwgi93PuSMxEHA8bk5yeSQL1QXZTxeCXg
 veL/x/fXMw1e5Ou5KKhroxS6160gLopRcw==
 =sMrg
 -----END PGP PUBLIC KEY BLOCK-----
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-            </item>
-        
-    </channel>
-</rss>
+&lt;/code>&lt;/pre></description></item></channel></rss>
