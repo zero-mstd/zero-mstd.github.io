@@ -1,5 +1,334 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Five Six Seven Eight</title><link>/</link><description>五六七八，@zero@1234.as 的延伸.</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>
-2020-10-17</lastBuildDate><item><title>阅读理解的困扰</title><link>/c/</link><pubDate>2021-12-18</pubDate><guid>/c/</guid><description>&lt;h2 id="昨天的嘟文">昨天的嘟文&lt;/h2>
+2020-10-17</lastBuildDate><item><title>本地部署长毛象进行测试（一）</title><link>/m-dev/</link><pubDate>2022-01-11</pubDate><guid>/m-dev/</guid><description>&lt;p>（注：本文是边操作边记录的，为的是自己能回看，非常流水帐，很不适合作为教程.）&lt;/p>
+&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>我希望能在本地运行多个长毛象实例进行测试，虽然用关键词查不到这样的教程或指引，但这个需求听上去是一个能够做得到的事情. 那就试一试罢！&lt;/p>
+&lt;p>第一个问题是：在我的机器上安装所有的依赖，还是使用 Docker？前者的优点是在源码上玩一玩比较方便，学习到的东西也会更靠近长毛象开发而不是外层的 Docker 相关；后者的优点是系统会比较干净，而且可能会更容易达成目的. 权衡之下我最终决定选择前者，因为这种方案自由度较高（比如我看到它有 development、test、staging、production 四种环境），应该不会在途中受到什么技术上的限制而导致前功尽弃.&lt;/p>
+&lt;p>第二个问题就是能参考的资源有限. 目前官方文档的 &lt;a href="https://docs.joinmastodon.org/dev/overview/">Contributing to Mastodon&lt;/a> 页面显示“This page is under construction”，且它上面的要求是 Ubuntu 18.04，在官方文档里限制发行版就感觉很不专业，更何况我用的是 Arch Linux. 有象友曾说过，不能只看官方文档，我于是搜索一番，在互联网上仅仅找到一篇教程：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://lond.com.br/2018/07/20/setting-up-the-development-environment-for-mastodon-on-arch-linux.html">Setting up the development environment for Mastodon on Arch Linux&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>不过既然是 Arch Linux，一篇就足够了（这个发行版不会出现奇怪的问题，且这个发行版的用户大概率值得信任，ta 们写的教程大概率不会坑人），再加上官方文档可以对照着参考，我还是很有自信的.&lt;/p>
+&lt;h2 id="安装依赖">安装依赖&lt;/h2>
+&lt;p>关于所需要的依赖，教程已经解释得很清楚了. 我目前唯一有点疑惑的是那个 protobuf. 教程说它的作用是：Used by mastodon for language detection. 先暂时留在这里以后再说. 教程给出的命令是：&lt;/p>
+&lt;pre>&lt;code>sudo pacman -S postgresql redis ffmpeg imagemagick protobuf git python2 base-devel
+&lt;/code>&lt;/pre>
+&lt;p>不过对于我来说，&lt;code>ffmpeg&lt;/code>、&lt;code>imagemagick&lt;/code>、&lt;code>protobuf&lt;/code>、&lt;code>git&lt;/code>、&lt;code>base-devel&lt;/code> 都已经有了，因此只安装其它的就行了：&lt;/p>
+&lt;pre>&lt;code>sudo pacman -S postgresql redis python2
+&lt;/code>&lt;/pre>
+&lt;h2 id="postgresql-设置">PostgreSQL 设置&lt;/h2>
+&lt;p>按照教程，先去看了一眼 &lt;a href="https://wiki.archlinux.org/title/PostgreSQL">wiki&lt;/a>，跟教程里写的东西几乎一样，只是 wiki 里切换了一下用户. 按照教程的方法，先初始化：&lt;/p>
+&lt;pre>&lt;code>sudo -u postgres initdb --locale en_US.UTF-8 -E UTF8 -D '/var/lib/postgres/data'
+&lt;/code>&lt;/pre>
+&lt;p>长毛象官方文档里说可以使用 &lt;a href="https://pgtune.leopard.in.ua/#/">PGTune&lt;/a> 这个小工具生成一份优化用的配置，放在 &lt;code>/etc/postgresql/9.6/main/postgresql.conf&lt;/code>. 我这里没有这个配置文件，这可能是由于发行版不同的原因. 我先查找一下：&lt;/p>
+&lt;pre>&lt;code>sudo updatedb
+locate postgreaql.conf
+&lt;/code>&lt;/pre>
+&lt;p>结果是没有找到. 这其实也挺常见，一般情况下没有的话就自己新建一个就好了，但问题是，在什么地方建呢？长毛象官方文档里写的位置很可能是 Ubuntu 自己编译的时候改的，还是去 wiki 看一下：&lt;/p>
+&lt;blockquote>
+&lt;p>The PostgreSQL database server configuration file is &lt;code>postgresql.conf&lt;/code>. This file is located in the data directory of the server, typically &lt;code>/var/lib/postgres/data&lt;/code>.&lt;/p>
+&lt;/blockquote>
+&lt;p>然后它下面就有一个提示：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Note&lt;/strong>: By default, this folder will not be browsable or searchable by a regular user. This is why &lt;code>find&lt;/code> and &lt;code>locate&lt;/code> are not finding the configuration files.&lt;/p>
+&lt;/blockquote>
+&lt;p>哈哈！原来如此！有了位置就好办了，切换到 postgres 用户，进去看了一眼，竟然是一个权限 600 的文件，打开一看，里面竟然有 780 行！觉得把那个直接删掉换上网上生成的那个不是一个最佳实践，于是就对照着 PGTune 生成的配置逐个搜索改了，也顺便通过变量名了解了一下这玩意. 数据库嘛，肯定是对各种资源精打细算，多线程协同工作的. 不得不说，这个配置肯定是有价值的，因为我这个电脑的话，只有前 2 行没用改，后面的 14 行几乎都要去掉注释并改变数值.&lt;/p>
+&lt;pre>&lt;code>sudo vim /var/lib/postgres/data/postgresql.conf
+&lt;/code>&lt;/pre>
+&lt;p>然后启动：&lt;/p>
+&lt;pre>&lt;code>sudo systemctl start postgresql
+&lt;/code>&lt;/pre>
+&lt;p>因为是我自己的电脑，而且只是玩一玩，没有开启开机自动启动.&lt;/p>
+&lt;p>然后是创建用户. 长毛象官方文档和教程都是用 postgresql 的命令行搞的，我看 wiki 里是用一个它自带的系统命令交互着搞的，我还是用 wiki 这个方法吧.&lt;/p>
+&lt;pre>&lt;code>createuser --interactive
+&lt;/code>&lt;/pre>
+&lt;p>接着它问你叫什么名字，我填了一个 &lt;code>zero&lt;/code>，它又问是否是超级用户，我选了 &lt;code>y&lt;/code>，我想着反正也不是生产环境，我自己搞着玩，当然是直接超级用户最好了，那岂不是想干啥干啥. 教程里也是这个思路：&lt;/p>
+&lt;blockquote>
+&lt;p>The &lt;code>SUPERUSER&lt;/code> level will let you do anything without having to change users. With great powers…&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="redis-启动">Redis 启动&lt;/h2>
+&lt;p>这就遇到了我的下一个疑问了，长毛象怎么还用了 Redis？我之前一直觉得 Redis 和 PostgreSQL 都是数据库，是干同一件事情的，这俩居然配合到一起使用的吗？于是我就查了一下：&lt;/p>
+&lt;ol>
+&lt;li>&lt;a href="https://zhuanlan.zhihu.com/p/168718284">数据库比较-SQL与NoSQL（MySQL，PostgreSQL，Redis，MongoDB）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://zhuanlan.zhihu.com/p/299585136">用go搭建高效rest api服务（使用postgresql，redis，gin，gorm&amp;hellip;）&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;p>第 1 篇文章比较了各种数据库的增、查、改、删（CRUD）性能，可以看到 Redis 的各种表现均远优于 PostgreSQL，但是它是 NoSQL（非关系型数据库），只能搞键值对的存储，没有 ACID 的特点，所以可以把两者结合起来. 第 2 篇文章中就阐释了这样的思路，将用户数据等长期的东西放进 PostgreSQL 以便好好保存，token 等短期的数据放在 Redis 里提高性能. 长毛象具体是怎么做的还有待我后面慢慢观察，现在随便猜一猜的话，可能把用户数据、嘟文数据、互动数据弄成三个表放进 PostgreSQL，Redis 那边我不太确定，可能包括了 API 频率限制之类的数据？还有一种可能是用户数据、嘟文数据、互动数据也先放进 Redis，每隔一段时间用 PostgreSQL 直接读写 Redis，甚至可以用上防抖（debounce）. 一会儿搞完了去观察一下.&lt;/p>
+&lt;p>按照教程：&lt;/p>
+&lt;pre>&lt;code>sudo systemctl start redis
+&lt;/code>&lt;/pre>
+&lt;p>同样的，我也没开开机自动启动.&lt;/p>
+&lt;h2 id="安装-ruby">安装 Ruby&lt;/h2>
+&lt;p>教程里是先装了 rvm，然后安装 ruby；长毛象官方文档是先装了 rbenv，然后安装 ruby. 我先是去看了它俩的 wiki：&lt;a href="https://wiki.archlinux.org/title/RVM">rvm&lt;/a>、&lt;a href="https://wiki.archlinux.org/title/Rbenv">rbenv&lt;/a>，我表示都不想装……这俩都不在 Arch 的官方仓库里，rbenv 还好一点，wiki 里写了 &lt;a href="https://aur.archlinux.org/packages/rbenv/">AUR 的包&lt;/a>；rvm 虽然也有 &lt;a href="https://aur.archlinux.org/packages/rvm/">AUR 的包&lt;/a>，但 wiki 里的安装方法是直接用 curl 下载，教程里也是这么干的！&lt;/p>
+&lt;p>我实在是不明白 ruby 这破语言为啥还要搞这么一套第三方的虚拟环境，ruby 这语言本身的版本号就那么重要吗？为啥还要管理不同版本的 ruby，就必须要多个版本的 ruby 一起用吗？升级一下就会破坏之前的代码吗？不至于吧……根据我有限的编程语言经验，看看人家 java，最新版的 jdk-openjdk 就是 17，然后 Arch 仓库为其他长期支持版本搞了 jdk8-openjdk、jdk11-openjdk；再看看人家 python，默认是 3，Arch 仓库再单独弄一个 python2 完事. 再看看人家 python 自带的 venv 工具，虚拟环境仅仅隔离不同的 python 第三方库就够了，我真是头一次听说给 ruby 这语言本身套上一个虚拟环境的……&lt;/p>
+&lt;p>去看了一眼长毛象使用的 &lt;a href="https://github.com/mastodon/mastodon/blob/main/.ruby-version">ruby 版本号&lt;/a>：目前是 3.0.3，这不是挺新的吗？这不是并不离谱吗？正好 Arch 稳定版仓库现在的 ruby &lt;a href="https://archlinux.org/packages/extra/x86_64/ruby/">版本号&lt;/a> 也是 3.0.3，虽然被人给标了 out-of-date，因为 3.1.0 已经出来了，但是正合我意，赶紧安装：&lt;/p>
+&lt;pre>&lt;code>sudo pacman -S ruby
+&lt;/code>&lt;/pre>
+&lt;p>真爽！最烦外面还套个壳了，我直接装电脑里，爽！顺便吐槽一下长毛象这个官方文档，这是多长时间没更新了，ruby 版本号还是 2.7.2 呢……&lt;/p>
+&lt;p>当然这种包管理的东西咱还是需要换个源，以免后续网络连接太差. 查了一下：&lt;/p>
+&lt;pre>&lt;code>gem sources -l # 查看
+gem sources --remove https://rubygems.org/ # 删掉国际的
+gem sources -a http://gems.ruby-china.com/ # 换上一个中国的
+&lt;/code>&lt;/pre>
+&lt;hr>
+&lt;p>然后教程说还需要一个 bundler，我一查，又是一个 ruby 依赖的东西. 好家伙，你们 ruby 真会玩儿哇：&lt;/p>
+&lt;pre>&lt;code>gem install bundler
+&lt;/code>&lt;/pre>
+&lt;p>看了一下，这个是装在 &lt;code>~/.local/share/gem/ruby/3.0.0/gems&lt;/code> 里面的.&lt;/p>
+&lt;p>这里遇到一个警告：&lt;/p>
+&lt;blockquote>
+&lt;p>WARNING: You don&amp;rsquo;t have /home/xxx/.local/share/gem/ruby/3.0.0/bin in your PATH, gem executables will not run.&lt;/p>
+&lt;/blockquote>
+&lt;p>那就加一个呗：（参考：&lt;a href="https://wiki.archlinux.org/title/ruby#Setup">wiki&lt;/a>）&lt;/p>
+&lt;pre>&lt;code>export GEM_HOME=&amp;quot;$(ruby -e 'puts Gem.user_dir')&amp;quot;
+export PATH=&amp;quot;$PATH:$GEM_HOME/bin&amp;quot;
+&lt;/code>&lt;/pre>
+&lt;p>不过我只是在终端里运行了一下，没有给它加到 &lt;code>.profile&lt;/code> 之类的文件里面去，我想着我今天把长毛象的依赖的 ruby 包下载下来以后，以后也就用不着 bundler 了吧？以后用得到再说呗！&lt;/p>
+&lt;p>不知道这个 bundler 需不需要换源，网上人说的都不太清楚，于是试着找了找它的手册：&lt;/p>
+&lt;pre>&lt;code>man bundle # 没有手册
+man bundler # 还是没有
+bundle help # 有了有了，但应该看 config 吧
+bundle help config # 然后搜索 mirror
+&lt;/code>&lt;/pre>
+&lt;blockquote>
+&lt;p>MIRRORS OF GEM SOURCES&lt;/p>
+&lt;p>Bundler supports overriding gem sources with mirrors. This allows you to configure rubygems.org as the gem source in your Gemfile while still using your mirror to fetch gems.&lt;/p>
+&lt;/blockquote>
+&lt;p>看样子是 bundler 直接用 gem 的源，可以保留 gem 的源不变，通过设置 bundler 来在使用 bundler 时连接新源. 我都已经把 gem 的源改好了，这个我就不用管了.&lt;/p>
+&lt;h2 id="安装-nodejs">安装 nodejs&lt;/h2>
+&lt;p>淦！长毛象怎么还用了 nodejs！我对 nodejs 有着非常非常深刻的偏见！（这应该是我的错，但我讨厌现在的前端变成这个样子，我觉得 nodejs 导致了 JavaScript 的滥用！）我讨厌 nodejs！我最烦 nodejs 了！凡是 nodejs 写的东西我都避免使用了，像 hexo、coc.vim，我都一概不碰，没想到还是在长毛象这里给我遇到了……&lt;/p>
+&lt;p>不管怎么样，咱还是装一下吧. 教程里又是套了个 nvm（好烦！），长毛象官方文档里倒是直接装的 nodejs，但官方文档里装的还是 12.x……同理，我不需要多个版本一起用，咱就直接安装最新版，直接安装到我的电脑里就完事. 不太清楚长毛象对 nodejs 版本有什么要求没有，看这个 &lt;a href="https://github.com/mastodon/mastodon/blob/main/package.json">package.json&lt;/a> 好像大于 12 就都行？然后还需要 yarn，应该就是 nodejs 的包管理呗，安一个：&lt;/p>
+&lt;pre>&lt;code>sudo pacman -S nodejs yarn
+&lt;/code>&lt;/pre>
+&lt;p>也是换个源：&lt;/p>
+&lt;pre>&lt;code>yarn config get registry # 查看
+yarn config set registry https://registry.npm.taobao.org # 换上中国的
+&lt;/code>&lt;/pre>
+&lt;h2 id="长毛象源码-clone">长毛象源码 clone&lt;/h2>
+&lt;p>终于把该装的依赖什么的都搞好了，这下来到最激动人心的部分了！先把 repo 给 clone 下来. 这里发现无论是官方文档还是教程，地址还都是 github.com/&lt;strong>tootsuite&lt;/strong>/mastodon.git，看来长毛象的官方仓库还换过名字. 虽然用这个地址应该也没问题，我还是直接用新的好了：&lt;/p>
+&lt;pre>&lt;code>git clone https://github.com/mastodon/mastodon --depth 1
+cd mastodon
+git checkout $(git tag -l | grep -v 'rc[0-9]*$' | sort -V | tail -n 1)
+&lt;/code>&lt;/pre>
+&lt;p>而且我也用不着 debug 切换版本什么的，我就直接 clone 深度 1 吧先. 最后一行是官方文档里有的一句，就是检查一下，我这刚 clone 的肯定没问题啊.&lt;/p>
+&lt;p>接下来的长毛象官方教程就要来到 &lt;a href="https://docs.joinmastodon.org/dev/setup/">Setting up a dev environment&lt;/a> 这一页了！之前的步骤参考的其实是 &lt;a href="https://docs.joinmastodon.org/admin/install/">Installing from source&lt;/a> 页. 那个 &lt;a href="https://docs.joinmastodon.org/dev/overview/">Technical overview&lt;/a> 页有写，我之前没记，这里补一下.&lt;/p>
+&lt;h2 id="安装-ruby-的包">安装 Ruby 的包&lt;/h2>
+&lt;p>然后装 Ruby 的包依赖，文档里有两条 bundle config，&lt;/p>
+&lt;pre>&lt;code>bundle config deployment 'true' # 官方文档里的
+bundle config without 'development test' # 官方文档里的
+&lt;/code>&lt;/pre>
+&lt;p>教程里没有，我想着这个应该是生产环境里才这么搞吧，你想想，without &amp;lsquo;development test&amp;rsquo;，我是想要 test 的呀！我就按照教程，直接 install 吧.&lt;/p>
+&lt;p>不过 install 之前我想先看看它把这些包装到什么位置，我不想弄脏了我的系统，如果能改的话，就装到 mastodon 源码文件夹里就是最好了. 找到这篇&lt;a href="https://stackoverflow.com/a/11635148">回答&lt;/a>，说是只要加上 &lt;code>--deployment&lt;/code>，就能安装到项目源码文件夹里. 我一看，这不就是上面第一行 config 吗？走着：&lt;/p>
+&lt;pre>&lt;code>bundle config deployment 'true'
+bundle install
+&lt;/code>&lt;/pre>
+&lt;p>好像还是从 &lt;a href="https://rubygems.org/">https://rubygems.org/&lt;/a> 上 fetch 的，难道还是要给 bundle 换源？不过速度还行，风扇开始转了.&lt;/p>
+&lt;pre>&lt;code>122 Gemfile dependencies, 281 gems now installed.
+Bundled gems are installed into `./vendor/bundle`
+&lt;/code>&lt;/pre>
+&lt;p>原来安装了将近三百个包啊，安装位置也告诉我了. 看了下 &lt;a href="https://github.com/mastodon/mastodon/blob/main/.gitignore">.gitignore&lt;/a>，这个文件夹自然是被忽略了. 当然安装过程中出了几个提示，逐个来看一下：&lt;/p>
+&lt;pre>&lt;code>Please be aware that Encryptor v2.0.0 had a major security bug when using AES-*-GCM algorithms.
+By default You will not be able to decrypt data that was previously encrypted using an AES-*-GCM algorithm.
+Please see the README and https://github.com/attr-encrypted/encryptor/pull/22 for more information.
+&lt;/code>&lt;/pre>
+&lt;p>来自 encryptor. 行，知道了.&lt;/p>
+&lt;hr>
+&lt;pre>&lt;code>WARNING: Several insecure default options and features were deprecated in attr_encrypted v2.0.0.
+Additionally, there was a bug in Encryptor v2.0.0 that insecurely encrypted data when using an AES-*-GCM algorithm.
+This bug was fixed but introduced breaking changes between v2.x and v3.x.
+Please see the README for more information regarding upgrading to attr_encrypted v3.0.0.
+&lt;/code>&lt;/pre>
+&lt;p>来自 attr_encrypted. 跟刚刚那条差不多. 但版本也不是我决定的呀，尤其是你还引入了 breaking changes，可能长毛象的作者嫌升级太麻烦？不过这个 AES-*-GCM 算法的安全性 bug 看上去很有意思，我有时间可以看一看.&lt;/p>
+&lt;hr>
+&lt;pre>&lt;code>Starting from 5.5.0 RC1 Doorkeeper requires client authentication for Resource Owner Password Grant
+as stated in the OAuth RFC. You have to create a new OAuth client (Doorkeeper::Application) if you didn't
+have it before and use client credentials in HTTP Basic auth if you previously used this grant flow without
+client authentication.
+To opt out of this you could set the &amp;quot;skip_client_authentication_for_password_grant&amp;quot; configuration option
+to &amp;quot;true&amp;quot;, but note that this is in violation of the OAuth spec and represents a security risk.
+Read https://github.com/doorkeeper-gem/doorkeeper/issues/561#issuecomment-612857163 for more details.
+&lt;/code>&lt;/pre>
+&lt;p>这是来自 doorkeeper 的消息，感觉自己在参演《黑客帝国》……&lt;/p>
+&lt;hr>
+&lt;pre>&lt;code># Install default configuration:
+cp $(bundle exec i18n-tasks gem-path)/templates/config/i18n-tasks.yml config/
+# Add an RSpec for missing and unused keys:
+cp $(bundle exec i18n-tasks gem-path)/templates/rspec/i18n_spec.rb spec/
+&lt;/code>&lt;/pre>
+&lt;p>来自 i18n-tasks，谢谢，我应该不需要做什么.&lt;/p>
+&lt;hr>
+&lt;pre>&lt;code>##################################################
+# NOTE FOR UPGRADING FROM 4.3.0 OR EARLIER #
+##################################################
+Paperclip is now compatible with aws-sdk-s3.
+If you are using S3 storage, aws-sdk-s3 requires you to make a few small
+changes:
+* You must set the `s3_region`
+* If you are explicitly setting permissions anywhere, such as in an initializer,
+note that the format of the permissions changed from using an underscore to
+using a hyphen. For example, `:public_read` needs to be changed to
+`public-read`.
+For a walkthrough of upgrading from 4 to *5* (not 6) and aws-sdk &amp;gt;= 2.0 you can watch
+http://rubythursday.com/episodes/ruby-snack-27-upgrade-paperclip-and-aws-sdk-in-prep-for-rails-5
+&lt;/code>&lt;/pre>
+&lt;p>来自 kt-paperclip，这个消息写得很吸引人注意嘛！&lt;/p>
+&lt;hr>
+&lt;pre>&lt;code>Prior to version 4.0.0, the microformats gem was named &amp;quot;microformats2.&amp;quot;
+&lt;/code>&lt;/pre>
+&lt;p>来自 microformats，短短一行，简洁明了！不错，microformats 好感度 +1.&lt;/p>
+&lt;hr>
+&lt;pre>&lt;code>IMPORTANT!
+Automatic configuration of the sidekiq middleware is no longer done.
+Please see: https://github.com/mhenrixon/sidekiq-unique-jobs/blob/master/README.md#add-the-middleware
+This version deprecated the following sidekiq_options
+- sidekiq_options lock_args: :method_name
+It is now configured with:
+- sidekiq_options lock_args_method: :method_name
+This is also true for `Sidekiq.default_worker_options`
+We also deprecated the global configuration options:
+- default_lock_ttl
+- default_lock_ttl=
+- default_lock_timeout
+- default_lock_timeout=
+The new methods to use are:
+- lock_ttl
+- lock_ttl=
+- lock_timeout
+- lock_timeout=
+&lt;/code>&lt;/pre>
+&lt;p>来自 sidekiq-unique-jobs，所有的消息里就属你最长……&lt;/p>
+&lt;hr>
+&lt;p>看来 ruby 的包作者可以通过一定的方式，以随便任何格式，写一点安装或升级后显示出来的信息，来帮助其他 ruby 程序员，省得总要去网上看升级的 notes 了，这还真是挺不错的！尤其是像长毛象这种引了上百个包的程序，这种方式真是挺方便的！&lt;/p>
+&lt;h2 id="安装-node-的包">安装 Node 的包&lt;/h2>
+&lt;p>接下来安装 node 需要的包，也是先上网查一查 yarn 的安装位置，别让它装在我 home 目录下或者 /usr 目录下之类的. 查到 &lt;a href="https://classic.yarnpkg.com/en/docs/cli/install/">yarn 文档&lt;/a>，里面有写：&lt;/p>
+&lt;blockquote>
+&lt;p>Install all the dependencies listed within &lt;code>package.json&lt;/code> in the local &lt;code>node_modules&lt;/code> folder.&lt;/p>
+&lt;/blockquote>
+&lt;p>不过它这个措辞我愣是不太明白，这个 local 有表示执行命令所在地的意思吗？我理解的话，本机都叫 local 啊，比如 &lt;code>/usr/lib/node_modules&lt;/code> 啊. 以防万一，瞧一眼怎么&lt;a href="https://classic.yarnpkg.com/en/docs/cli/install/#toc-yarn-install-modules-folder">改位置&lt;/a>：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>yarn install --modules-folder &amp;lt;path&amp;gt;&lt;/code>&lt;/p>
+&lt;p>Specifies an alternate location for the &lt;code>node_modules&lt;/code> directory, instead of the default &lt;code>./node_modules&lt;/code>.&lt;/p>
+&lt;/blockquote>
+&lt;p>这下就清楚了，默认的含义就是执行命令所在地，那就什么都不用加. &lt;code>--pure-lockfile&lt;/code> 的意思是：&lt;/p>
+&lt;blockquote>
+&lt;p>Don’t generate a yarn.lock lockfile.&lt;/p>
+&lt;/blockquote>
+&lt;p>那就直接按照教程和长毛象官方文档：&lt;/p>
+&lt;pre>&lt;code>yarn install --pure-lockfile
+&lt;/code>&lt;/pre>
+&lt;p>真是怪了，我明明换了源了呀，咋还这么慢……&lt;/p>
+&lt;p>最后出了两个警告：&lt;/p>
+&lt;pre>&lt;code>warning &amp;quot; &amp;gt; react-redux-loading-bar@4.0.8&amp;quot; has incorrect peer dependency &amp;quot;react-redux@^3.0.0 || ^4.0.0 || ^5.0.0&amp;quot;.
+warning Workspaces can only be enabled in private projects.
+&lt;/code>&lt;/pre>
+&lt;p>第一个警告是依赖的问题，但长毛象它不是有 yarn.lock 吗，yarn install 的文档里说：&lt;/p>
+&lt;blockquote>
+&lt;p>If yarn.lock is present and is enough to satisfy all the dependencies listed in package.json, the exact versions recorded in yarn.lock are installed, and yarn.lock will be unchanged. Yarn will not check for newer versions.&lt;/p>
+&lt;/blockquote>
+&lt;p>所以是它没有满足依赖条件吗？怪不得要加 &lt;code>--pure-lockfile&lt;/code>，那就是它自动去找了符合依赖的版本，然后还不允许改 yarn.lock？我猜的话可能是 yarn 仓库的包依赖关系更新得比较快，以前的 yarn.lock 文件不管用了，但为了不让其他人提交代码时造成污染，所以只有项目维护者可以改那个 yarn.lock？那也不对劲啊，直接把这玩意 ignore 掉不好吗？我不理解.&lt;/p>
+&lt;p>当然这个 peer dependency 我也不懂，赶紧查了一下：&lt;a href="https://segmentfault.com/a/1190000022435060">一文搞懂peerDependencies&lt;/a>. 然后我看了一眼 &lt;code>mastodon/node_modules/react-redux-loading-bar/package.json&lt;/code>，里面确实写着要 peerDependencies &lt;code>&amp;quot;react-redux&amp;quot;: &amp;quot;^3.0.0 || ^4.0.0 || ^5.0.0&amp;quot;&lt;/code>，而 yarn.lock 里写的是 react-redux@^7.2.6，但是我安装的那个 &lt;code>mastodon/node_modules/react-redux/&lt;/code> 是哪个版本的啊？我不知道怎么看……好烦，就当它自己解决好了吧，解决不好的话应该会出 error 才对.&lt;/p>
+&lt;p>第二个警告问题不大哈哈，我就是不想让你脏了我的系统才把你安装进项目文件夹的. 况且 mastodon 的 &lt;a href="https://github.com/mastodon/mastodon/blob/main/.gitignore">.gitignore&lt;/a> 里也确确实实忽略了 &lt;code>node_modules&lt;/code> 文件夹.&lt;/p>
+&lt;hr>
+&lt;p>yarn 和 bundle 现在就可以对比一下了，yarn 就没有类似 bundler 那样的机制，能让包作者自己写一些重要的信息，在安装完成后展示出来. 各有利弊吧！&lt;/p>
+&lt;h2 id="最后的设置">最后的设置&lt;/h2>
+&lt;p>根据官方文档：&lt;/p>
+&lt;blockquote>
+&lt;p>In the development environment, Mastodon will use PostgreSQL as the currently signed-in Linux user using the &lt;code>ident&lt;/code> method, which usually works out of the box.&lt;/p>
+&lt;/blockquote>
+&lt;p>我完全没看懂这句话……我翻译一下的话就是 Mastodon 会使用 &lt;code>ident&lt;/code> 方法，把 PostgreSQL 作为当前登录的 Linux 用户. 这是啥意思呢？刚刚安装 PostgreSQL 的时候确实是新建了一个 Linux 用户叫 postgres，难道你是要用这个用户来运行长毛象吗？&lt;/p>
+&lt;p>等等，这个 as 可能是“当……什么时候”的意思？那就是：当当前登录的 Linux 用户使用 &lt;code>ident&lt;/code> 方法时，Mastodon 会使用 PostgreSQL？还是不太懂哇！感觉还是最开始那个意思比较像模像样. 无论如何，先查查 &lt;code>ident&lt;/code> 方法到底是什么方法吧！&lt;/p>
+&lt;p>好的，找到了：&lt;a href="https://www.postgresql.org/docs/13/auth-ident.html">Ident Authentication&lt;/a>：&lt;/p>
+&lt;blockquote>
+&lt;p>The ident authentication method works by obtaining the client&amp;rsquo;s operating system user name from an ident server and using it as the allowed database user name (with an optional user name mapping). This is only supported on TCP/IP connections.&lt;/p>
+&lt;/blockquote>
+&lt;p>我好像懂了，应该是说 Mastodon 会使用这个 ident authentication method，直接把我 Linux 系统的用户名拿过来作为 PostgreSQL 数据库的用户名. 我好像对“as”这个词前后的主被动关系还是有点理解不到位啊. 不管这么样，PostgreSQL 就不需要我操心了，只需要操心一下 Redis：&lt;/p>
+&lt;blockquote>
+&lt;p>The one command you need to run is &lt;code>rails db:setup&lt;/code> which will create the databases &lt;code>mastodon_development&lt;/code> and &lt;code>mastodon_test&lt;/code>, load the schema into them, and then create seed data defined in &lt;code>db/seed.rb&lt;/code> in &lt;code>mastodon_development&lt;/code>. The only seed data is an admin account with the credentials &lt;code>admin@localhost:3000&lt;/code> / &lt;code>mastodonadmin&lt;/code>.&lt;/p>
+&lt;/blockquote>
+&lt;p>这句话说的还是挺明白的，教程里也解释了，这是在设置数据库，运行那条命令就会新建两个数据库，分别是 &lt;code>mastodon_development&lt;/code> 和 &lt;code>mastodon_test&lt;/code>，这俩数据库都是直接用我这个 Linux 系统的用户名作为用户，没有密码. 然后长毛象的源代码里有 &lt;code>mastodon/db/seeds.rb&lt;/code> 这么一个文件嘛，它就接着运行这个文件，把这里面需要用到的初始数据帮我给填充进 &lt;code>mastodon_development&lt;/code> 这个数据库里. 这些初始数据都包括啥呢？就只包含一个 admin 用户，用户名是 &lt;code>admin@localhost:3000&lt;/code>，密码是 &lt;code>mastodonadmin&lt;/code>. 这个 &lt;code>admin@localhost:3000&lt;/code> 从格式也能看出来，这就是长毛象的用户了，我应该是启动网页服务之后可以用这个登录进去，这就算是一个简单的本地的长毛象了！胜利在望！&lt;/p>
+&lt;p>等等！教程里的命令怎么和文档里的不太一样？教程里的命令是 &lt;code>bundle exec rails db:setup&lt;/code>，前面怎么还多了 &lt;code>bundle exec&lt;/code>？&lt;/p>
+&lt;p>查到一篇文章：&lt;a href="https://mednoter.com/bundle-exec.html">吕小荣, 为什么要使用 bundler exec&lt;/a>. 这下明白了，直接 rails 是一种碰运气的行为，前面加上 bundle exec 才能有正确的上下文，虽然对于我来说，电脑里目前只有这一个 ruby 的项目，应该没差了……不过，我目前好像也没法直接用 rails 啊！我的 PATH 环境变量里没有这个命令呀！这个官方文档不行，只能用 bundle exec 了：&lt;/p>
+&lt;pre>&lt;code>bundle exec rails db:setup
+&lt;/code>&lt;/pre>
+&lt;p>很好，出现了目前为止第一个报错：&lt;/p>
+&lt;pre>&lt;code>ERROR: Missing RAILS_ENV environment variable, please set it to &amp;quot;production&amp;quot;, &amp;quot;development&amp;quot;, or &amp;quot;test&amp;quot;.
+&lt;/code>&lt;/pre>
+&lt;p>这个报错简单：&lt;/p>
+&lt;pre>&lt;code>export RAILS_ENV=&amp;quot;development&amp;quot;
+bundle exec rails db:setup
+&lt;/code>&lt;/pre>
+&lt;p>好家伙，这下出现了第二个报错！一大长串！关键信息有：&lt;/p>
+&lt;pre>&lt;code>rails aborted!
+LoadError: cannot load such file -- irb
+Did you mean? erb
+drb
+省略
+bin/rails:4:in `&amp;lt;main&amp;gt;'
+(See full trace by running task with –trace)
+&lt;/code>&lt;/pre>
+&lt;p>查到一个有点类似的&lt;a href="https://stackoverflow.com/q/34135802">问题&lt;/a>，但稍微有点不一样，那个人是用 &lt;code>rake db:setup&lt;/code> 的时候加载不了 &lt;code>rails&lt;/code>，最后他自己说是 rails 的版本不对；我这个是用 &lt;code>rails db:setup&lt;/code> 的时候加载不了 &lt;code>irb&lt;/code>，那我想问题应该出在 irb 上. 可是我查了一下，irb 是 &lt;a href="https://ruby-doc.org/stdlib-2.4.0/libdoc/irb/rdoc/IRB.html">ruby 的命令交互式程序&lt;/a>呀，不过这好像也不重要，反正 irb 是一个包就对了.&lt;/p>
+&lt;p>然后找到这么一个&lt;a href="https://stackoverflow.com/q/9154365">问题&lt;/a>，读了之后我大概明白这个 ruby 的 LoadError 是怎么一回事了，好像就是位置不大对所以它就没有找到. 那我手动把它需要的 irb 移动到正确的位置不就行了吗？先找找看系统里哪里有 irb：&lt;/p>
+&lt;pre>&lt;code>locate irb.rb
+# /usr/lib/ruby/gems/3.0.0/gems/irb-1.3.6/lib/irb.rb
+# 然后再把这个包整体移动到项目里：
+cp -r /usr/lib/ruby/gems/3.0.0/gems/irb-1.3.6 ./vendor/bundle/ruby/3.0.0/gems/
+# 然后再试试：
+bundle exec rails db:setup
+&lt;/code>&lt;/pre>
+&lt;p>问题依旧. 我觉得好像不大对，我所有的步骤都是按照教程和文档来的呀，即便有不一样的地方，我觉得我的方法也是等效的，不至于出现这种问题. 我怀疑是项目的问题，就去 issue 里面搜，结果还真让我给找到了一个同样的问题：&lt;a href="https://github.com/mastodon/mastodon/issues/15863">Issue 15863&lt;/a>.&lt;/p>
+&lt;p>人家也遇到了和我同样的问题，ta 的解决方案是：在 Gemfile 里加上 &lt;code>gem 'irb'&lt;/code> 后再 install 一下. 然后就能遇到第二个问题了……艹&lt;/p>
+&lt;p>我真服了，那这看上去就是项目自己的问题啊，那为啥项目不主动加上那个 &lt;code>gem 'irb'&lt;/code> 呢？啊先不管它，我也这么干，看看我会不会遇到那个第二个问题：&lt;/p>
+&lt;pre>&lt;code>vim Gemfile
+bundle install
+&lt;/code>&lt;/pre>
+&lt;p>然后弹出来个错误说：&lt;/p>
+&lt;pre>&lt;code>You are trying to install in deployment mode after changing
+your Gemfile. Run `bundle install` elsewhere and add the
+updated Gemfile.lock to version control.
+If this is a development machine, remove the /home/ehizil/codes/mastodon/Gemfile freeze
+by running `bundle config unset deployment`.
+The dependencies in your gemfile changed
+You have added to the Gemfile:
+* irb
+&lt;/code>&lt;/pre>
+&lt;p>啊，这是因为我怕脏了系统设置的 deployment 环境，为的是让它把包给我安到项目自己的文件夹里. 那就先去掉那个吧：&lt;/p>
+&lt;pre>&lt;code>bundle config unset deployment
+bundle install
+&lt;/code>&lt;/pre>
+&lt;p>艹艹艹！我系统脏了！所有的 ruby 包依赖又重新往我的 &lt;code>.local/share/gem/ruby/3.0.0/gems/&lt;/code> 里装了一遍……我心都要碎了……我还以为只是把 irb 装进去，结果全装进去了！干！这是我对 ruby 这边不太熟悉，我应该上网查查，去掉 deployment 以后想办法重新生成一个 Gemfile.lock 然后再加上 deployment 后 install 的！算了！继续：&lt;/p>
+&lt;pre>&lt;code>bundle exec rails db:setup
+&lt;/code>&lt;/pre>
+&lt;p>嚯！果然出现了第二个错误！！！！哎，等等，好像跟那个 GitHub Issue 上的第二个错误不太一样？我这边的错误是：&lt;/p>
+&lt;pre>&lt;code>rails aborted!
+LoadError: cannot load such file -- rdoc
+&lt;/code>&lt;/pre>
+&lt;p>卧槽！这个简单，继续往 Gemfile 里添加 &lt;code>gem 'rdoc'&lt;/code> 哈哈！&lt;/p>
+&lt;pre>&lt;code>vim Gemfile
+bundle install
+&lt;/code>&lt;/pre>
+&lt;p>我真是服了这个长毛象项目了，究竟是怎么搞的！居然还能依赖出现问题的吗？！我感觉自己就是在给人家擦屁股！好了，这个也安装完了，让我们看看现在还会出现什么错误吧！&lt;/p>
+&lt;pre>&lt;code>bundle exec rails db:setup
+&lt;/code>&lt;/pre>
+&lt;p>短短四行提示，我一瞬间以为我成功了，眼眶都要湿润了，结果定睛一看还是错误：&lt;/p>
+&lt;pre>&lt;code>rails aborted!
+NameError: uninitialized constant RubyVM::DebugInspector
+/home/ehizil/codes/mastodon/config/environment.rb:5:in `&amp;lt;top (required)&amp;gt;'
+Tasks: TOP =&amp;gt; db:setup =&amp;gt; db:create =&amp;gt; db:load_config =&amp;gt; environment
+(See full trace by running task with --trace)
+&lt;/code>&lt;/pre>
+&lt;p>这下遇到那个 Issue 里的错误了！该来的总是要来的！虽然不是非常一样，但也是同样的一个 NameError 的错误. 而且那个人用的也是 Arch Linux 系统……&lt;/p>
+&lt;p>然后我把整个 Issue 都看完了. 首先，项目作者 Gargron 从来没有见到过这个错误；其次，Node 可能版本太新不行，现在 Arch Linux 上已经 17.3.0 了；据项目作者说使用 Vagrant 可能是一个好主意；这个 Arch Linux 用户认为还需要讨论；&lt;code>debug_inspector&lt;/code> 那个包的作者主动做了一点修正然后就解决了问题，发布在版本 &lt;code>1.1.0rc1&lt;/code> 里，但是根据 Gemfile.lock 可以看出，长毛象还仍然在使用 &lt;code>1.0.0&lt;/code> 的版本. 最后有项目的贡献者指出，这些问题都是因为 Arch Linux 的 ruby 安装方式和其他发行版不太一样，比如在 Arch Linux 里 irb 是单独一个包，需要在 &lt;code>Gemfile&lt;/code> 里做特别的设置.&lt;/p>
+&lt;p>最后这个人的这个说法还是比较可信的，根据我之前的搜索，irb 是 ruby 的命令交互式程序，本就应该是 ruby 自带的，对于其他的发行版，这个包就是默认存在的，所以不需要在 Gemfile 里写出；但对于 Arch Linux，我确实发现了 irb 的位置是在 &lt;code>/usr/lib/ruby/gems/3.0.0/gems/irb-1.3.6&lt;/code>，我刚刚还想着直接把它拷贝到和其他 gem 包一样的位置，看来只拷贝不在 Gemfile 里声明是不行的. 按那个人的意思，第二个错误也是由于类似的原因.&lt;/p>
+&lt;p>现在我终于理解了为什么教程里会让安装 ruby 的虚拟环境，这是因为虚拟环境里的 ruby 没有 Arch Linux 里这么有强迫症，把拆包拆到极致吧！&lt;/p>
+&lt;p>现在摆在我面前的就有两条路了：一是继续下去，把那个 &lt;code>debug_inspector&lt;/code> 升级到 &lt;code>1.1.0rc1&lt;/code> 以上看看还会不会出什么错误；二是就此停下，回头是岸，直接安装 ruby 和 node 的虚拟环境. 我想我好不容易来到此地，就此回头实在心有不甘，不如就继续下去. 只是今天已经花费了太多时间，明天继续无妨.&lt;/p>
+&lt;p>这真是一个非常有趣的问题：你永远不知道你现在遇到的问题是不是最后一个，如果把这一趟下来所有遇到的问题排成一个列表，你也不知道现在这个问题会不会已经是排在后面的问题了. 继续还是换路，真是一个两难的选择.&lt;/p>
+&lt;h2 id="明天在开始前要做的事情">明天在开始前要做的事情&lt;/h2>
+&lt;p>别忘了：&lt;/p>
+&lt;pre>&lt;code class="language-bash">export GEM_HOME=&amp;quot;$(ruby -e 'puts Gem.user_dir')&amp;quot;
+export PATH=&amp;quot;$PATH:$GEM_HOME/bin&amp;quot;
+# 这样才能用上 bundle
+sudo systemctl start postgresql
+sudo systemctl start redis
+export RAILS_ENV=&amp;quot;development&amp;quot;
+&lt;/code>&lt;/pre></description></item><item><title>阅读理解的困扰</title><link>/c/</link><pubDate>2021-12-18</pubDate><guid>/c/</guid><description>&lt;h2 id="昨天的嘟文">昨天的嘟文&lt;/h2>
 &lt;p>昨天发了一条&lt;a href="https://1234.as/@zero/107462663011071894">嘟文&lt;/a>：&lt;/p>
 &lt;blockquote>
 &lt;p>麻烦时间充裕的朋友们阅读下面的文本，并回答一个问题，如果已经有其他象友回复了，请在阅读文本并回复之前不要查看其他人的回复，以免影响自己的判断！可能会需要 3-5 分钟的时间，谢谢啦！&lt;/p>
