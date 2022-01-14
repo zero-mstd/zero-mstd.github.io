@@ -479,7 +479,7 @@ bundle install
 &lt;pre>&lt;code>You are trying to install in deployment mode after changing
 your Gemfile. Run `bundle install` elsewhere and add the
 updated Gemfile.lock to version control.
-If this is a development machine, remove the /home/ehizil/codes/mastodon/Gemfile freeze
+If this is a development machine, remove the /home/xxxxxx/codes/mastodon/Gemfile freeze
 by running `bundle config unset deployment`.
 The dependencies in your gemfile changed
 You have added to the Gemfile:
@@ -506,7 +506,7 @@ bundle install
 &lt;p>短短四行提示，我一瞬间以为我成功了，眼眶都要湿润了，结果定睛一看还是错误：&lt;/p>
 &lt;pre>&lt;code>rails aborted!
 NameError: uninitialized constant RubyVM::DebugInspector
-/home/ehizil/codes/mastodon/config/environment.rb:5:in `&amp;lt;top (required)&amp;gt;'
+/home/xxxxxx/codes/mastodon/config/environment.rb:5:in `&amp;lt;top (required)&amp;gt;'
 Tasks: TOP =&amp;gt; db:setup =&amp;gt; db:create =&amp;gt; db:load_config =&amp;gt; environment
 (See full trace by running task with --trace)
 &lt;/code>&lt;/pre>
