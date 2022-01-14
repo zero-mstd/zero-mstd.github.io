@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Five Six Seven Eight</title><link>/</link><description>五六七八，@zero@1234.as 的延伸.</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>
-2020-10-17</lastBuildDate><item><title>本地部署长毛象进行测试（二）</title><link>/m-dev2/</link><pubDate>2022-01-12</pubDate><guid>/m-dev2/</guid><description>&lt;h2 id="最后的挣扎">最后的挣扎&lt;/h2>
+2020-10-17</lastBuildDate><item><title>本地部署长毛象进行测试（二）</title><link>/m-dev2/</link><pubDate>2022-01-14</pubDate><guid>/m-dev2/</guid><description>&lt;h2 id="最后的挣扎">最后的挣扎&lt;/h2>
 &lt;p>书接&lt;a href="./m-dev/">上文&lt;/a>，先去 &lt;code>Gemfile&lt;/code> 里把 &lt;code>debug_inspector&lt;/code> 的版本改成 &lt;code>1.1.0&lt;/code>，这里有个问题是 &lt;code>Gemfile&lt;/code> 里没有这个包，&lt;code>Gemfile.lock&lt;/code> 里才有. 根据我的了解，&lt;code>Gemfile.lock&lt;/code> 这文件不是人手动去改的，而是 bundler 自动给生成的，我想我还是在 &lt;code>Gemfile&lt;/code> 里手动指定一下试试吧！&lt;/p>
 &lt;p>查了一下版本指定的语法：（&lt;a href="https://ruby-china.org/topics/26655">参考&lt;/a>）&lt;/p>
 &lt;pre>&lt;code>gem 'debug_inspector', '= 1.1.0'
