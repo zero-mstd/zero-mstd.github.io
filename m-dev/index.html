@@ -1,297 +1,50 @@
-<!doctype html><html lang=zh>
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<meta name=generator content="Hugo 0.91.2">
-<link rel=canonical href=../m-dev/>
-<link rel=apple-touch-icon sizes=180x180 href=../apple-touch-icon.png>
-<link rel=manifest href=../site.webmanifest>
-<link rel=mask-icon href=../safari-pinned-tab.svg color=#000000>
-<meta name=msapplication-TileColor content="#ffffff">
-<meta name=theme-color content="#ffffff">
-<script data-goatcounter=https://zero-mstd.goatcounter.com/count async src=//gc.zgo.at/count.js></script>
-<style>body{visibility:hidden;opacity:0}</style>
-<link rel=stylesheet href=../css/prism.css media=none onload="this.media='all'">
-<link rel=stylesheet type=text/css href=../css/styles.css>
-<link rel=stylesheet href=../css/table.css>
-<link rel=stylesheet href=../css/indent.css>
-<link rel=stylesheet href=../css/button.css>
-<title>本地部署长毛象进行测试（一） | Five Six Seven Eight</title>
-</head>
-<body>
-<a href=#main>跳到内容</a>
-<noscript>
-<style>body{visibility:visible;opacity:1}</style>
-</noscript><svg style="display:none"><symbol id="bookmark" viewBox="0 0 40 50"><g transform="translate(2266 3206.2)"><path style="stroke:currentColor;stroke-width:3.2637;fill:none" d="m-2262.2-3203.4-.2331 42.195 16.319-16.318 16.318 16.318.2331-42.428z"/></g></symbol><symbol id="w3c" viewBox="0 0 127.09899 67.763"><text font-size="83" style="font-size:83px;font-family:Trebuchet;letter-spacing:-12;fill-opacity:0" letter-spacing="-12" y="67.609352" x="-26.782778">W3C</text><text font-size="83" style="font-size:83px;font-weight:700;font-family:Trebuchet;fill-opacity:0" y="67.609352" x="153.21722" font-weight="bold">SVG</text><path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m33.695.377 12.062 41.016 12.067-41.016h8.731L46.587 67.763h-.831l-12.48-41.759-12.479 41.759h-.832l-19.965-67.386h8.736l12.061 41.016 8.154-27.618-3.993-13.397h8.737z"/><path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m91.355 46.132c0 6.104-1.624 11.234-4.862 15.394-3.248 4.158-7.45 6.237-12.607 6.237-3.882.0-7.263-1.238-10.148-3.702-2.885-2.47-5.02-5.812-6.406-10.022l6.82-2.829c1.001 2.552 2.317 4.562 3.953 6.028 1.636 1.469 3.56 2.207 5.781 2.207 2.329.0 4.3-1.306 5.909-3.911 1.609-2.606 2.411-5.738 2.411-9.401.0-4.049-.861-7.179-2.582-9.399-1.995-2.604-5.129-3.912-9.397-3.912H66.9v-3.991L78.546 8.698H64.484l-3.911 6.655H58.08v-14.976h32.441v4.075l-12.31 21.217c4.324 1.385 7.596 3.911 9.815 7.571 2.22 3.659 3.329 7.953 3.329 12.892z"/><path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m125.21.0 1.414 8.6-5.008 9.583s-1.924-4.064-5.117-6.314c-2.693-1.899-4.447-2.309-7.186-1.746-3.527.73-7.516 4.938-9.258 10.13-2.084 6.21-2.104 9.218-2.178 11.978-.115 4.428.58 7.043.58 7.043s-3.04-5.626-3.011-13.866c.018-5.882.947-11.218 3.666-16.479 2.404-4.627 5.954-7.404 9.114-7.728 3.264-.343 5.848 1.229 7.841 2.938 2.089 1.788 4.213 5.698 4.213 5.698l4.94-9.837z"/><path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m125.82 48.674s-2.208 3.957-3.589 5.48c-1.379 1.524-3.849 4.209-6.896 5.555-3.049 1.343-4.646 1.598-7.661 1.306-3.01-.29-5.807-2.032-6.786-2.764-.979-.722-3.486-2.864-4.897-4.854-1.42-2-3.634-5.995-3.634-5.995s1.233 4.001 2.007 5.699c.442.977 1.81 3.965 3.749 6.572 1.805 2.425 5.315 6.604 10.652 7.545 5.336.945 9.002-1.449 9.907-2.031.907-.578 2.819-2.178 4.032-3.475 1.264-1.351 2.459-3.079 3.116-4.108.487-.758 1.276-2.286 1.276-2.286l-1.276-6.644z"/></symbol><symbol id="tag" viewBox="0 0 177.16535 177.16535"><g transform="translate(0 -875.2)"><path style="fill-rule:evenodd;stroke-width:0;fill:currentColor" d="m159.9 894.3-68.79 8.5872-75.42 77.336 61.931 60.397 75.429-76.565 6.8495-69.755zm-31.412 31.835a10.813 10.813.0 011.8443 2.247 10.813 10.813.0 01-3.5174 14.872l-.0445.0275a10.813 10.813.0 01-14.86-3.5714 10.813 10.813.0 013.5563-14.863 10.813 10.813.0 0113.022 1.2884z"/></g></symbol><symbol id="balloon" viewBox="0 0 141.73228 177.16535"><g transform="translate(0 -875.2)"><g><path style="fill:currentColor" d="m68.156 882.83-.88753 1.4269c-4.9564 7.9666-6.3764 17.321-5.6731 37.378.36584 10.437 1.1246 23.51 1.6874 29.062.38895 3.8372 3.8278 32.454 4.6105 38.459 4.6694-.24176 9.2946.2879 14.377 1.481 1.2359-3.2937 5.2496-13.088 8.886-21.623 6.249-14.668 8.4128-21.264 10.253-31.252 1.2464-6.7626 1.6341-12.156 1.4204-19.764-.36325-12.93-2.1234-19.487-6.9377-25.843-2.0833-2.7507-6.9865-7.6112-7.9127-7.8436-.79716-.20019-6.6946-1.0922-6.7755-1.0248-.02213.0182-5.0006-.41858-7.5248-.22808l-2.149-.22808h-3.3738z"/><path style="fill:currentColor" d="m61.915 883.28-3.2484.4497c-1.7863.24724-3.5182.53481-3.8494.63994-2.4751.33811-4.7267.86957-6.7777 1.5696-.28598.0-1.0254.20146-2.3695.58589-5.0418 1.4418-6.6374 2.2604-8.2567 4.2364-6.281 7.6657-11.457 18.43-12.932 26.891-1.4667 8.4111.71353 22.583 5.0764 32.996 3.8064 9.0852 13.569 25.149 22.801 37.517 1.3741 1.841 2.1708 2.9286 2.4712 3.5792 3.5437-1.1699 6.8496-1.9336 10.082-2.3263-1.3569-5.7831-4.6968-21.86-6.8361-33.002-.92884-4.8368-2.4692-14.322-3.2452-19.991-.68557-5.0083-.77707-6.9534-.74159-15.791.04316-10.803.41822-16.162 1.5026-21.503 1.4593-5.9026 3.3494-11.077 6.3247-15.852z"/><path style="fill:currentColor" d="m94.499 885.78c-.10214-.0109-.13691.0-.0907.0409.16033.13489 1.329 1.0675 2.5976 2.0723 6.7003 5.307 11.273 14.568 12.658 25.638.52519 4.1949.24765 14.361-.5059 18.523-2.4775 13.684-9.7807 32.345-20.944 53.519l-3.0559 5.7971c2.8082.76579 5.7915 1.727 8.9926 2.8441 11.562-11.691 18.349-19.678 24.129-28.394 7.8992-11.913 11.132-20.234 12.24-31.518.98442-10.02-1.5579-20.876-6.7799-28.959-.2758-.4269-.57803-.86856-.89617-1.3166-3.247-6.13-9.752-12.053-21.264-16.131-2.3687-.86369-6.3657-2.0433-7.0802-2.1166z"/><path style="fill:currentColor" d="m32.52 892.22c-.2009-.13016-1.4606.81389-3.9132 2.7457-11.486 9.0476-17.632 24.186-16.078 39.61.79699 7.9138 2.4066 13.505 5.9184 20.562 5.8577 11.77 14.749 23.219 30.087 38.74.05838.059.12188.1244.18052.1838 1.3166-.5556 2.5965-1.0618 3.8429-1.5199-.66408-.32448-1.4608-1.3297-3.8116-4.4602-5.0951-6.785-8.7512-11.962-13.051-18.486-5.1379-7.7948-5.0097-7.5894-8.0586-13.054-6.2097-11.13-8.2674-17.725-8.6014-27.563-.21552-6.3494.13041-9.2733 1.775-14.987 2.1832-7.5849 3.9273-10.986 9.2693-18.07 1.7839-2.3656 2.6418-3.57 2.4409-3.7003z"/><path style="fill:currentColor" d="m69.133 992.37c-6.2405.0309-12.635.76718-19.554 2.5706 4.6956 4.7759 9.935 10.258 12.05 12.625l4.1272 4.6202h11.493l3.964-4.4516c2.0962-2.3541 7.4804-7.9845 12.201-12.768-8.378-1.4975-16.207-2.6353-24.281-2.5955z"/><rect style="stroke-width:0;fill:currentColor" ry="2.0328" height="27.746" width="22.766" y="1017.7" x="60.201"/></g></g></symbol><symbol id="info" viewBox="0 0 41.667 41.667"><g transform="translate(-37.035 -1004.6)"><path style="stroke-linejoin:round;stroke:currentColor;stroke-linecap:round;stroke-width:3.728;fill:none" d="m76.25 1030.2a18.968 18.968.0 01-23.037 13.709 18.968 18.968.0 01-13.738-23.019 18.968 18.968.0 0123.001-13.768 18.968 18.968.0 0113.798 22.984"/><g transform="matrix(1.1146 0 0 1.1146 -26.276 -124.92)"><path style="stroke:currentColor;stroke-linecap:round;stroke-width:3.728;fill:none" d="m75.491 1039.5v-8.7472"/><path style="stroke-width:0;fill:currentColor" transform="scale(-1)" d="m-73.193-1024.5a2.3719 2.3719.0 01-2.8807 1.7142 2.3719 2.3719.0 01-1.718-2.8785 2.3719 2.3719.0 012.8763-1.7217 2.3719 2.3719.0 011.7254 2.8741"/></g></g></symbol><symbol id="warning" viewBox="0 0 48.430474 41.646302"><g transform="translate(-1.1273 -1010.2)"><path style="stroke-linejoin:round;stroke:currentColor;stroke-linecap:round;stroke-width:4.151;fill:none" d="m25.343 1012.3-22.14 37.496h44.28z"/><path style="stroke:currentColor;stroke-linecap:round;stroke-width:4.1512;fill:none" d="m25.54 1027.7v8.7472"/><path style="stroke-width:0;fill:currentColor" d="m27.839 1042.8a2.3719 2.3719.0 01-2.8807 1.7143 2.3719 2.3719.0 01-1.718-2.8785 2.3719 2.3719.0 012.8763-1.7217 2.3719 2.3719.0 011.7254 2.8741"/></g></symbol><symbol id="menu" viewBox="0 0 50 50"><rect style="stroke-width:0;fill:currentColor" height="10" width="50" y="0" x="0"/><rect style="stroke-width:0;fill:currentColor" height="10" width="50" y="20" x="0"/><rect style="stroke-width:0;fill:currentColor" height="10" width="50" y="40" x="0"/></symbol><symbol id="link" viewBox="0 0 50 50"><g transform="translate(0 -1002.4)"><g transform="matrix(.095670 0 0 .095670 2.3233 1004.9)"><g><path style="stroke-width:0;fill:currentColor" d="m452.84 192.9-128.65 128.65c-35.535 35.54-93.108 35.54-128.65.0l-42.881-42.886 42.881-42.876 42.884 42.876c11.845 11.822 31.064 11.846 42.886.0l128.64-128.64c11.816-11.831 11.816-31.066.0-42.9l-42.881-42.881c-11.822-11.814-31.064-11.814-42.887.0l-45.928 45.936c-21.292-12.531-45.491-17.905-69.449-16.291l72.501-72.526c35.535-35.521 93.136-35.521 128.64.0l42.886 42.881c35.535 35.523 35.535 93.141-.001 128.66zM198.56 361.41l-45.903 45.9c-11.845 11.846-31.064 11.817-42.881.0l-42.884-42.881c-11.845-11.821-11.845-31.041.0-42.886l128.65-128.65c11.819-11.814 31.069-11.814 42.884.0l42.886 42.886 42.876-42.886-42.876-42.881c-35.54-35.521-93.113-35.521-128.65.0l-128.65 128.64c-35.538 35.545-35.538 93.146.0 128.65l42.883 42.882c35.51 35.54 93.11 35.54 128.65.0l72.496-72.499c-23.956 1.597-48.092-3.784-69.474-16.283z"/></g></g></g></symbol><symbol id="doc" viewBox="0 0 35 45"><g transform="translate(-147.53 -539.83)"><path style="stroke:currentColor;stroke-width:2.4501;fill:none" d="m149.38 542.67v39.194h31.354V542.67z"/><g style="stroke-width:25" transform="matrix(.098003 0 0 .098003 133.69 525.96)"><path d="m220 252.36h2e2" style="stroke:currentColor;stroke-width:25;fill:none"/><path style="stroke:currentColor;stroke-width:25;fill:none" d="m220 409.95h2e2"/><path d="m220 488.74h2e2" style="stroke:currentColor;stroke-width:25;fill:none"/><path d="m220 331.15h2e2" style="stroke:currentColor;stroke-width:25;fill:none"/></g></g></symbol><symbol id="tick" viewBox="0 0 177.16535 177.16535"><g transform="translate(0 -875.2)"><rect style="stroke-width:0;fill:currentColor" transform="rotate(30)" height="155" width="40" y="702.99" x="556.82"/><rect style="stroke-width:0;fill:currentColor" transform="rotate(30)" height="40" width="90.404" y="817.99" x="506.42"/></g></symbol></svg>
-<div class=wrapper>
-<header class=intro-and-nav role=banner>
-<div>
-<div class=intro>
-<a class=logo href aria-label="Five Six Seven Eight home page">
-<img src=../images/logo.svg alt=Logo>
-</a>
-<p class=library-desc>
-<a href=https://1234.as/@zero/>@zero@1234.as</a> 的延伸.
-</p>
-</div>
-<nav id=patterns-nav class=patterns role=navigation>
-<h2 class=vh>导航栏</h2>
-<button id=menu-button aria-expanded=false><svg viewBox="0 0 50 50" aria-hidden="true" focusable="false"><use xlink:href="#menu"/></svg>
-菜单
-</button>
-<ul id=patterns-list>
-<li class=pattern>
-<a href=../><svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50"><use xlink:href="#bookmark"/></svg>
-<span class=text>主页</span>
-</a>
-</li>
-<li class=pattern>
-<a href=../post/><svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50"><use xlink:href="#bookmark"/></svg>
-<span class=text>文章</span>
-</a>
-</li>
-<li class=pattern>
-<a href=../exhibition/><svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50"><use xlink:href="#bookmark"/></svg>
-<span class=text>季度嘟文精华展</span>
-</a>
-</li>
-<li class=pattern>
-<a href=../about/><svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50"><use xlink:href="#bookmark"/></svg>
-<span class=text>关于</span>
-</a>
-</li>
-<li class=pattern>
-<a href=../index.xml><svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50"><use xlink:href="#bookmark"/></svg>
-<span class=text>RSS</span>
-</a>
-</li>
-</ul>
-</nav>
-<footer role=contentinfo>
-<div>
-<label for=themer>
-黑暗主题： <input type=checkbox id=themer class=vh>
-<span aria-hidden=true></span>
-</label>
-</div>
-</footer>
-</div>
-</header>
-<div class=main-and-footer>
-<div>
-<main id=main>
-<h1><svg class="bookmark-icon" aria-hidden="true" viewBox="0 0 40 50" focusable="false"><use xlink:href="#bookmark"/></svg>
-本地部署长毛象进行测试（一）
-</h1>
-<div class=date>
-<strong>发表日期： </strong>Jan 11, 2022
-</div>
-<nav class=toc aria-labelledby=toc-heading>
-<h2 id=toc-heading>目录</h2>
-<ol>
-<li>
-<a href=#%e5%89%8d%e8%a8%80>
-前言
-</a>
-</li>
-<li>
-<a href=#%e5%ae%89%e8%a3%85%e4%be%9d%e8%b5%96>
-安装依赖
-</a>
-</li>
-<li>
-<a href=#postgresql-%e8%ae%be%e7%bd%ae>
-PostgreSQL 设置
-</a>
-</li>
-<li>
-<a href=#redis-%e5%90%af%e5%8a%a8>
-Redis 启动
-</a>
-</li>
-<li>
-<a href=#%e5%ae%89%e8%a3%85-ruby>
-安装 Ruby
-</a>
-</li>
-<li>
-<a href=#%e5%ae%89%e8%a3%85-nodejs>
-安装 nodejs
-</a>
-</li>
-<li>
-<a href=#%e9%95%bf%e6%af%9b%e8%b1%a1%e6%ba%90%e7%a0%81-clone>
-长毛象源码 clone
-</a>
-</li>
-<li>
-<a href=#%e5%ae%89%e8%a3%85-ruby-%e7%9a%84%e5%8c%85>
-安装 Ruby 的包
-</a>
-</li>
-<li>
-<a href=#%e5%ae%89%e8%a3%85-node-%e7%9a%84%e5%8c%85>
-安装 Node 的包
-</a>
-</li>
-<li>
-<a href=#%e6%9c%80%e5%90%8e%e7%9a%84%e8%ae%be%e7%bd%ae>
-最后的设置
-</a>
-</li>
-<li>
-<a href=#%e6%98%8e%e5%a4%a9%e5%9c%a8%e5%bc%80%e5%a7%8b%e5%89%8d%e8%a6%81%e5%81%9a%e7%9a%84%e4%ba%8b%e6%83%85>
-明天在开始前要做的事情
-</a>
-</li>
-</ol>
-</nav>
-<p>（注：本文是边操作边记录的，为的是自己能回看，非常流水帐，很不适合作为教程.）</p>
-<h2 id=前言>前言</h2>
-<p>我希望能在本地运行多个长毛象实例进行测试，虽然用关键词查不到这样的教程或指引，但这个需求听上去是一个能够做得到的事情. 那就试一试罢！</p>
-<p>第一个问题是：在我的机器上安装所有的依赖，还是使用 Docker？前者的优点是在源码上玩一玩比较方便，学习到的东西也会更靠近长毛象开发而不是外层的 Docker 相关；后者的优点是系统会比较干净，而且可能会更容易达成目的. 权衡之下我最终决定选择前者，因为这种方案自由度较高（比如我看到它有 development、test、staging、production 四种环境），应该不会在途中受到什么技术上的限制而导致前功尽弃.</p>
-<p>第二个问题就是能参考的资源有限. 目前官方文档的 <a href=https://docs.joinmastodon.org/dev/overview/>Contributing to Mastodon</a> 页面显示“This page is under construction”，且它上面的要求是 Ubuntu 18.04，在官方文档里限制发行版就感觉很不专业，更何况我用的是 Arch Linux. 有象友曾说过，不能只看官方文档，我于是搜索一番，在互联网上仅仅找到一篇教程：</p>
-<ul>
-<li><a href=https://lond.com.br/2018/07/20/setting-up-the-development-environment-for-mastodon-on-arch-linux.html>Setting up the development environment for Mastodon on Arch Linux</a></li>
-</ul>
-<p>不过既然是 Arch Linux，一篇就足够了（这个发行版不会出现奇怪的问题，且这个发行版的用户大概率值得信任，ta 们写的教程大概率不会坑人），再加上官方文档可以对照着参考，我还是很有自信的.</p>
-<h2 id=安装依赖>安装依赖</h2>
-<p>关于所需要的依赖，教程已经解释得很清楚了. 我目前唯一有点疑惑的是那个 protobuf. 教程说它的作用是：Used by mastodon for language detection. 先暂时留在这里以后再说. 教程给出的命令是：</p>
-<pre><code>sudo pacman -S postgresql redis ffmpeg imagemagick protobuf git python2 base-devel
-</code></pre>
-<p>不过对于我来说，<code>ffmpeg</code>、<code>imagemagick</code>、<code>protobuf</code>、<code>git</code>、<code>base-devel</code> 都已经有了，因此只安装其它的就行了：</p>
-<pre><code>sudo pacman -S postgresql redis python2
-</code></pre>
-<h2 id=postgresql-设置>PostgreSQL 设置</h2>
-<p>按照教程，先去看了一眼 <a href=https://wiki.archlinux.org/title/PostgreSQL>wiki</a>，跟教程里写的东西几乎一样，只是 wiki 里切换了一下用户. 按照教程的方法，先初始化：</p>
-<pre><code>sudo -u postgres initdb --locale en_US.UTF-8 -E UTF8 -D '/var/lib/postgres/data'
-</code></pre>
-<p>长毛象官方文档里说可以使用 <a href=https://pgtune.leopard.in.ua/#/>PGTune</a> 这个小工具生成一份优化用的配置，放在 <code>/etc/postgresql/9.6/main/postgresql.conf</code>. 我这里没有这个配置文件，这可能是由于发行版不同的原因. 我先查找一下：</p>
-<pre><code>sudo updatedb
+<!doctype html><html lang=zh><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=generator content="Hugo 0.96.0"><link rel=canonical href=../m-dev/><link rel=apple-touch-icon sizes=180x180 href=../apple-touch-icon.png><link rel=manifest href=../site.webmanifest><link rel=mask-icon href=../safari-pinned-tab.svg color=#000000><meta name=msapplication-TileColor content="#ffffff"><meta name=theme-color content="#ffffff"><script data-goatcounter=https://zero-mstd.goatcounter.com/count async src=//gc.zgo.at/count.js></script><style>body{visibility:hidden;opacity:0}</style><link rel=stylesheet href=../css/prism.css media=none onload='this.media="all"'><link rel=stylesheet type=text/css href=../css/styles.css><link rel=stylesheet href=../css/table.css><link rel=stylesheet href=../css/indent.css><link rel=stylesheet href=../css/button.css><title>本地部署长毛象进行测试（一） | Five Six Seven Eight</title></head><body><a href=#main>跳到内容</a><noscript><style>body{visibility:visible;opacity:1}</style></noscript><svg style="display:none"><symbol id="bookmark" viewBox="0 0 40 50"><g transform="translate(2266 3206.2)"><path style="stroke:currentColor;stroke-width:3.2637;fill:none" d="m-2262.2-3203.4-.2331 42.195 16.319-16.318 16.318 16.318.2331-42.428z"/></g></symbol><symbol id="w3c" viewBox="0 0 127.09899 67.763"><text font-size="83" style="font-size:83px;font-family:Trebuchet;letter-spacing:-12;fill-opacity:0" letter-spacing="-12" y="67.609352" x="-26.782778">W3C</text><text font-size="83" style="font-size:83px;font-weight:700;font-family:Trebuchet;fill-opacity:0" y="67.609352" x="153.21722" font-weight="bold">SVG</text><path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m33.695.377 12.062 41.016 12.067-41.016h8.731L46.587 67.763h-.831l-12.48-41.759-12.479 41.759h-.832l-19.965-67.386h8.736l12.061 41.016 8.154-27.618-3.993-13.397h8.737z"/><path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m91.355 46.132c0 6.104-1.624 11.234-4.862 15.394-3.248 4.158-7.45 6.237-12.607 6.237-3.882.0-7.263-1.238-10.148-3.702-2.885-2.47-5.02-5.812-6.406-10.022l6.82-2.829c1.001 2.552 2.317 4.562 3.953 6.028 1.636 1.469 3.56 2.207 5.781 2.207 2.329.0 4.3-1.306 5.909-3.911 1.609-2.606 2.411-5.738 2.411-9.401.0-4.049-.861-7.179-2.582-9.399-1.995-2.604-5.129-3.912-9.397-3.912H66.9v-3.991L78.546 8.698H64.484l-3.911 6.655H58.08v-14.976h32.441v4.075l-12.31 21.217c4.324 1.385 7.596 3.911 9.815 7.571 2.22 3.659 3.329 7.953 3.329 12.892z"/><path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m125.21.0 1.414 8.6-5.008 9.583s-1.924-4.064-5.117-6.314c-2.693-1.899-4.447-2.309-7.186-1.746-3.527.73-7.516 4.938-9.258 10.13-2.084 6.21-2.104 9.218-2.178 11.978-.115 4.428.58 7.043.58 7.043s-3.04-5.626-3.011-13.866c.018-5.882.947-11.218 3.666-16.479 2.404-4.627 5.954-7.404 9.114-7.728 3.264-.343 5.848 1.229 7.841 2.938 2.089 1.788 4.213 5.698 4.213 5.698l4.94-9.837z"/><path style="fill:currentColor;image-rendering:optimizeQuality;shape-rendering:geometricPrecision" d="m125.82 48.674s-2.208 3.957-3.589 5.48c-1.379 1.524-3.849 4.209-6.896 5.555-3.049 1.343-4.646 1.598-7.661 1.306-3.01-.29-5.807-2.032-6.786-2.764-.979-.722-3.486-2.864-4.897-4.854-1.42-2-3.634-5.995-3.634-5.995s1.233 4.001 2.007 5.699c.442.977 1.81 3.965 3.749 6.572 1.805 2.425 5.315 6.604 10.652 7.545 5.336.945 9.002-1.449 9.907-2.031.907-.578 2.819-2.178 4.032-3.475 1.264-1.351 2.459-3.079 3.116-4.108.487-.758 1.276-2.286 1.276-2.286l-1.276-6.644z"/></symbol><symbol id="tag" viewBox="0 0 177.16535 177.16535"><g transform="translate(0 -875.2)"><path style="fill-rule:evenodd;stroke-width:0;fill:currentColor" d="m159.9 894.3-68.79 8.5872-75.42 77.336 61.931 60.397 75.429-76.565 6.8495-69.755zm-31.412 31.835a10.813 10.813.0 011.8443 2.247 10.813 10.813.0 01-3.5174 14.872l-.0445.0275a10.813 10.813.0 01-14.86-3.5714 10.813 10.813.0 013.5563-14.863 10.813 10.813.0 0113.022 1.2884z"/></g></symbol><symbol id="balloon" viewBox="0 0 141.73228 177.16535"><g transform="translate(0 -875.2)"><g><path style="fill:currentColor" d="m68.156 882.83-.88753 1.4269c-4.9564 7.9666-6.3764 17.321-5.6731 37.378.36584 10.437 1.1246 23.51 1.6874 29.062.38895 3.8372 3.8278 32.454 4.6105 38.459 4.6694-.24176 9.2946.2879 14.377 1.481 1.2359-3.2937 5.2496-13.088 8.886-21.623 6.249-14.668 8.4128-21.264 10.253-31.252 1.2464-6.7626 1.6341-12.156 1.4204-19.764-.36325-12.93-2.1234-19.487-6.9377-25.843-2.0833-2.7507-6.9865-7.6112-7.9127-7.8436-.79716-.20019-6.6946-1.0922-6.7755-1.0248-.02213.0182-5.0006-.41858-7.5248-.22808l-2.149-.22808h-3.3738z"/><path style="fill:currentColor" d="m61.915 883.28-3.2484.4497c-1.7863.24724-3.5182.53481-3.8494.63994-2.4751.33811-4.7267.86957-6.7777 1.5696-.28598.0-1.0254.20146-2.3695.58589-5.0418 1.4418-6.6374 2.2604-8.2567 4.2364-6.281 7.6657-11.457 18.43-12.932 26.891-1.4667 8.4111.71353 22.583 5.0764 32.996 3.8064 9.0852 13.569 25.149 22.801 37.517 1.3741 1.841 2.1708 2.9286 2.4712 3.5792 3.5437-1.1699 6.8496-1.9336 10.082-2.3263-1.3569-5.7831-4.6968-21.86-6.8361-33.002-.92884-4.8368-2.4692-14.322-3.2452-19.991-.68557-5.0083-.77707-6.9534-.74159-15.791.04316-10.803.41822-16.162 1.5026-21.503 1.4593-5.9026 3.3494-11.077 6.3247-15.852z"/><path style="fill:currentColor" d="m94.499 885.78c-.10214-.0109-.13691.0-.0907.0409.16033.13489 1.329 1.0675 2.5976 2.0723 6.7003 5.307 11.273 14.568 12.658 25.638.52519 4.1949.24765 14.361-.5059 18.523-2.4775 13.684-9.7807 32.345-20.944 53.519l-3.0559 5.7971c2.8082.76579 5.7915 1.727 8.9926 2.8441 11.562-11.691 18.349-19.678 24.129-28.394 7.8992-11.913 11.132-20.234 12.24-31.518.98442-10.02-1.5579-20.876-6.7799-28.959-.2758-.4269-.57803-.86856-.89617-1.3166-3.247-6.13-9.752-12.053-21.264-16.131-2.3687-.86369-6.3657-2.0433-7.0802-2.1166z"/><path style="fill:currentColor" d="m32.52 892.22c-.2009-.13016-1.4606.81389-3.9132 2.7457-11.486 9.0476-17.632 24.186-16.078 39.61.79699 7.9138 2.4066 13.505 5.9184 20.562 5.8577 11.77 14.749 23.219 30.087 38.74.05838.059.12188.1244.18052.1838 1.3166-.5556 2.5965-1.0618 3.8429-1.5199-.66408-.32448-1.4608-1.3297-3.8116-4.4602-5.0951-6.785-8.7512-11.962-13.051-18.486-5.1379-7.7948-5.0097-7.5894-8.0586-13.054-6.2097-11.13-8.2674-17.725-8.6014-27.563-.21552-6.3494.13041-9.2733 1.775-14.987 2.1832-7.5849 3.9273-10.986 9.2693-18.07 1.7839-2.3656 2.6418-3.57 2.4409-3.7003z"/><path style="fill:currentColor" d="m69.133 992.37c-6.2405.0309-12.635.76718-19.554 2.5706 4.6956 4.7759 9.935 10.258 12.05 12.625l4.1272 4.6202h11.493l3.964-4.4516c2.0962-2.3541 7.4804-7.9845 12.201-12.768-8.378-1.4975-16.207-2.6353-24.281-2.5955z"/><rect style="stroke-width:0;fill:currentColor" ry="2.0328" height="27.746" width="22.766" y="1017.7" x="60.201"/></g></g></symbol><symbol id="info" viewBox="0 0 41.667 41.667"><g transform="translate(-37.035 -1004.6)"><path style="stroke-linejoin:round;stroke:currentColor;stroke-linecap:round;stroke-width:3.728;fill:none" d="m76.25 1030.2a18.968 18.968.0 01-23.037 13.709 18.968 18.968.0 01-13.738-23.019 18.968 18.968.0 0123.001-13.768 18.968 18.968.0 0113.798 22.984"/><g transform="matrix(1.1146 0 0 1.1146 -26.276 -124.92)"><path style="stroke:currentColor;stroke-linecap:round;stroke-width:3.728;fill:none" d="m75.491 1039.5v-8.7472"/><path style="stroke-width:0;fill:currentColor" transform="scale(-1)" d="m-73.193-1024.5a2.3719 2.3719.0 01-2.8807 1.7142 2.3719 2.3719.0 01-1.718-2.8785 2.3719 2.3719.0 012.8763-1.7217 2.3719 2.3719.0 011.7254 2.8741"/></g></g></symbol><symbol id="warning" viewBox="0 0 48.430474 41.646302"><g transform="translate(-1.1273 -1010.2)"><path style="stroke-linejoin:round;stroke:currentColor;stroke-linecap:round;stroke-width:4.151;fill:none" d="m25.343 1012.3-22.14 37.496h44.28z"/><path style="stroke:currentColor;stroke-linecap:round;stroke-width:4.1512;fill:none" d="m25.54 1027.7v8.7472"/><path style="stroke-width:0;fill:currentColor" d="m27.839 1042.8a2.3719 2.3719.0 01-2.8807 1.7143 2.3719 2.3719.0 01-1.718-2.8785 2.3719 2.3719.0 012.8763-1.7217 2.3719 2.3719.0 011.7254 2.8741"/></g></symbol><symbol id="menu" viewBox="0 0 50 50"><rect style="stroke-width:0;fill:currentColor" height="10" width="50" y="0" x="0"/><rect style="stroke-width:0;fill:currentColor" height="10" width="50" y="20" x="0"/><rect style="stroke-width:0;fill:currentColor" height="10" width="50" y="40" x="0"/></symbol><symbol id="link" viewBox="0 0 50 50"><g transform="translate(0 -1002.4)"><g transform="matrix(.095670 0 0 .095670 2.3233 1004.9)"><g><path style="stroke-width:0;fill:currentColor" d="m452.84 192.9-128.65 128.65c-35.535 35.54-93.108 35.54-128.65.0l-42.881-42.886 42.881-42.876 42.884 42.876c11.845 11.822 31.064 11.846 42.886.0l128.64-128.64c11.816-11.831 11.816-31.066.0-42.9l-42.881-42.881c-11.822-11.814-31.064-11.814-42.887.0l-45.928 45.936c-21.292-12.531-45.491-17.905-69.449-16.291l72.501-72.526c35.535-35.521 93.136-35.521 128.64.0l42.886 42.881c35.535 35.523 35.535 93.141-.001 128.66zM198.56 361.41l-45.903 45.9c-11.845 11.846-31.064 11.817-42.881.0l-42.884-42.881c-11.845-11.821-11.845-31.041.0-42.886l128.65-128.65c11.819-11.814 31.069-11.814 42.884.0l42.886 42.886 42.876-42.886-42.876-42.881c-35.54-35.521-93.113-35.521-128.65.0l-128.65 128.64c-35.538 35.545-35.538 93.146.0 128.65l42.883 42.882c35.51 35.54 93.11 35.54 128.65.0l72.496-72.499c-23.956 1.597-48.092-3.784-69.474-16.283z"/></g></g></g></symbol><symbol id="doc" viewBox="0 0 35 45"><g transform="translate(-147.53 -539.83)"><path style="stroke:currentColor;stroke-width:2.4501;fill:none" d="m149.38 542.67v39.194h31.354V542.67z"/><g style="stroke-width:25" transform="matrix(.098003 0 0 .098003 133.69 525.96)"><path d="m220 252.36h2e2" style="stroke:currentColor;stroke-width:25;fill:none"/><path style="stroke:currentColor;stroke-width:25;fill:none" d="m220 409.95h2e2"/><path d="m220 488.74h2e2" style="stroke:currentColor;stroke-width:25;fill:none"/><path d="m220 331.15h2e2" style="stroke:currentColor;stroke-width:25;fill:none"/></g></g></symbol><symbol id="tick" viewBox="0 0 177.16535 177.16535"><g transform="translate(0 -875.2)"><rect style="stroke-width:0;fill:currentColor" transform="rotate(30)" height="155" width="40" y="702.99" x="556.82"/><rect style="stroke-width:0;fill:currentColor" transform="rotate(30)" height="40" width="90.404" y="817.99" x="506.42"/></g></symbol></svg><div class=wrapper><header class=intro-and-nav role=banner><div><div class=intro><a class=logo href aria-label="Five Six Seven Eight home page"><img src=../images/logo.svg alt=Logo></a><p class=library-desc><a href=https://1234.as/@zero/>@zero@1234.as</a> 的延伸.</p></div><nav id=patterns-nav class=patterns role=navigation><h2 class=vh>导航栏</h2><button id=menu-button aria-expanded=false><svg viewBox="0 0 50 50" aria-hidden="true" focusable="false"><use xlink:href="#menu"/></svg>
+菜单</button><ul id=patterns-list><li class=pattern><a href=../><svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50"><use xlink:href="#bookmark"/></svg><span class=text>主页</span></a></li><li class=pattern><a href=../post/><svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50"><use xlink:href="#bookmark"/></svg><span class=text>文章</span></a></li><li class=pattern><a href=../exhibition/><svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50"><use xlink:href="#bookmark"/></svg><span class=text>季度嘟文精华展</span></a></li><li class=pattern><a href=../about/><svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50"><use xlink:href="#bookmark"/></svg><span class=text>关于</span></a></li><li class=pattern><a href=../index.xml><svg class="bookmark-icon" aria-hidden="true" focusable="false" viewBox="0 0 40 50"><use xlink:href="#bookmark"/></svg><span class=text>RSS</span></a></li></ul></nav><footer role=contentinfo><div><label for=themer>黑暗主题： <input type=checkbox id=themer class=vh>
+<span aria-hidden=true></span></label></div></footer></div></header><div class=main-and-footer><div><main id=main><h1><svg class="bookmark-icon" aria-hidden="true" viewBox="0 0 40 50" focusable="false"><use xlink:href="#bookmark"/></svg>本地部署长毛象进行测试（一）</h1><div class=date><strong>发表日期： </strong>Jan 11, 2022</div><nav class=toc aria-labelledby=toc-heading><h2 id=toc-heading>目录</h2><ol><li><a href=#%e5%89%8d%e8%a8%80>前言</a></li><li><a href=#%e5%ae%89%e8%a3%85%e4%be%9d%e8%b5%96>安装依赖</a></li><li><a href=#postgresql-%e8%ae%be%e7%bd%ae>PostgreSQL 设置</a></li><li><a href=#redis-%e5%90%af%e5%8a%a8>Redis 启动</a></li><li><a href=#%e5%ae%89%e8%a3%85-ruby>安装 Ruby</a></li><li><a href=#%e5%ae%89%e8%a3%85-nodejs>安装 nodejs</a></li><li><a href=#%e9%95%bf%e6%af%9b%e8%b1%a1%e6%ba%90%e7%a0%81-clone>长毛象源码 clone</a></li><li><a href=#%e5%ae%89%e8%a3%85-ruby-%e7%9a%84%e5%8c%85>安装 Ruby 的包</a></li><li><a href=#%e5%ae%89%e8%a3%85-node-%e7%9a%84%e5%8c%85>安装 Node 的包</a></li><li><a href=#%e6%9c%80%e5%90%8e%e7%9a%84%e8%ae%be%e7%bd%ae>最后的设置</a></li><li><a href=#%e6%98%8e%e5%a4%a9%e5%9c%a8%e5%bc%80%e5%a7%8b%e5%89%8d%e8%a6%81%e5%81%9a%e7%9a%84%e4%ba%8b%e6%83%85>明天在开始前要做的事情</a></li></ol></nav><p>（注：本文是边操作边记录的，为的是自己能回看，非常流水帐，很不适合作为教程.）</p><h2 id=前言>前言</h2><p>我希望能在本地运行多个长毛象实例进行测试，虽然用关键词查不到这样的教程或指引，但这个需求听上去是一个能够做得到的事情. 那就试一试罢！</p><p>第一个问题是：在我的机器上安装所有的依赖，还是使用 Docker？前者的优点是在源码上玩一玩比较方便，学习到的东西也会更靠近长毛象开发而不是外层的 Docker 相关；后者的优点是系统会比较干净，而且可能会更容易达成目的. 权衡之下我最终决定选择前者，因为这种方案自由度较高（比如我看到它有 development、test、staging、production 四种环境），应该不会在途中受到什么技术上的限制而导致前功尽弃.</p><p>第二个问题就是能参考的资源有限. 目前官方文档的 <a href=https://docs.joinmastodon.org/dev/overview/>Contributing to Mastodon</a> 页面显示“This page is under construction”，且它上面的要求是 Ubuntu 18.04，在官方文档里限制发行版就感觉很不专业，更何况我用的是 Arch Linux. 有象友曾说过，不能只看官方文档，我于是搜索一番，在互联网上仅仅找到一篇教程：</p><ul><li><a href=https://lond.com.br/2018/07/20/setting-up-the-development-environment-for-mastodon-on-arch-linux.html>Setting up the development environment for Mastodon on Arch Linux</a></li></ul><p>不过既然是 Arch Linux，一篇就足够了（这个发行版不会出现奇怪的问题，且这个发行版的用户大概率值得信任，ta 们写的教程大概率不会坑人），再加上官方文档可以对照着参考，我还是很有自信的.</p><h2 id=安装依赖>安装依赖</h2><p>关于所需要的依赖，教程已经解释得很清楚了. 我目前唯一有点疑惑的是那个 protobuf. 教程说它的作用是：Used by mastodon for language detection. 先暂时留在这里以后再说. 教程给出的命令是：</p><pre><code>sudo pacman -S postgresql redis ffmpeg imagemagick protobuf git python2 base-devel
+</code></pre><p>不过对于我来说，<code>ffmpeg</code>、<code>imagemagick</code>、<code>protobuf</code>、<code>git</code>、<code>base-devel</code> 都已经有了，因此只安装其它的就行了：</p><pre><code>sudo pacman -S postgresql redis python2
+</code></pre><h2 id=postgresql-设置>PostgreSQL 设置</h2><p>按照教程，先去看了一眼 <a href=https://wiki.archlinux.org/title/PostgreSQL>wiki</a>，跟教程里写的东西几乎一样，只是 wiki 里切换了一下用户. 按照教程的方法，先初始化：</p><pre><code>sudo -u postgres initdb --locale en_US.UTF-8 -E UTF8 -D '/var/lib/postgres/data'
+</code></pre><p>长毛象官方文档里说可以使用 <a href=https://pgtune.leopard.in.ua/#/>PGTune</a> 这个小工具生成一份优化用的配置，放在 <code>/etc/postgresql/9.6/main/postgresql.conf</code>. 我这里没有这个配置文件，这可能是由于发行版不同的原因. 我先查找一下：</p><pre><code>sudo updatedb
 locate postgreaql.conf
-</code></pre>
-<p>结果是没有找到. 这其实也挺常见，一般情况下没有的话就自己新建一个就好了，但问题是，在什么地方建呢？长毛象官方文档里写的位置很可能是 Ubuntu 自己编译的时候改的，还是去 wiki 看一下：</p>
-<blockquote>
-<p>The PostgreSQL database server configuration file is <code>postgresql.conf</code>. This file is located in the data directory of the server, typically <code>/var/lib/postgres/data</code>.</p>
-</blockquote>
-<p>然后它下面就有一个提示：</p>
-<blockquote>
-<p><strong>Note</strong>: By default, this folder will not be browsable or searchable by a regular user. This is why <code>find</code> and <code>locate</code> are not finding the configuration files.</p>
-</blockquote>
-<p>哈哈！原来如此！有了位置就好办了，切换到 postgres 用户，进去看了一眼，竟然是一个权限 600 的文件，打开一看，里面竟然有 780 行！觉得把那个直接删掉换上网上生成的那个不是一个最佳实践，于是就对照着 PGTune 生成的配置逐个搜索改了，也顺便通过变量名了解了一下这玩意. 数据库嘛，肯定是对各种资源精打细算，多线程协同工作的. 不得不说，这个配置肯定是有价值的，因为我这个电脑的话，只有前 2 行没用改，后面的 14 行几乎都要去掉注释并改变数值.</p>
-<pre><code>sudo vim /var/lib/postgres/data/postgresql.conf
-</code></pre>
-<p>然后启动：</p>
-<pre><code>sudo systemctl start postgresql
-</code></pre>
-<p>因为是我自己的电脑，而且只是玩一玩，没有开启开机自动启动.</p>
-<p>然后是创建用户. 长毛象官方文档和教程都是用 postgresql 的命令行搞的，我看 wiki 里是用一个它自带的系统命令交互着搞的，我还是用 wiki 这个方法吧.</p>
-<pre><code>createuser --interactive
-</code></pre>
-<p>接着它问你叫什么名字，我填了一个 <code>zero</code>，它又问是否是超级用户，我选了 <code>y</code>，我想着反正也不是生产环境，我自己搞着玩，当然是直接超级用户最好了，那岂不是想干啥干啥. 教程里也是这个思路：</p>
-<blockquote>
-<p>The <code>SUPERUSER</code> level will let you do anything without having to change users. With great powers…</p>
-</blockquote>
-<h2 id=redis-启动>Redis 启动</h2>
-<p>这就遇到了我的下一个疑问了，长毛象怎么还用了 Redis？我之前一直觉得 Redis 和 PostgreSQL 都是数据库，是干同一件事情的，这俩居然配合到一起使用的吗？于是我就查了一下：</p>
-<ol>
-<li><a href=https://zhuanlan.zhihu.com/p/168718284>数据库比较-SQL与NoSQL（MySQL，PostgreSQL，Redis，MongoDB）</a></li>
-<li><a href=https://zhuanlan.zhihu.com/p/299585136>用go搭建高效rest api服务（使用postgresql，redis，gin，gorm&mldr;）</a></li>
-</ol>
-<p>第 1 篇文章比较了各种数据库的增、查、改、删（CRUD）性能，可以看到 Redis 的各种表现均远优于 PostgreSQL，但是它是 NoSQL（非关系型数据库），只能搞键值对的存储，没有 ACID 的特点，所以可以把两者结合起来. 第 2 篇文章中就阐释了这样的思路，将用户数据等长期的东西放进 PostgreSQL 以便好好保存，token 等短期的数据放在 Redis 里提高性能. 长毛象具体是怎么做的还有待我后面慢慢观察，现在随便猜一猜的话，可能把用户数据、嘟文数据、互动数据弄成三个表放进 PostgreSQL，Redis 那边我不太确定，可能包括了 API 频率限制之类的数据？还有一种可能是用户数据、嘟文数据、互动数据也先放进 Redis，每隔一段时间用 PostgreSQL 直接读写 Redis，甚至可以用上防抖（debounce）. 一会儿搞完了去观察一下.</p>
-<p>按照教程：</p>
-<pre><code>sudo systemctl start redis
-</code></pre>
-<p>同样的，我也没开开机自动启动.</p>
-<h2 id=安装-ruby>安装 Ruby</h2>
-<p>教程里是先装了 rvm，然后安装 ruby；长毛象官方文档是先装了 rbenv，然后安装 ruby. 我先是去看了它俩的 wiki：<a href=https://wiki.archlinux.org/title/RVM>rvm</a>、<a href=https://wiki.archlinux.org/title/Rbenv>rbenv</a>，我表示都不想装……这俩都不在 Arch 的官方仓库里，rbenv 还好一点，wiki 里写了 <a href=https://aur.archlinux.org/packages/rbenv/>AUR 的包</a>；rvm 虽然也有 <a href=https://aur.archlinux.org/packages/rvm/>AUR 的包</a>，但 wiki 里的安装方法是直接用 curl 下载，教程里也是这么干的！</p>
-<p>我实在是不明白 ruby 这破语言为啥还要搞这么一套第三方的虚拟环境，ruby 这语言本身的版本号就那么重要吗？为啥还要管理不同版本的 ruby，就必须要多个版本的 ruby 一起用吗？升级一下就会破坏之前的代码吗？不至于吧……根据我有限的编程语言经验，看看人家 java，最新版的 jdk-openjdk 就是 17，然后 Arch 仓库为其他长期支持版本搞了 jdk8-openjdk、jdk11-openjdk；再看看人家 python，默认是 3，Arch 仓库再单独弄一个 python2 完事. 再看看人家 python 自带的 venv 工具，虚拟环境仅仅隔离不同的 python 第三方库就够了，我真是头一次听说给 ruby 这语言本身套上一个虚拟环境的……</p>
-<p>去看了一眼长毛象使用的 <a href=https://github.com/mastodon/mastodon/blob/main/.ruby-version>ruby 版本号</a>：目前是 3.0.3，这不是挺新的吗？这不是并不离谱吗？正好 Arch 稳定版仓库现在的 ruby <a href=https://archlinux.org/packages/extra/x86_64/ruby/>版本号</a> 也是 3.0.3，虽然被人给标了 out-of-date，因为 3.1.0 已经出来了，但是正合我意，赶紧安装：</p>
-<pre><code>sudo pacman -S ruby
-</code></pre>
-<p>真爽！最烦外面还套个壳了，我直接装电脑里，爽！顺便吐槽一下长毛象这个官方文档，这是多长时间没更新了，ruby 版本号还是 2.7.2 呢……</p>
-<p>当然这种包管理的东西咱还是需要换个源，以免后续网络连接太差. 查了一下：</p>
-<pre><code>gem sources -l    # 查看
+</code></pre><p>结果是没有找到. 这其实也挺常见，一般情况下没有的话就自己新建一个就好了，但问题是，在什么地方建呢？长毛象官方文档里写的位置很可能是 Ubuntu 自己编译的时候改的，还是去 wiki 看一下：</p><blockquote><p>The PostgreSQL database server configuration file is <code>postgresql.conf</code>. This file is located in the data directory of the server, typically <code>/var/lib/postgres/data</code>.</p></blockquote><p>然后它下面就有一个提示：</p><blockquote><p><strong>Note</strong>: By default, this folder will not be browsable or searchable by a regular user. This is why <code>find</code> and <code>locate</code> are not finding the configuration files.</p></blockquote><p>哈哈！原来如此！有了位置就好办了，切换到 postgres 用户，进去看了一眼，竟然是一个权限 600 的文件，打开一看，里面竟然有 780 行！觉得把那个直接删掉换上网上生成的那个不是一个最佳实践，于是就对照着 PGTune 生成的配置逐个搜索改了，也顺便通过变量名了解了一下这玩意. 数据库嘛，肯定是对各种资源精打细算，多线程协同工作的. 不得不说，这个配置肯定是有价值的，因为我这个电脑的话，只有前 2 行没用改，后面的 14 行几乎都要去掉注释并改变数值.</p><pre><code>sudo vim /var/lib/postgres/data/postgresql.conf
+</code></pre><p>然后启动：</p><pre><code>sudo systemctl start postgresql
+</code></pre><p>因为是我自己的电脑，而且只是玩一玩，没有开启开机自动启动.</p><p>然后是创建用户. 长毛象官方文档和教程都是用 postgresql 的命令行搞的，我看 wiki 里是用一个它自带的系统命令交互着搞的，我还是用 wiki 这个方法吧.</p><pre><code>createuser --interactive
+</code></pre><p>接着它问你叫什么名字，我填了一个 <code>zero</code>，它又问是否是超级用户，我选了 <code>y</code>，我想着反正也不是生产环境，我自己搞着玩，当然是直接超级用户最好了，那岂不是想干啥干啥. 教程里也是这个思路：</p><blockquote><p>The <code>SUPERUSER</code> level will let you do anything without having to change users. With great powers…</p></blockquote><h2 id=redis-启动>Redis 启动</h2><p>这就遇到了我的下一个疑问了，长毛象怎么还用了 Redis？我之前一直觉得 Redis 和 PostgreSQL 都是数据库，是干同一件事情的，这俩居然配合到一起使用的吗？于是我就查了一下：</p><ol><li><a href=https://zhuanlan.zhihu.com/p/168718284>数据库比较-SQL与NoSQL（MySQL，PostgreSQL，Redis，MongoDB）</a></li><li><a href=https://zhuanlan.zhihu.com/p/299585136>用go搭建高效rest api服务（使用postgresql，redis，gin，gorm&mldr;）</a></li></ol><p>第 1 篇文章比较了各种数据库的增、查、改、删（CRUD）性能，可以看到 Redis 的各种表现均远优于 PostgreSQL，但是它是 NoSQL（非关系型数据库），只能搞键值对的存储，没有 ACID 的特点，所以可以把两者结合起来. 第 2 篇文章中就阐释了这样的思路，将用户数据等长期的东西放进 PostgreSQL 以便好好保存，token 等短期的数据放在 Redis 里提高性能. 长毛象具体是怎么做的还有待我后面慢慢观察，现在随便猜一猜的话，可能把用户数据、嘟文数据、互动数据弄成三个表放进 PostgreSQL，Redis 那边我不太确定，可能包括了 API 频率限制之类的数据？还有一种可能是用户数据、嘟文数据、互动数据也先放进 Redis，每隔一段时间用 PostgreSQL 直接读写 Redis，甚至可以用上防抖（debounce）. 一会儿搞完了去观察一下.</p><p>按照教程：</p><pre><code>sudo systemctl start redis
+</code></pre><p>同样的，我也没开开机自动启动.</p><h2 id=安装-ruby>安装 Ruby</h2><p>教程里是先装了 rvm，然后安装 ruby；长毛象官方文档是先装了 rbenv，然后安装 ruby. 我先是去看了它俩的 wiki：<a href=https://wiki.archlinux.org/title/RVM>rvm</a>、<a href=https://wiki.archlinux.org/title/Rbenv>rbenv</a>，我表示都不想装……这俩都不在 Arch 的官方仓库里，rbenv 还好一点，wiki 里写了 <a href=https://aur.archlinux.org/packages/rbenv/>AUR 的包</a>；rvm 虽然也有 <a href=https://aur.archlinux.org/packages/rvm/>AUR 的包</a>，但 wiki 里的安装方法是直接用 curl 下载，教程里也是这么干的！</p><p>我实在是不明白 ruby 这破语言为啥还要搞这么一套第三方的虚拟环境，ruby 这语言本身的版本号就那么重要吗？为啥还要管理不同版本的 ruby，就必须要多个版本的 ruby 一起用吗？升级一下就会破坏之前的代码吗？不至于吧……根据我有限的编程语言经验，看看人家 java，最新版的 jdk-openjdk 就是 17，然后 Arch 仓库为其他长期支持版本搞了 jdk8-openjdk、jdk11-openjdk；再看看人家 python，默认是 3，Arch 仓库再单独弄一个 python2 完事. 再看看人家 python 自带的 venv 工具，虚拟环境仅仅隔离不同的 python 第三方库就够了，我真是头一次听说给 ruby 这语言本身套上一个虚拟环境的……</p><p>去看了一眼长毛象使用的 <a href=https://github.com/mastodon/mastodon/blob/main/.ruby-version>ruby 版本号</a>：目前是 3.0.3，这不是挺新的吗？这不是并不离谱吗？正好 Arch 稳定版仓库现在的 ruby <a href=https://archlinux.org/packages/extra/x86_64/ruby/>版本号</a> 也是 3.0.3，虽然被人给标了 out-of-date，因为 3.1.0 已经出来了，但是正合我意，赶紧安装：</p><pre><code>sudo pacman -S ruby
+</code></pre><p>真爽！最烦外面还套个壳了，我直接装电脑里，爽！顺便吐槽一下长毛象这个官方文档，这是多长时间没更新了，ruby 版本号还是 2.7.2 呢……</p><p>当然这种包管理的东西咱还是需要换个源，以免后续网络连接太差. 查了一下：</p><pre><code>gem sources -l    # 查看
 gem sources --remove https://rubygems.org/    # 删掉国际的
 gem sources -a http://gems.ruby-china.com/    # 换上一个中国的
-</code></pre>
-<hr>
-<p>然后教程说还需要一个 bundler，我一查，又是一个 ruby 依赖的东西. 好家伙，你们 ruby 真会玩儿哇：</p>
-<pre><code>gem install bundler
-</code></pre>
-<p>看了一下，这个是装在 <code>~/.local/share/gem/ruby/3.0.0/gems</code> 里面的.</p>
-<p>这里遇到一个警告：</p>
-<blockquote>
-<p>WARNING: You don&rsquo;t have /home/xxx/.local/share/gem/ruby/3.0.0/bin in your PATH, gem executables will not run.</p>
-</blockquote>
-<p>那就加一个呗：（参考：<a href=https://wiki.archlinux.org/title/ruby#Setup>wiki</a>）</p>
-<pre><code>export GEM_HOME=&quot;$(ruby -e 'puts Gem.user_dir')&quot;
+</code></pre><hr><p>然后教程说还需要一个 bundler，我一查，又是一个 ruby 依赖的东西. 好家伙，你们 ruby 真会玩儿哇：</p><pre><code>gem install bundler
+</code></pre><p>看了一下，这个是装在 <code>~/.local/share/gem/ruby/3.0.0/gems</code> 里面的.</p><p>这里遇到一个警告：</p><blockquote><p>WARNING: You don&rsquo;t have /home/xxx/.local/share/gem/ruby/3.0.0/bin in your PATH, gem executables will not run.</p></blockquote><p>那就加一个呗：（参考：<a href=https://wiki.archlinux.org/title/ruby#Setup>wiki</a>）</p><pre><code>export GEM_HOME=&quot;$(ruby -e 'puts Gem.user_dir')&quot;
 export PATH=&quot;$PATH:$GEM_HOME/bin&quot;
-</code></pre>
-<p>不过我只是在终端里运行了一下，没有给它加到 <code>.profile</code> 之类的文件里面去，我想着我今天把长毛象的依赖的 ruby 包下载下来以后，以后也就用不着 bundler 了吧？以后用得到再说呗！</p>
-<p>不知道这个 bundler 需不需要换源，网上人说的都不太清楚，于是试着找了找它的手册：</p>
-<pre><code>man bundle    # 没有手册
+</code></pre><p>不过我只是在终端里运行了一下，没有给它加到 <code>.profile</code> 之类的文件里面去，我想着我今天把长毛象的依赖的 ruby 包下载下来以后，以后也就用不着 bundler 了吧？以后用得到再说呗！</p><p>不知道这个 bundler 需不需要换源，网上人说的都不太清楚，于是试着找了找它的手册：</p><pre><code>man bundle    # 没有手册
 man bundler    # 还是没有
 bundle help    # 有了有了，但应该看 config 吧
 bundle help config    # 然后搜索 mirror
-</code></pre>
-<blockquote>
-<p>MIRRORS OF GEM SOURCES</p>
-<p>Bundler supports overriding gem sources with mirrors. This allows you to configure rubygems.org as the gem source in your Gemfile while still using your mirror to fetch gems.</p>
-</blockquote>
-<p>看样子是 bundler 直接用 gem 的源，可以保留 gem 的源不变，通过设置 bundler 来在使用 bundler 时连接新源. 我都已经把 gem 的源改好了，这个我就不用管了.</p>
-<h2 id=安装-nodejs>安装 nodejs</h2>
-<p>淦！长毛象怎么还用了 nodejs！我对 nodejs 有着非常非常深刻的偏见！（这应该是我的错，但我讨厌现在的前端变成这个样子，我觉得 nodejs 导致了 JavaScript 的滥用！）我讨厌 nodejs！我最烦 nodejs 了！凡是 nodejs 写的东西我都避免使用了，像 hexo、coc.vim，我都一概不碰，没想到还是在长毛象这里给我遇到了……</p>
-<p>不管怎么样，咱还是装一下吧. 教程里又是套了个 nvm（好烦！），长毛象官方文档里倒是直接装的 nodejs，但官方文档里装的还是 12.x……同理，我不需要多个版本一起用，咱就直接安装最新版，直接安装到我的电脑里就完事. 不太清楚长毛象对 nodejs 版本有什么要求没有，看这个 <a href=https://github.com/mastodon/mastodon/blob/main/package.json>package.json</a> 好像大于 12 就都行？然后还需要 yarn，应该就是 nodejs 的包管理呗，安一个：</p>
-<pre><code>sudo pacman -S nodejs yarn
-</code></pre>
-<p>也是换个源：</p>
-<pre><code>yarn config get registry    # 查看
+</code></pre><blockquote><p>MIRRORS OF GEM SOURCES</p><p>Bundler supports overriding gem sources with mirrors. This allows you to configure rubygems.org as the gem source in your Gemfile while still using your mirror to fetch gems.</p></blockquote><p>看样子是 bundler 直接用 gem 的源，可以保留 gem 的源不变，通过设置 bundler 来在使用 bundler 时连接新源. 我都已经把 gem 的源改好了，这个我就不用管了.</p><h2 id=安装-nodejs>安装 nodejs</h2><p>淦！长毛象怎么还用了 nodejs！我对 nodejs 有着非常非常深刻的偏见！（这应该是我的错，但我讨厌现在的前端变成这个样子，我觉得 nodejs 导致了 JavaScript 的滥用！）我讨厌 nodejs！我最烦 nodejs 了！凡是 nodejs 写的东西我都避免使用了，像 hexo、coc.vim，我都一概不碰，没想到还是在长毛象这里给我遇到了……</p><p>不管怎么样，咱还是装一下吧. 教程里又是套了个 nvm（好烦！），长毛象官方文档里倒是直接装的 nodejs，但官方文档里装的还是 12.x……同理，我不需要多个版本一起用，咱就直接安装最新版，直接安装到我的电脑里就完事. 不太清楚长毛象对 nodejs 版本有什么要求没有，看这个 <a href=https://github.com/mastodon/mastodon/blob/main/package.json>package.json</a> 好像大于 12 就都行？然后还需要 yarn，应该就是 nodejs 的包管理呗，安一个：</p><pre><code>sudo pacman -S nodejs yarn
+</code></pre><p>也是换个源：</p><pre><code>yarn config get registry    # 查看
 yarn config set registry https://registry.npm.taobao.org    # 换上中国的
-</code></pre>
-<h2 id=长毛象源码-clone>长毛象源码 clone</h2>
-<p>终于把该装的依赖什么的都搞好了，这下来到最激动人心的部分了！先把 repo 给 clone 下来. 这里发现无论是官方文档还是教程，地址还都是 github.com/<strong>tootsuite</strong>/mastodon.git，看来长毛象的官方仓库还换过名字. 虽然用这个地址应该也没问题，我还是直接用新的好了：</p>
-<pre><code>git clone https://github.com/mastodon/mastodon --depth 1
+</code></pre><h2 id=长毛象源码-clone>长毛象源码 clone</h2><p>终于把该装的依赖什么的都搞好了，这下来到最激动人心的部分了！先把 repo 给 clone 下来. 这里发现无论是官方文档还是教程，地址还都是 github.com/<strong>tootsuite</strong>/mastodon.git，看来长毛象的官方仓库还换过名字. 虽然用这个地址应该也没问题，我还是直接用新的好了：</p><pre><code>git clone https://github.com/mastodon/mastodon --depth 1
 cd mastodon
 git checkout $(git tag -l | grep -v 'rc[0-9]*$' | sort -V | tail -n 1)
-</code></pre>
-<p>而且我也用不着 debug 切换版本什么的，我就直接 clone 深度 1 吧先. 最后一行是官方文档里有的一句，就是检查一下，我这刚 clone 的肯定没问题啊.</p>
-<p>接下来的长毛象官方教程就要来到 <a href=https://docs.joinmastodon.org/dev/setup/>Setting up a dev environment</a> 这一页了！之前的步骤参考的其实是 <a href=https://docs.joinmastodon.org/admin/install/>Installing from source</a> 页. 那个 <a href=https://docs.joinmastodon.org/dev/overview/>Technical overview</a> 页有写，我之前没记，这里补一下.</p>
-<h2 id=安装-ruby-的包>安装 Ruby 的包</h2>
-<p>然后装 Ruby 的包依赖，文档里有两条 bundle config，</p>
-<pre><code>bundle config deployment 'true'    # 官方文档里的
+</code></pre><p>而且我也用不着 debug 切换版本什么的，我就直接 clone 深度 1 吧先. 最后一行是官方文档里有的一句，就是检查一下，我这刚 clone 的肯定没问题啊.</p><p>接下来的长毛象官方教程就要来到 <a href=https://docs.joinmastodon.org/dev/setup/>Setting up a dev environment</a> 这一页了！之前的步骤参考的其实是 <a href=https://docs.joinmastodon.org/admin/install/>Installing from source</a> 页. 那个 <a href=https://docs.joinmastodon.org/dev/overview/>Technical overview</a> 页有写，我之前没记，这里补一下.</p><h2 id=安装-ruby-的包>安装 Ruby 的包</h2><p>然后装 Ruby 的包依赖，文档里有两条 bundle config，</p><pre><code>bundle config deployment 'true'    # 官方文档里的
 bundle config without 'development test'    # 官方文档里的
-</code></pre>
-<p>教程里没有，我想着这个应该是生产环境里才这么搞吧，你想想，without &lsquo;development test&rsquo;，我是想要 test 的呀！我就按照教程，直接 install 吧.</p>
-<p>不过 install 之前我想先看看它把这些包装到什么位置，我不想弄脏了我的系统，如果能改的话，就装到 mastodon 源码文件夹里就是最好了. 找到这篇<a href=https://stackoverflow.com/a/11635148>回答</a>，说是只要加上 <code>--deployment</code>，就能安装到项目源码文件夹里. 我一看，这不就是上面第一行 config 吗？走着：</p>
-<pre><code>bundle config deployment 'true'
+</code></pre><p>教程里没有，我想着这个应该是生产环境里才这么搞吧，你想想，without &lsquo;development test&rsquo;，我是想要 test 的呀！我就按照教程，直接 install 吧.</p><p>不过 install 之前我想先看看它把这些包装到什么位置，我不想弄脏了我的系统，如果能改的话，就装到 mastodon 源码文件夹里就是最好了. 找到这篇<a href=https://stackoverflow.com/a/11635148>回答</a>，说是只要加上 <code>--deployment</code>，就能安装到项目源码文件夹里. 我一看，这不就是上面第一行 config 吗？走着：</p><pre><code>bundle config deployment 'true'
 bundle install
-</code></pre>
-<p>好像还是从 <a href=https://rubygems.org/>https://rubygems.org/</a> 上 fetch 的，难道还是要给 bundle 换源？不过速度还行，风扇开始转了.</p>
-<pre><code>122 Gemfile dependencies, 281 gems now installed.
+</code></pre><p>好像还是从 <a href=https://rubygems.org/>https://rubygems.org/</a> 上 fetch 的，难道还是要给 bundle 换源？不过速度还行，风扇开始转了.</p><pre><code>122 Gemfile dependencies, 281 gems now installed.
 Bundled gems are installed into `./vendor/bundle`
-</code></pre>
-<p>原来安装了将近三百个包啊，安装位置也告诉我了. 看了下 <a href=https://github.com/mastodon/mastodon/blob/main/.gitignore>.gitignore</a>，这个文件夹自然是被忽略了. 当然安装过程中出了几个提示，逐个来看一下：</p>
-<pre><code>Please be aware that Encryptor v2.0.0 had a major security bug when using AES-*-GCM algorithms.
+</code></pre><p>原来安装了将近三百个包啊，安装位置也告诉我了. 看了下 <a href=https://github.com/mastodon/mastodon/blob/main/.gitignore>.gitignore</a>，这个文件夹自然是被忽略了. 当然安装过程中出了几个提示，逐个来看一下：</p><pre><code>Please be aware that Encryptor v2.0.0 had a major security bug when using AES-*-GCM algorithms.
 
 By default You will not be able to decrypt data that was previously encrypted using an AES-*-GCM algorithm.
 
 Please see the README and https://github.com/attr-encrypted/encryptor/pull/22 for more information.
-</code></pre>
-<p>来自 encryptor. 行，知道了.</p>
-<hr>
-<pre><code>WARNING: Several insecure default options and features were deprecated in attr_encrypted v2.0.0.
+</code></pre><p>来自 encryptor. 行，知道了.</p><hr><pre><code>WARNING: Several insecure default options and features were deprecated in attr_encrypted v2.0.0.
 
 Additionally, there was a bug in Encryptor v2.0.0 that insecurely encrypted data when using an AES-*-GCM algorithm.
 
 This bug was fixed but introduced breaking changes between v2.x and v3.x.
 
 Please see the README for more information regarding upgrading to attr_encrypted v3.0.0.
-</code></pre>
-<p>来自 attr_encrypted. 跟刚刚那条差不多. 但版本也不是我决定的呀，尤其是你还引入了 breaking changes，可能长毛象的作者嫌升级太麻烦？不过这个 AES-*-GCM 算法的安全性 bug 看上去很有意思，我有时间可以看一看.</p>
-<hr>
-<pre><code>Starting from 5.5.0 RC1 Doorkeeper requires client authentication for Resource Owner Password Grant
+</code></pre><p>来自 attr_encrypted. 跟刚刚那条差不多. 但版本也不是我决定的呀，尤其是你还引入了 breaking changes，可能长毛象的作者嫌升级太麻烦？不过这个 AES-*-GCM 算法的安全性 bug 看上去很有意思，我有时间可以看一看.</p><hr><pre><code>Starting from 5.5.0 RC1 Doorkeeper requires client authentication for Resource Owner Password Grant
 as stated in the OAuth RFC. You have to create a new OAuth client (Doorkeeper::Application) if you didn't
 have it before and use client credentials in HTTP Basic auth if you previously used this grant flow without
 client authentication.
@@ -300,17 +53,11 @@ To opt out of this you could set the &quot;skip_client_authentication_for_passwo
 to &quot;true&quot;, but note that this is in violation of the OAuth spec and represents a security risk.
 
 Read https://github.com/doorkeeper-gem/doorkeeper/issues/561#issuecomment-612857163 for more details.
-</code></pre>
-<p>这是来自 doorkeeper 的消息，感觉自己在参演《黑客帝国》……</p>
-<hr>
-<pre><code># Install default configuration:
+</code></pre><p>这是来自 doorkeeper 的消息，感觉自己在参演《黑客帝国》……</p><hr><pre><code># Install default configuration:
 cp $(bundle exec i18n-tasks gem-path)/templates/config/i18n-tasks.yml config/
 # Add an RSpec for missing and unused keys:
 cp $(bundle exec i18n-tasks gem-path)/templates/rspec/i18n_spec.rb spec/
-</code></pre>
-<p>来自 i18n-tasks，谢谢，我应该不需要做什么.</p>
-<hr>
-<pre><code>##################################################
+</code></pre><p>来自 i18n-tasks，谢谢，我应该不需要做什么.</p><hr><pre><code>##################################################
 #  NOTE FOR UPGRADING FROM 4.3.0 OR EARLIER      #
 ##################################################
 
@@ -327,14 +74,8 @@ changes:
 
 For a walkthrough of upgrading from 4 to *5* (not 6) and aws-sdk &gt;= 2.0 you can watch
 http://rubythursday.com/episodes/ruby-snack-27-upgrade-paperclip-and-aws-sdk-in-prep-for-rails-5
-</code></pre>
-<p>来自 kt-paperclip，这个消息写得很吸引人注意嘛！</p>
-<hr>
-<pre><code>Prior to version 4.0.0, the microformats gem was named &quot;microformats2.&quot;
-</code></pre>
-<p>来自 microformats，短短一行，简洁明了！不错，microformats 好感度 +1.</p>
-<hr>
-<pre><code>IMPORTANT!
+</code></pre><p>来自 kt-paperclip，这个消息写得很吸引人注意嘛！</p><hr><pre><code>Prior to version 4.0.0, the microformats gem was named &quot;microformats2.&quot;
+</code></pre><p>来自 microformats，短短一行，简洁明了！不错，microformats 好感度 +1.</p><hr><pre><code>IMPORTANT!
 
 Automatic configuration of the sidekiq middleware is no longer done.
 Please see: https://github.com/mhenrixon/sidekiq-unique-jobs/blob/master/README.md#add-the-middleware
@@ -360,80 +101,21 @@ The new methods to use are:
   - lock_ttl=
   - lock_timeout
   - lock_timeout=
-</code></pre>
-<p>来自 sidekiq-unique-jobs，所有的消息里就属你最长……</p>
-<hr>
-<p>看来 ruby 的包作者可以通过一定的方式，以随便任何格式，写一点安装或升级后显示出来的信息，来帮助其他 ruby 程序员，省得总要去网上看升级的 notes 了，这还真是挺不错的！尤其是像长毛象这种引了上百个包的程序，这种方式真是挺方便的！</p>
-<h2 id=安装-node-的包>安装 Node 的包</h2>
-<p>接下来安装 node 需要的包，也是先上网查一查 yarn 的安装位置，别让它装在我 home 目录下或者 /usr 目录下之类的. 查到 <a href=https://classic.yarnpkg.com/en/docs/cli/install/>yarn 文档</a>，里面有写：</p>
-<blockquote>
-<p>Install all the dependencies listed within <code>package.json</code> in the local <code>node_modules</code> folder.</p>
-</blockquote>
-<p>不过它这个措辞我愣是不太明白，这个 local 有表示执行命令所在地的意思吗？我理解的话，本机都叫 local 啊，比如 <code>/usr/lib/node_modules</code> 啊. 以防万一，瞧一眼怎么<a href=https://classic.yarnpkg.com/en/docs/cli/install/#toc-yarn-install-modules-folder>改位置</a>：</p>
-<blockquote>
-<p><code>yarn install --modules-folder &lt;path></code></p>
-<p>Specifies an alternate location for the <code>node_modules</code> directory, instead of the default <code>./node_modules</code>.</p>
-</blockquote>
-<p>这下就清楚了，默认的含义就是执行命令所在地，那就什么都不用加. <code>--pure-lockfile</code> 的意思是：</p>
-<blockquote>
-<p>Don’t generate a yarn.lock lockfile.</p>
-</blockquote>
-<p>那就直接按照教程和长毛象官方文档：</p>
-<pre><code>yarn install --pure-lockfile
-</code></pre>
-<p>真是怪了，我明明换了源了呀，咋还这么慢……</p>
-<p>最后出了两个警告：</p>
-<pre><code>warning &quot; &gt; react-redux-loading-bar@4.0.8&quot; has incorrect peer dependency &quot;react-redux@^3.0.0 || ^4.0.0 || ^5.0.0&quot;.
+</code></pre><p>来自 sidekiq-unique-jobs，所有的消息里就属你最长……</p><hr><p>看来 ruby 的包作者可以通过一定的方式，以随便任何格式，写一点安装或升级后显示出来的信息，来帮助其他 ruby 程序员，省得总要去网上看升级的 notes 了，这还真是挺不错的！尤其是像长毛象这种引了上百个包的程序，这种方式真是挺方便的！</p><h2 id=安装-node-的包>安装 Node 的包</h2><p>接下来安装 node 需要的包，也是先上网查一查 yarn 的安装位置，别让它装在我 home 目录下或者 /usr 目录下之类的. 查到 <a href=https://classic.yarnpkg.com/en/docs/cli/install/>yarn 文档</a>，里面有写：</p><blockquote><p>Install all the dependencies listed within <code>package.json</code> in the local <code>node_modules</code> folder.</p></blockquote><p>不过它这个措辞我愣是不太明白，这个 local 有表示执行命令所在地的意思吗？我理解的话，本机都叫 local 啊，比如 <code>/usr/lib/node_modules</code> 啊. 以防万一，瞧一眼怎么<a href=https://classic.yarnpkg.com/en/docs/cli/install/#toc-yarn-install-modules-folder>改位置</a>：</p><blockquote><p><code>yarn install --modules-folder &lt;path></code></p><p>Specifies an alternate location for the <code>node_modules</code> directory, instead of the default <code>./node_modules</code>.</p></blockquote><p>这下就清楚了，默认的含义就是执行命令所在地，那就什么都不用加. <code>--pure-lockfile</code> 的意思是：</p><blockquote><p>Don’t generate a yarn.lock lockfile.</p></blockquote><p>那就直接按照教程和长毛象官方文档：</p><pre><code>yarn install --pure-lockfile
+</code></pre><p>真是怪了，我明明换了源了呀，咋还这么慢……</p><p>最后出了两个警告：</p><pre><code>warning &quot; &gt; react-redux-loading-bar@4.0.8&quot; has incorrect peer dependency &quot;react-redux@^3.0.0 || ^4.0.0 || ^5.0.0&quot;.
 warning Workspaces can only be enabled in private projects.
-</code></pre>
-<p>第一个警告是依赖的问题，但长毛象它不是有 yarn.lock 吗，yarn install 的文档里说：</p>
-<blockquote>
-<p>If yarn.lock is present and is enough to satisfy all the dependencies listed in package.json, the exact versions recorded in yarn.lock are installed, and yarn.lock will be unchanged. Yarn will not check for newer versions.</p>
-</blockquote>
-<p>所以是它没有满足依赖条件吗？怪不得要加 <code>--pure-lockfile</code>，那就是它自动去找了符合依赖的版本，然后还不允许改 yarn.lock？我猜的话可能是 yarn 仓库的包依赖关系更新得比较快，以前的 yarn.lock 文件不管用了，但为了不让其他人提交代码时造成污染，所以只有项目维护者可以改那个 yarn.lock？那也不对劲啊，直接把这玩意 ignore 掉不好吗？我不理解.</p>
-<p>当然这个 peer dependency 我也不懂，赶紧查了一下：<a href=https://segmentfault.com/a/1190000022435060>一文搞懂peerDependencies</a>. 然后我看了一眼 <code>mastodon/node_modules/react-redux-loading-bar/package.json</code>，里面确实写着要 peerDependencies <code>"react-redux": "^3.0.0 || ^4.0.0 || ^5.0.0"</code>，而 yarn.lock 里写的是 react-redux@^7.2.6，但是我安装的那个 <code>mastodon/node_modules/react-redux/</code> 是哪个版本的啊？我不知道怎么看……好烦，就当它自己解决好了吧，解决不好的话应该会出 error 才对.</p>
-<p>第二个警告问题不大哈哈，我就是不想让你脏了我的系统才把你安装进项目文件夹的. 况且 mastodon 的 <a href=https://github.com/mastodon/mastodon/blob/main/.gitignore>.gitignore</a> 里也确确实实忽略了 <code>node_modules</code> 文件夹.</p>
-<hr>
-<p>yarn 和 bundle 现在就可以对比一下了，yarn 就没有类似 bundler 那样的机制，能让包作者自己写一些重要的信息，在安装完成后展示出来. 各有利弊吧！</p>
-<h2 id=最后的设置>最后的设置</h2>
-<p>根据官方文档：</p>
-<blockquote>
-<p>In the development environment, Mastodon will use PostgreSQL as the currently signed-in Linux user using the <code>ident</code> method, which usually works out of the box.</p>
-</blockquote>
-<p>我完全没看懂这句话……我翻译一下的话就是 Mastodon 会使用 <code>ident</code> 方法，把 PostgreSQL 作为当前登录的 Linux 用户. 这是啥意思呢？刚刚安装 PostgreSQL 的时候确实是新建了一个 Linux 用户叫 postgres，难道你是要用这个用户来运行长毛象吗？</p>
-<p>等等，这个 as 可能是“当……什么时候”的意思？那就是：当当前登录的 Linux 用户使用 <code>ident</code> 方法时，Mastodon 会使用 PostgreSQL？还是不太懂哇！感觉还是最开始那个意思比较像模像样. 无论如何，先查查 <code>ident</code> 方法到底是什么方法吧！</p>
-<p>好的，找到了：<a href=https://www.postgresql.org/docs/13/auth-ident.html>Ident Authentication</a>：</p>
-<blockquote>
-<p>The ident authentication method works by obtaining the client&rsquo;s operating system user name from an ident server and using it as the allowed database user name (with an optional user name mapping). This is only supported on TCP/IP connections.</p>
-</blockquote>
-<p>我好像懂了，应该是说 Mastodon 会使用这个 ident authentication method，直接把我 Linux 系统的用户名拿过来作为 PostgreSQL 数据库的用户名. 我好像对“as”这个词前后的主被动关系还是有点理解不到位啊. 不管这么样，PostgreSQL 就不需要我操心了，只需要操心一下 Redis：</p>
-<blockquote>
-<p>The one command you need to run is <code>rails db:setup</code> which will create the databases <code>mastodon_development</code> and <code>mastodon_test</code>, load the schema into them, and then create seed data defined in <code>db/seed.rb</code> in <code>mastodon_development</code>. The only seed data is an admin account with the credentials <code>admin@localhost:3000</code> / <code>mastodonadmin</code>.</p>
-</blockquote>
-<p>这句话说的还是挺明白的，教程里也解释了，这是在设置数据库，运行那条命令就会新建两个数据库，分别是 <code>mastodon_development</code> 和 <code>mastodon_test</code>，这俩数据库都是直接用我这个 Linux 系统的用户名作为用户，没有密码. 然后长毛象的源代码里有 <code>mastodon/db/seeds.rb</code> 这么一个文件嘛，它就接着运行这个文件，把这里面需要用到的初始数据帮我给填充进 <code>mastodon_development</code> 这个数据库里. 这些初始数据都包括啥呢？就只包含一个 admin 用户，用户名是 <code>admin@localhost:3000</code>，密码是 <code>mastodonadmin</code>. 这个 <code>admin@localhost:3000</code> 从格式也能看出来，这就是长毛象的用户了，我应该是启动网页服务之后可以用这个登录进去，这就算是一个简单的本地的长毛象了！胜利在望！</p>
-<p>等等！教程里的命令怎么和文档里的不太一样？教程里的命令是 <code>bundle exec rails db:setup</code>，前面怎么还多了 <code>bundle exec</code>？</p>
-<p>查到一篇文章：<a href=https://mednoter.com/bundle-exec.html>吕小荣, 为什么要使用 bundler exec</a>. 这下明白了，直接 rails 是一种碰运气的行为，前面加上 bundle exec 才能有正确的上下文，虽然对于我来说，电脑里目前只有这一个 ruby 的项目，应该没差了……不过，我目前好像也没法直接用 rails 啊！我的 PATH 环境变量里没有这个命令呀！这个官方文档不行，只能用 bundle exec 了：</p>
-<pre><code>bundle exec rails db:setup
-</code></pre>
-<p>很好，出现了目前为止第一个报错：</p>
-<pre><code>ERROR: Missing RAILS_ENV environment variable, please set it to &quot;production&quot;, &quot;development&quot;, or &quot;test&quot;.
-</code></pre>
-<p>这个报错简单：</p>
-<pre><code>export RAILS_ENV=&quot;development&quot;
+</code></pre><p>第一个警告是依赖的问题，但长毛象它不是有 yarn.lock 吗，yarn install 的文档里说：</p><blockquote><p>If yarn.lock is present and is enough to satisfy all the dependencies listed in package.json, the exact versions recorded in yarn.lock are installed, and yarn.lock will be unchanged. Yarn will not check for newer versions.</p></blockquote><p>所以是它没有满足依赖条件吗？怪不得要加 <code>--pure-lockfile</code>，那就是它自动去找了符合依赖的版本，然后还不允许改 yarn.lock？我猜的话可能是 yarn 仓库的包依赖关系更新得比较快，以前的 yarn.lock 文件不管用了，但为了不让其他人提交代码时造成污染，所以只有项目维护者可以改那个 yarn.lock？那也不对劲啊，直接把这玩意 ignore 掉不好吗？我不理解.</p><p>当然这个 peer dependency 我也不懂，赶紧查了一下：<a href=https://segmentfault.com/a/1190000022435060>一文搞懂peerDependencies</a>. 然后我看了一眼 <code>mastodon/node_modules/react-redux-loading-bar/package.json</code>，里面确实写着要 peerDependencies <code>"react-redux": "^3.0.0 || ^4.0.0 || ^5.0.0"</code>，而 yarn.lock 里写的是 react-redux@^7.2.6，但是我安装的那个 <code>mastodon/node_modules/react-redux/</code> 是哪个版本的啊？我不知道怎么看……好烦，就当它自己解决好了吧，解决不好的话应该会出 error 才对.</p><p>第二个警告问题不大哈哈，我就是不想让你脏了我的系统才把你安装进项目文件夹的. 况且 mastodon 的 <a href=https://github.com/mastodon/mastodon/blob/main/.gitignore>.gitignore</a> 里也确确实实忽略了 <code>node_modules</code> 文件夹.</p><hr><p>yarn 和 bundle 现在就可以对比一下了，yarn 就没有类似 bundler 那样的机制，能让包作者自己写一些重要的信息，在安装完成后展示出来. 各有利弊吧！</p><h2 id=最后的设置>最后的设置</h2><p>根据官方文档：</p><blockquote><p>In the development environment, Mastodon will use PostgreSQL as the currently signed-in Linux user using the <code>ident</code> method, which usually works out of the box.</p></blockquote><p>我完全没看懂这句话……我翻译一下的话就是 Mastodon 会使用 <code>ident</code> 方法，把 PostgreSQL 作为当前登录的 Linux 用户. 这是啥意思呢？刚刚安装 PostgreSQL 的时候确实是新建了一个 Linux 用户叫 postgres，难道你是要用这个用户来运行长毛象吗？</p><p>等等，这个 as 可能是“当……什么时候”的意思？那就是：当当前登录的 Linux 用户使用 <code>ident</code> 方法时，Mastodon 会使用 PostgreSQL？还是不太懂哇！感觉还是最开始那个意思比较像模像样. 无论如何，先查查 <code>ident</code> 方法到底是什么方法吧！</p><p>好的，找到了：<a href=https://www.postgresql.org/docs/13/auth-ident.html>Ident Authentication</a>：</p><blockquote><p>The ident authentication method works by obtaining the client&rsquo;s operating system user name from an ident server and using it as the allowed database user name (with an optional user name mapping). This is only supported on TCP/IP connections.</p></blockquote><p>我好像懂了，应该是说 Mastodon 会使用这个 ident authentication method，直接把我 Linux 系统的用户名拿过来作为 PostgreSQL 数据库的用户名. 我好像对“as”这个词前后的主被动关系还是有点理解不到位啊. 不管这么样，PostgreSQL 就不需要我操心了，只需要操心一下 Redis：</p><blockquote><p>The one command you need to run is <code>rails db:setup</code> which will create the databases <code>mastodon_development</code> and <code>mastodon_test</code>, load the schema into them, and then create seed data defined in <code>db/seed.rb</code> in <code>mastodon_development</code>. The only seed data is an admin account with the credentials <code>admin@localhost:3000</code> / <code>mastodonadmin</code>.</p></blockquote><p>这句话说的还是挺明白的，教程里也解释了，这是在设置数据库，运行那条命令就会新建两个数据库，分别是 <code>mastodon_development</code> 和 <code>mastodon_test</code>，这俩数据库都是直接用我这个 Linux 系统的用户名作为用户，没有密码. 然后长毛象的源代码里有 <code>mastodon/db/seeds.rb</code> 这么一个文件嘛，它就接着运行这个文件，把这里面需要用到的初始数据帮我给填充进 <code>mastodon_development</code> 这个数据库里. 这些初始数据都包括啥呢？就只包含一个 admin 用户，用户名是 <code>admin@localhost:3000</code>，密码是 <code>mastodonadmin</code>. 这个 <code>admin@localhost:3000</code> 从格式也能看出来，这就是长毛象的用户了，我应该是启动网页服务之后可以用这个登录进去，这就算是一个简单的本地的长毛象了！胜利在望！</p><p>等等！教程里的命令怎么和文档里的不太一样？教程里的命令是 <code>bundle exec rails db:setup</code>，前面怎么还多了 <code>bundle exec</code>？</p><p>查到一篇文章：<a href=https://mednoter.com/bundle-exec.html>吕小荣, 为什么要使用 bundler exec</a>. 这下明白了，直接 rails 是一种碰运气的行为，前面加上 bundle exec 才能有正确的上下文，虽然对于我来说，电脑里目前只有这一个 ruby 的项目，应该没差了……不过，我目前好像也没法直接用 rails 啊！我的 PATH 环境变量里没有这个命令呀！这个官方文档不行，只能用 bundle exec 了：</p><pre><code>bundle exec rails db:setup
+</code></pre><p>很好，出现了目前为止第一个报错：</p><pre><code>ERROR: Missing RAILS_ENV environment variable, please set it to &quot;production&quot;, &quot;development&quot;, or &quot;test&quot;.
+</code></pre><p>这个报错简单：</p><pre><code>export RAILS_ENV=&quot;development&quot;
 bundle exec rails db:setup
-</code></pre>
-<p>好家伙，这下出现了第二个报错！一大长串！关键信息有：</p>
-<pre><code>rails aborted!
+</code></pre><p>好家伙，这下出现了第二个报错！一大长串！关键信息有：</p><pre><code>rails aborted!
 LoadError: cannot load such file -- irb
 Did you mean?  erb
                drb
 省略
 bin/rails:4:in `&lt;main&gt;'
 (See full trace by running task with –trace)
-</code></pre>
-<p>查到一个有点类似的<a href=https://stackoverflow.com/q/34135802>问题</a>，但稍微有点不一样，那个人是用 <code>rake db:setup</code> 的时候加载不了 <code>rails</code>，最后他自己说是 rails 的版本不对；我这个是用 <code>rails db:setup</code> 的时候加载不了 <code>irb</code>，那我想问题应该出在 irb 上. 可是我查了一下，irb 是 <a href=https://ruby-doc.org/stdlib-2.4.0/libdoc/irb/rdoc/IRB.html>ruby 的命令交互式程序</a>呀，不过这好像也不重要，反正 irb 是一个包就对了.</p>
-<p>然后找到这么一个<a href=https://stackoverflow.com/q/9154365>问题</a>，读了之后我大概明白这个 ruby 的 LoadError 是怎么一回事了，好像就是位置不大对所以它就没有找到. 那我手动把它需要的 irb 移动到正确的位置不就行了吗？先找找看系统里哪里有 irb：</p>
-<pre><code>locate irb.rb
+</code></pre><p>查到一个有点类似的<a href=https://stackoverflow.com/q/34135802>问题</a>，但稍微有点不一样，那个人是用 <code>rake db:setup</code> 的时候加载不了 <code>rails</code>，最后他自己说是 rails 的版本不对；我这个是用 <code>rails db:setup</code> 的时候加载不了 <code>irb</code>，那我想问题应该出在 irb 上. 可是我查了一下，irb 是 <a href=https://ruby-doc.org/stdlib-2.4.0/libdoc/irb/rdoc/IRB.html>ruby 的命令交互式程序</a>呀，不过这好像也不重要，反正 irb 是一个包就对了.</p><p>然后找到这么一个<a href=https://stackoverflow.com/q/9154365>问题</a>，读了之后我大概明白这个 ruby 的 LoadError 是怎么一回事了，好像就是位置不大对所以它就没有找到. 那我手动把它需要的 irb 移动到正确的位置不就行了吗？先找找看系统里哪里有 irb：</p><pre><code>locate irb.rb
 
 # /usr/lib/ruby/gems/3.0.0/gems/irb-1.3.6/lib/irb.rb
 # 然后再把这个包整体移动到项目里：
@@ -442,15 +124,9 @@ cp -r /usr/lib/ruby/gems/3.0.0/gems/irb-1.3.6 ./vendor/bundle/ruby/3.0.0/gems/
 
 # 然后再试试：
 bundle exec rails db:setup
-</code></pre>
-<p>问题依旧. 我觉得好像不大对，我所有的步骤都是按照教程和文档来的呀，即便有不一样的地方，我觉得我的方法也是等效的，不至于出现这种问题. 我怀疑是项目的问题，就去 issue 里面搜，结果还真让我给找到了一个同样的问题：<a href=https://github.com/mastodon/mastodon/issues/15863>Issue 15863</a>.</p>
-<p>人家也遇到了和我同样的问题，ta 的解决方案是：在 Gemfile 里加上 <code>gem 'irb'</code> 后再 install 一下. 然后就能遇到第二个问题了……艹</p>
-<p>我真服了，那这看上去就是项目自己的问题啊，那为啥项目不主动加上那个 <code>gem 'irb'</code> 呢？啊先不管它，我也这么干，看看我会不会遇到那个第二个问题：</p>
-<pre><code>vim Gemfile
+</code></pre><p>问题依旧. 我觉得好像不大对，我所有的步骤都是按照教程和文档来的呀，即便有不一样的地方，我觉得我的方法也是等效的，不至于出现这种问题. 我怀疑是项目的问题，就去 issue 里面搜，结果还真让我给找到了一个同样的问题：<a href=https://github.com/mastodon/mastodon/issues/15863>Issue 15863</a>.</p><p>人家也遇到了和我同样的问题，ta 的解决方案是：在 Gemfile 里加上 <code>gem 'irb'</code> 后再 install 一下. 然后就能遇到第二个问题了……艹</p><p>我真服了，那这看上去就是项目自己的问题啊，那为啥项目不主动加上那个 <code>gem 'irb'</code> 呢？啊先不管它，我也这么干，看看我会不会遇到那个第二个问题：</p><pre><code>vim Gemfile
 bundle install
-</code></pre>
-<p>然后弹出来个错误说：</p>
-<pre><code>You are trying to install in deployment mode after changing
+</code></pre><p>然后弹出来个错误说：</p><pre><code>You are trying to install in deployment mode after changing
 your Gemfile. Run `bundle install` elsewhere and add the
 updated Gemfile.lock to version control.
 
@@ -461,41 +137,20 @@ The dependencies in your gemfile changed
 
 You have added to the Gemfile:
 * irb
-</code></pre>
-<p>啊，这是因为我怕脏了系统设置的 deployment 环境，为的是让它把包给我安到项目自己的文件夹里. 那就先去掉那个吧：</p>
-<pre><code>bundle config unset deployment
+</code></pre><p>啊，这是因为我怕脏了系统设置的 deployment 环境，为的是让它把包给我安到项目自己的文件夹里. 那就先去掉那个吧：</p><pre><code>bundle config unset deployment
 bundle install
-</code></pre>
-<p>艹艹艹！我系统脏了！所有的 ruby 包依赖又重新往我的 <code>.local/share/gem/ruby/3.0.0/gems/</code> 里装了一遍……我心都要碎了……我还以为只是把 irb 装进去，结果全装进去了！干！这是我对 ruby 这边不太熟悉，我应该上网查查，去掉 deployment 以后想办法重新生成一个 Gemfile.lock 然后再加上 deployment 后 install 的！算了！继续：</p>
-<pre><code>bundle exec rails db:setup
-</code></pre>
-<p>嚯！果然出现了第二个错误！！！！哎，等等，好像跟那个 GitHub Issue 上的第二个错误不太一样？我这边的错误是：</p>
-<pre><code>rails aborted!
+</code></pre><p>艹艹艹！我系统脏了！所有的 ruby 包依赖又重新往我的 <code>.local/share/gem/ruby/3.0.0/gems/</code> 里装了一遍……我心都要碎了……我还以为只是把 irb 装进去，结果全装进去了！干！这是我对 ruby 这边不太熟悉，我应该上网查查，去掉 deployment 以后想办法重新生成一个 Gemfile.lock 然后再加上 deployment 后 install 的！算了！继续：</p><pre><code>bundle exec rails db:setup
+</code></pre><p>嚯！果然出现了第二个错误！！！！哎，等等，好像跟那个 GitHub Issue 上的第二个错误不太一样？我这边的错误是：</p><pre><code>rails aborted!
 LoadError: cannot load such file -- rdoc
-</code></pre>
-<p>卧槽！这个简单，继续往 Gemfile 里添加 <code>gem 'rdoc'</code> 哈哈！</p>
-<pre><code>vim Gemfile
+</code></pre><p>卧槽！这个简单，继续往 Gemfile 里添加 <code>gem 'rdoc'</code> 哈哈！</p><pre><code>vim Gemfile
 bundle install
-</code></pre>
-<p>我真是服了这个长毛象项目了，究竟是怎么搞的！居然还能依赖出现问题的吗？！我感觉自己就是在给人家擦屁股！好了，这个也安装完了，让我们看看现在还会出现什么错误吧！</p>
-<pre><code>bundle exec rails db:setup
-</code></pre>
-<p>短短四行提示，我一瞬间以为我成功了，眼眶都要湿润了，结果定睛一看还是错误：</p>
-<pre><code>rails aborted!
+</code></pre><p>我真是服了这个长毛象项目了，究竟是怎么搞的！居然还能依赖出现问题的吗？！我感觉自己就是在给人家擦屁股！好了，这个也安装完了，让我们看看现在还会出现什么错误吧！</p><pre><code>bundle exec rails db:setup
+</code></pre><p>短短四行提示，我一瞬间以为我成功了，眼眶都要湿润了，结果定睛一看还是错误：</p><pre><code>rails aborted!
 NameError: uninitialized constant RubyVM::DebugInspector
 /home/xxxxxx/codes/mastodon/config/environment.rb:5:in `&lt;top (required)&gt;'
 Tasks: TOP =&gt; db:setup =&gt; db:create =&gt; db:load_config =&gt; environment
 (See full trace by running task with --trace)
-</code></pre>
-<p>这下遇到那个 Issue 里的错误了！该来的总是要来的！虽然不是非常一样，但也是同样的一个 NameError 的错误. 而且那个人用的也是 Arch Linux 系统……</p>
-<p>然后我把整个 Issue 都看完了. 首先，项目作者 Gargron 从来没有见到过这个错误；其次，Node 可能版本太新不行，现在 Arch Linux 上已经 17.3.0 了；据项目作者说使用 Vagrant 可能是一个好主意；这个 Arch Linux 用户认为还需要讨论；<code>debug_inspector</code> 那个包的作者主动做了一点修正然后就解决了问题，发布在版本 <code>1.1.0rc1</code> 里，但是根据 Gemfile.lock 可以看出，长毛象还仍然在使用 <code>1.0.0</code> 的版本. 最后有项目的贡献者指出，这些问题都是因为 Arch Linux 的 ruby 安装方式和其他发行版不太一样，比如在 Arch Linux 里 irb 是单独一个包，需要在 <code>Gemfile</code> 里做特别的设置.</p>
-<p>最后这个人的这个说法还是比较可信的，根据我之前的搜索，irb 是 ruby 的命令交互式程序，本就应该是 ruby 自带的，对于其他的发行版，这个包就是默认存在的，所以不需要在 Gemfile 里写出；但对于 Arch Linux，我确实发现了 irb 的位置是在 <code>/usr/lib/ruby/gems/3.0.0/gems/irb-1.3.6</code>，我刚刚还想着直接把它拷贝到和其他 gem 包一样的位置，看来只拷贝不在 Gemfile 里声明是不行的. 按那个人的意思，第二个错误也是由于类似的原因.</p>
-<p>现在我终于理解了为什么教程里会让安装 ruby 的虚拟环境，这是因为虚拟环境里的 ruby 没有 Arch Linux 里这么有强迫症，把拆包拆到极致吧！</p>
-<p>现在摆在我面前的就有两条路了：一是继续下去，把那个 <code>debug_inspector</code> 升级到 <code>1.1.0rc1</code> 以上看看还会不会出什么错误；二是就此停下，回头是岸，直接安装 ruby 和 node 的虚拟环境. 我想我好不容易来到此地，就此回头实在心有不甘，不如就继续下去. 只是今天已经花费了太多时间，明天继续无妨.</p>
-<p>这真是一个非常有趣的问题：你永远不知道你现在遇到的问题是不是最后一个，如果把这一趟下来所有遇到的问题排成一个列表，你也不知道现在这个问题会不会已经是排在后面的问题了. 继续还是换路，真是一个两难的选择.</p>
-<h2 id=明天在开始前要做的事情>明天在开始前要做的事情</h2>
-<p>别忘了：</p>
-<pre><code class=language-bash>export GEM_HOME=&quot;$(ruby -e 'puts Gem.user_dir')&quot;
+</code></pre><p>这下遇到那个 Issue 里的错误了！该来的总是要来的！虽然不是非常一样，但也是同样的一个 NameError 的错误. 而且那个人用的也是 Arch Linux 系统……</p><p>然后我把整个 Issue 都看完了. 首先，项目作者 Gargron 从来没有见到过这个错误；其次，Node 可能版本太新不行，现在 Arch Linux 上已经 17.3.0 了；据项目作者说使用 Vagrant 可能是一个好主意；这个 Arch Linux 用户认为还需要讨论；<code>debug_inspector</code> 那个包的作者主动做了一点修正然后就解决了问题，发布在版本 <code>1.1.0rc1</code> 里，但是根据 Gemfile.lock 可以看出，长毛象还仍然在使用 <code>1.0.0</code> 的版本. 最后有项目的贡献者指出，这些问题都是因为 Arch Linux 的 ruby 安装方式和其他发行版不太一样，比如在 Arch Linux 里 irb 是单独一个包，需要在 <code>Gemfile</code> 里做特别的设置.</p><p>最后这个人的这个说法还是比较可信的，根据我之前的搜索，irb 是 ruby 的命令交互式程序，本就应该是 ruby 自带的，对于其他的发行版，这个包就是默认存在的，所以不需要在 Gemfile 里写出；但对于 Arch Linux，我确实发现了 irb 的位置是在 <code>/usr/lib/ruby/gems/3.0.0/gems/irb-1.3.6</code>，我刚刚还想着直接把它拷贝到和其他 gem 包一样的位置，看来只拷贝不在 Gemfile 里声明是不行的. 按那个人的意思，第二个错误也是由于类似的原因.</p><p>现在我终于理解了为什么教程里会让安装 ruby 的虚拟环境，这是因为虚拟环境里的 ruby 没有 Arch Linux 里这么有强迫症，把拆包拆到极致吧！</p><p>现在摆在我面前的就有两条路了：一是继续下去，把那个 <code>debug_inspector</code> 升级到 <code>1.1.0rc1</code> 以上看看还会不会出什么错误；二是就此停下，回头是岸，直接安装 ruby 和 node 的虚拟环境. 我想我好不容易来到此地，就此回头实在心有不甘，不如就继续下去. 只是今天已经花费了太多时间，明天继续无妨.</p><p>这真是一个非常有趣的问题：你永远不知道你现在遇到的问题是不是最后一个，如果把这一趟下来所有遇到的问题排成一个列表，你也不知道现在这个问题会不会已经是排在后面的问题了. 继续还是换路，真是一个两难的选择.</p><h2 id=明天在开始前要做的事情>明天在开始前要做的事情</h2><p>别忘了：</p><pre><code class=language-bash>export GEM_HOME=&quot;$(ruby -e 'puts Gem.user_dir')&quot;
 export PATH=&quot;$PATH:$GEM_HOME/bin&quot;
 # 这样才能用上 bundle
 
@@ -504,17 +159,7 @@ sudo systemctl start postgresql
 sudo systemctl start redis
 
 export RAILS_ENV=&quot;development&quot;
-</code></pre>
-<p><a href=../m-dev2>下一篇</a></p>
-</main>
-<div id=disqus-container>
-</div>
-</div>
-</div>
-</div>
-<script src=../js/dom-scripts.js></script>
+</code></pre><p><a href=../m-dev2>下一篇</a></p></main><div id=disqus-container></div></div></div></div><script src=../js/dom-scripts.js></script>
 <script src=../js/prism.js></script>
 <script src=../js/search.7aef046a0cc8b0c532f1d20087b920459bc868c936bb48a6ae221eceefca2d07.js></script>
-<link rel=stylesheet href=../css/search.fe0cd54a21628574bff49d721c827d1bb165ab56b0f22dd55ae78addbe61c309.css></link>
-</body>
-</html>
+<link rel=stylesheet href=../css/search.fe0cd54a21628574bff49d721c827d1bb165ab56b0f22dd55ae78addbe61c309.css></link></body></html>
