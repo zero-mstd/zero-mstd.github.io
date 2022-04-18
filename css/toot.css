@@ -65,19 +65,22 @@
     display: grid;
     grid-template-columns: 120px 120px;
     grid-template-rows: 90px;
+    column-gap: 5px;
 }
 .status_media_3 {
     display: grid;
     grid-template-columns: 120px 120px;
     grid-template-rows: 90px 90px;
+    gap: 5px 5px;
 }
 .status_media_4 {
     display: grid;
     grid-template-columns: 120px 120px;
     grid-template-rows: 90px 90px;
+    gap: 5px 5px;
 }
 .media_1, .media_2, .media_3, .media_4 {
-    background-color: #333333;
+    background-color: #222222;
 }
 .media_1 img, .media_2 img, .media_3 img, .media_4 img {
     width: 100%;
