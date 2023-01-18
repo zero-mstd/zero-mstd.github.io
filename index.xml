@@ -1,5 +1,566 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Five Six Seven Eight</title><link>/</link><description>五六七八，@zero@1234.as 的延伸.</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>
-2020-10-17</lastBuildDate><item><title>季度嘟文精华展 - 2022 秋</title><link>/exhibition/2022-autumn/</link><pubDate>2022-10-18</pubDate><guid>/exhibition/2022-autumn/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+2020-10-17</lastBuildDate><item><title>季度嘟文精华展 - 2022 冬</title><link>/exhibition/2022-winter/</link><pubDate>2023-01-18</pubDate><guid>/exhibition/2022-winter/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>谢谢你点了进来！这里除了有嘟文精选，还会简单写写发嘟的前因后果，以及少许的&lt;span style="background-color: #ff6600;">未来计划&lt;/span>. 对于陌生的路人，这是一个了解我的窗口；对于已经关注我的人，可以了解一些“幕后故事”；对于我自己，这是一个回顾过去、着眼未来的机会.&lt;/p>
+&lt;p>2022 年 10 月 19 日至 2023 年 1 月 18 日，一共发嘟 613 条，原创嘟文 360 条，包含媒体文件的 70 条. 精选了 33 条.&lt;/p>
+&lt;hr>
+&lt;h2 id="生活">生活&lt;/h2>
+&lt;!--&lt;p>今天城市探索，看到一条铁路，于是顺着铁轨走了一个多小时. 这条铁路穿过一片树林，景色优美，空气清新，阳光斑驳，时间都安静了. 铁路不笔直，目之所及有限，很激发人的探索欲. 我四五岁的时候住的地方附近有一条铁轨，那时候我常常去玩，长大后很少有机会走铁轨了~&lt;/p>&lt;p>我本来以为这条铁路已经废弃了，结果我走着走着前方突然传来火车的鸣声，我赶紧跳到旁边去……过了一小会儿还真的开来一列火车，货运的，可能是因为这地方是弯道吧，火车开得很慢. 数了一下，一共只有十节车厢，不到一分钟就从我旁边开过去了. 我脑海中闪过一个念头，那就是我很想扒上这列火车，然后任凭它带我去往任何地方！但我观察了一下，后面的车厢其实很难有地方可以稳稳扒住，还有就是虽然火车开得很慢，但如果想上车的话，还是太快了，很有难度 :0120: 这个时候我想起游戏 Life is strange: before the storm 里面的情节，两个主角从学校里逃课出来，就扒上一列火车去了一个很远的地方……我就没做过这种疯狂的事情，我的人生实在是过于波澜不惊了一点 :0120: &lt;/p>&lt;p>最后到了一个陌生的地方，不得不定了个位，然后坐公交回来了（&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>今天城市探索，看到一条铁路，于是顺着铁轨走了一个多小时. 这条铁路穿过一片树林，景色优美，空气清新，阳光斑驳，时间都安静了. 铁路不笔直，目之所及有限，很激发人的探索欲. 我四五岁的时候住的地方附近有一条铁轨，那时候我常常去玩，长大后很少有机会走铁轨了~&lt;/p>&lt;p>我本来以为这条铁路已经废弃了，结果我走着走着前方突然传来火车的鸣声，我赶紧跳到旁边去……过了一小会儿还真的开来一列火车，货运的，可能是因为这地方是弯道吧，火车开得很慢. 数了一下，一共只有十节车厢，不到一分钟就从我旁边开过去了. 我脑海中闪过一个念头，那就是我很想扒上这列火车，然后任凭它带我去往任何地方！但我观察了一下，后面的车厢其实很难有地方可以稳稳扒住，还有就是虽然火车开得很慢，但如果想上车的话，还是太快了，很有难度 :0120: 这个时候我想起游戏 Life is strange: before the storm 里面的情节，两个主角从学校里逃课出来，就扒上一列火车去了一个很远的地方……我就没做过这种疯狂的事情，我的人生实在是过于波澜不惊了一点 :0120: &lt;/p>&lt;p>最后到了一个陌生的地方，不得不定了个位，然后坐公交回来了（&lt;/p>
+&lt;button class='status_sens ' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_3 '>
+&lt;div class='media_1' style="grid-row-start:1;grid-row-end:3;">
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/217/107/299/798/999/original/a23fa57e2de53bcf.jpeg" alt="穿过树林的铁轨">
+&lt;/div>
+&lt;div class='media_2'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/217/109/758/515/673/original/1bb45be81aa36ba7.jpeg" alt="一棵被整整齐齐砍断的小树">
+&lt;/div>
+&lt;div class='media_3'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/217/111/893/038/750/original/3439c2687dc169ab.jpeg" alt="一列开过的火车的背影">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109217236692151429" target="_blank">2022-10-23T10:59:36.705Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 3&lt;/div>
+&lt;div class='favourites_count'>❤️ 27&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>关于图书馆的书，我来给这串嘟文做个结尾：&lt;/p>&lt;p>我一共借了 10 本，看完了 6 本，有 3 本不想看了，昨天把这 9 本拿过去还掉了，自己手里还剩了 1 本打算这个月读. 昨天在图书馆一个没忍住又借了一本新的 :0120: ，最有意思的是，因为现在已经有序开馆了，昨天借的书的到期时间是 12 月 15 日，而我去年借的书的到期时间是 12 月 31 日 :0520: 后借先还，太逗了！&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>关于图书馆的书，我来给这串嘟文做个结尾：&lt;/p>&lt;p>我一共借了 10 本，看完了 6 本，有 3 本不想看了，昨天把这 9 本拿过去还掉了，自己手里还剩了 1 本打算这个月读. 昨天在图书馆一个没忍住又借了一本新的 :0120: ，最有意思的是，因为现在已经有序开馆了，昨天借的书的到期时间是 12 月 15 日，而我去年借的书的到期时间是 12 月 31 日 :0520: 后借先还，太逗了！&lt;/p>
+&lt;button class='status_sens ' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_1 '>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/284/500/012/911/316/original/d3a70821065aece2.jpg" alt="图书馆的借阅查询界面，其中一本书的借书时间是 2022-11-03，到期时间是 2022-12-15；而另一本书的借书时间是 2021-06-08，到期时间是 2022-12-31.">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109284517990379526" target="_blank">2022-11-04T08:10:07.823Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 3&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;!--&lt;p>这一串嘟文本早就结尾了，没想到它还有后续……&lt;/p>&lt;p>后续就是因为前些日子图书馆因为疫情再次闭馆，我手里的这两本书又被延期了！延期到 2023 年 6 月 30 日……我其实最近已经在读了，结果今天一看到这个消息，我马上就把它们给放边上去了（&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>这一串嘟文本早就结尾了，没想到它还有后续……&lt;/p>&lt;p>后续就是因为前些日子图书馆因为疫情再次闭馆，我手里的这两本书又被延期了！延期到 2023 年 6 月 30 日……我其实最近已经在读了，结果今天一看到这个消息，我马上就把它们给放边上去了（&lt;/p>
+&lt;button class='status_sens ' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_1 '>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/455/764/599/670/479/original/74b874439fb59f6a.jpg" alt="图书馆当前借阅页面的截图，我手里的两本书，借书时间分别是：2021-06-01 和 2022-11-03，现在它们的到期时间都变成了 2023-06-30">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109455797278569221" target="_blank">2022-12-04T14:08:42.349Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 0&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 7&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>这串嘟文更新了一年多了，可以点开看看，之前还有.&lt;/p>
+&lt;hr>
+&lt;!--&lt;p>月亮（全食）&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>月亮（全食）&lt;/p>
+&lt;button class='status_sens ' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_1 '>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/307/886/851/504/054/original/6745d10870de9f0b.jpeg" alt="月全食（中间那个红红的）">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109307890288979463" target="_blank">2022-11-08T11:14:00.788Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 8&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>象友带我去射箭！解锁了一项很有意思的活动 :0130:&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>象友带我去射箭！解锁了一项很有意思的活动 :0130:&lt;/p>
+&lt;button class='status_sens ' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_1 '>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/472/505/769/843/710/original/917289fc7ee24b38.jpeg" alt="我的靶纸~非常巧合地在某一桶箭里的第一支就射到了黄色圈圈里，于是赶紧拍照（">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109472549887550707" target="_blank">2022-12-07T13:09:06.877Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 3&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 17&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>雾（霾/沙尘）中风景（by Anzeropoulos）&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>雾（霾/沙尘）中风景（by Anzeropoulos）&lt;/p>
+&lt;button class='status_sens ' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_1 '>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/499/454/037/798/961/original/97d65a66455e762f.jpeg" alt="一条河水正缓缓流淌而来，因扬沙影响，能见度很低，画面上方还抓拍到一只小鸟飞过. 萧瑟的冬日景象，像极了安哲的电影.">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109499468195957918" target="_blank">2022-12-12T07:14:47.658Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 0&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 1&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>我觉得我这条嘟文发得超级好，这可是我精心构思出来的：人家大导演原名叫 Angelopoulos，我巧妙地把我的名字融进去了，而且融得又不突兀. 结果只有一个点赞……按理说这张照片我自认为也拍得挺好的呀~&lt;/p>
+&lt;hr>
+&lt;!--&lt;p>眼睛瞪的象铜铃！射出闪电般的机灵！&lt;br>耳朵竖得象天线！听着一切可疑的声音！ :0130:&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>眼睛瞪的象铜铃！射出闪电般的机灵！&lt;br />耳朵竖得象天线！听着一切可疑的声音！ :0130:&lt;/p>
+&lt;button class='status_sens ' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_1 '>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/522/373/563/434/385/original/efb5aed4f8e85ea9.jpeg" alt="两只黑猫！前面这只瞪大眼睛竖着耳朵看着我">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109522377357184316" target="_blank">2022-12-16T08:20:53.717Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 5&lt;/div>
+&lt;div class='favourites_count'>❤️ 30&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>快要过年了！市政在往路边的树上挂灯笼哩！&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>快要过年了！市政在往路边的树上挂灯笼哩！&lt;/p>
+&lt;button class='status_sens ' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_1 '>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/533/076/177/250/653/original/75d3536f31d146a2.jpeg" alt="这是一张站在人行道上拍摄的照片，照片中这一侧的行道树下面已经早早有人放置了折叠起来的灯笼，一个人在最前面把每个折叠的灯笼打开，后面有两个人蹬着梯子把打开的灯笼挂到树上面的铁丝上去. 马路对面的那排行道树上已经是挂好了的灯笼.">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109533092815222722" target="_blank">2022-12-18T05:45:58.631Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 0&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 3&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>有一点点艰难的八天，隐瞒了几乎所有人，24 号我爸妈问我身体如何，我说，身体很好 :0120:&lt;/p>&lt;p>（发现了一件有趣的事：发烧的时候新长出来的胡子是软软的，体温恢复后胡子硬度也恢复了正常）&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>有一点点艰难的八天，隐瞒了几乎所有人，24 号我爸妈问我身体如何，我说，身体很好 :0120:&lt;/p>&lt;p>（发现了一件有趣的事：发烧的时候新长出来的胡子是软软的，体温恢复后胡子硬度也恢复了正常）&lt;/p>
+&lt;button class='status_sens ' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_1 '>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/595/783/187/975/721/original/c9b6c2bb3d49ed46.jpeg" alt="从 12/21 - 12/29 的抗原检测">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109595803774015913" target="_blank">2022-12-29T07:34:11.932Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 4&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>上次去看《阿凡达》时物料还没寄到影院所以没有领到海报，今天专程拿着票根去补领，结果人家给了我两张海报 :0520:&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>上次去看《阿凡达》时物料还没寄到影院所以没有领到海报，今天专程拿着票根去补领，结果人家给了我两张海报 :0520:&lt;/p>
+&lt;button class='status_sens ' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_1 '>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/607/849/970/445/309/original/0f5acb49cc59642d.jpeg" alt="《阿凡达》的海报">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109607856958963276" target="_blank">2022-12-31T10:39:28.928Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 0&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 1&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>看到一地的银杏果，剥开发现是臭的（哦！我的嗅觉恢复了！）&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>看到一地的银杏果，剥开发现是臭的（哦！我的嗅觉恢复了！）&lt;/p>
+&lt;button class='status_sens ' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_2 '>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/641/071/410/781/925/original/f6cb5dcca86f0f1b.jpeg" alt="一地的银杏果，捡了一些放在左手里，还剥开了一颗，在阳光下，好好看，我的手也很好看">
+&lt;/div>
+&lt;div class='media_2'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/641/079/017/220/713/original/268cc7a47061aaef.jpeg" alt="银杏，阴性科银杏属，落叶乔木，雌雄异株；银杏树傲岸、挺拔、抗病虫、生命力强、适应性广、长寿、吉祥，有“活化石”之称；银杏树全身是宝，叶果入药，经济生态效益显著，是我国珍贵树种，已入围“国树”，被郭沫若誉为“东方圣者”。">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109641106687941332" target="_blank">2023-01-06T07:35:19.540Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 8&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>三九四九冰上走！（/冰上跑/冰上差点摔）&lt;br>哎呀好快乐，我要学花样滑冰！我就是花滑女王（/王子） :0120:&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>三九四九冰上走！（/冰上跑/冰上差点摔）&lt;br />哎呀好快乐，我要学花样滑冰！我就是花滑女王（/王子） :0120:&lt;/p>
+&lt;button class='status_sens ' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_2 '>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/647/184/635/244/602/original/f7255c35e40bcf21.jpeg" alt="在冰上走啊走啊走啊走">
+&lt;/div>
+&lt;div class='media_2'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/647/185/514/799/953/original/0c91ae64aeeb703b.jpeg" alt="冻得好结实的冰面">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109647197613264113" target="_blank">2023-01-07T09:24:19.676Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 14&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>吃到了象友亲手种出来的草莓！哎呀，这岂是刚来长毛象时我能够想象得到的事情！ :0120:&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>吃到了象友亲手种出来的草莓！哎呀，这岂是刚来长毛象时我能够想象得到的事情！ :0120:&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109688729535598818" target="_blank">2023-01-14T17:26:26.517Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 16&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>去年北京搞了一个绿色节能消费券，最开始只有 20 类商品（&lt;a href="https://mp.weixin.qq.com/s/pssIbJFnycmk09PdtDq_FQ" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="ellipsis">mp.weixin.qq.com/s/pssIbJFnycm&lt;/span>&lt;span class="invisible">k09PdtDq_FQ&lt;/span>&lt;/a> ），再之后扩充到 46 类（&lt;a href="https://mp.weixin.qq.com/s/mN_iQ8hfj5_p7aglOD41sw" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="ellipsis">mp.weixin.qq.com/s/mN_iQ8hfj5_&lt;/span>&lt;span class="invisible">p7aglOD41sw&lt;/span>&lt;/a> ），其中包括手机.&lt;/p>&lt;p>去年年底我恰好有换手机的需求，就去京东上领了个券，结果发现适用范围极小，只有 17 台小米和 1 台联想能用. 我觉得非常奇怪，就仔细看了政策里面写的适用范围，它写到：&lt;/p>&lt;p>&amp;gt; 手机厂商应通过工业和信息化部关于智能手机绿色设计相关评审或项目验收，手机产品符合GB/T 26572-2011电子电气产品中限用物质限量要求，且经北京市经济和信息化局认定的品牌和型号。&lt;/p>&lt;p>于是问题就变成了：市场上的所有手机，哪些经过了验收和认定呢？有没有一个列表？京东允许使用消费券的那 18 台的范围，是不是有点太少了呢？&lt;/p>&lt;p>然后我就和京东的客服进行了长时间的掰扯，还是没搞清，最后就写了 12345 的咨询单，那是 2022 年的 12 月 17 日. 不久有某金融局的人联系我，但人家只管京东，不管政策，就说转单到北京市经济和信息化局. 再之后就一直没有消息.&lt;/p>-->
+&lt;div class='status_box'>
+&lt;button class='status_summary' onclick='hideContent(this)'>⛔️ 记一件关于北京绿色节能消费券的无聊小事（1/2）&lt;/button>
+&lt;div class='status_content content_hide'>
+&lt;p>去年北京搞了一个绿色节能消费券，最开始只有 20 类商品（&lt;a href="https://mp.weixin.qq.com/s/pssIbJFnycmk09PdtDq_FQ" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="ellipsis">mp.weixin.qq.com/s/pssIbJFnycm&lt;/span>&lt;span class="invisible">k09PdtDq_FQ&lt;/span>&lt;/a> ），再之后扩充到 46 类（&lt;a href="https://mp.weixin.qq.com/s/mN_iQ8hfj5_p7aglOD41sw" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="ellipsis">mp.weixin.qq.com/s/mN_iQ8hfj5_&lt;/span>&lt;span class="invisible">p7aglOD41sw&lt;/span>&lt;/a> ），其中包括手机.&lt;/p>&lt;p>去年年底我恰好有换手机的需求，就去京东上领了个券，结果发现适用范围极小，只有 17 台小米和 1 台联想能用. 我觉得非常奇怪，就仔细看了政策里面写的适用范围，它写到：&lt;/p>&lt;p>&amp;gt; 手机厂商应通过工业和信息化部关于智能手机绿色设计相关评审或项目验收，手机产品符合GB/T 26572-2011电子电气产品中限用物质限量要求，且经北京市经济和信息化局认定的品牌和型号。&lt;/p>&lt;p>于是问题就变成了：市场上的所有手机，哪些经过了验收和认定呢？有没有一个列表？京东允许使用消费券的那 18 台的范围，是不是有点太少了呢？&lt;/p>&lt;p>然后我就和京东的客服进行了长时间的掰扯，还是没搞清，最后就写了 12345 的咨询单，那是 2022 年的 12 月 17 日. 不久有某金融局的人联系我，但人家只管京东，不管政策，就说转单到北京市经济和信息化局. 再之后就一直没有消息.&lt;/p>
+&lt;button class='status_sens img_hide_eye' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_1 img_hide'>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/708/601/998/264/981/original/66bd9ebef98bbfff.jpeg" alt="我的 12345 咨询单">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109708613914156116" target="_blank">2023-01-18T05:43:18.071Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 1&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;!--&lt;p>去年的绿色节能消费券到 12 月 31 日就过期了，我也去别的地方买了新手机，这个咨询单我也慢慢忘记了，直到昨天我突然收到短信，说这个咨询单处理完了，问我满意不满意.&lt;/p>&lt;p>我打开 12345 一看，上面写着（图见上条嘟文）：&lt;/p>&lt;p>&amp;gt; 我局电子信息产业处工作人员于2023年1月16日与咨询人取得联系，就咨询人关心的北京绿色消费券适用范围、对于我局认定的品牌和型号等问题进行了进行了详细解答，咨询人表示理解。&lt;/p>&lt;p>可关键是，16 日没有人联系我，没有人就我关心的问题进行详细解答，我也没有表示理解. 但事情实在过去太久了，我懒得管了，我只感到好笑，就选了 5，“未解决，基本满意”，毕竟，还能怎么不满意呢？&lt;/p>&lt;p>我以为这件事终于过去了，今天有个人打电话来，自称是北京市经济和信息化局的副处长，跟我又是道歉，又是感谢，然后详详细细地给我把这件事解释了一下.&lt;/p>-->
+&lt;div class='status_box'>
+&lt;button class='status_summary' onclick='hideContent(this)'>⛔️ 记一件关于北京绿色节能消费券的无聊小事（2/3）&lt;/button>
+&lt;div class='status_content content_hide'>
+&lt;p>去年的绿色节能消费券到 12 月 31 日就过期了，我也去别的地方买了新手机，这个咨询单我也慢慢忘记了，直到昨天我突然收到短信，说这个咨询单处理完了，问我满意不满意.&lt;/p>&lt;p>我打开 12345 一看，上面写着（图见上条嘟文）：&lt;/p>&lt;p>&amp;gt; 我局电子信息产业处工作人员于2023年1月16日与咨询人取得联系，就咨询人关心的北京绿色消费券适用范围、对于我局认定的品牌和型号等问题进行了进行了详细解答，咨询人表示理解。&lt;/p>&lt;p>可关键是，16 日没有人联系我，没有人就我关心的问题进行详细解答，我也没有表示理解. 但事情实在过去太久了，我懒得管了，我只感到好笑，就选了 5，“未解决，基本满意”，毕竟，还能怎么不满意呢？&lt;/p>&lt;p>我以为这件事终于过去了，今天有个人打电话来，自称是北京市经济和信息化局的副处长，跟我又是道歉，又是感谢，然后详详细细地给我把这件事解释了一下.&lt;/p>
+&lt;button class='status_sens img_hide_eye' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_1 img_hide'>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/708/615/848/822/144/original/2853a376793a3309.jpg" alt="昨天收到的短信">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109708654230800716" target="_blank">2023-01-18T05:53:33.352Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 2&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;!--&lt;p>原来这件事是从去年年底才刚刚开始做，做得非常不完善，流程必须是手机厂商去申请，他们经济与信息化局才能审批，然后才能通过认定，然后才会把名单给到北京市商务局，然后北京市商务局把名单给京东.&lt;/p>&lt;p>京东去年只支持 18 台手机，是因为确确实实只通过了这些，很多手机厂商不知道，没有申请，他们会找人家手机厂商谈，但不能强迫手机厂商参与，说今年应该能慢慢地支持更多. 说我们消费者能做的可以是去催一催手机厂商，让他们手机厂商主动去申请，他们经济和信息化局不会卡流程，基本都会通过的.&lt;/p>&lt;p>又问这个列表有没有在什么地方公示呢？答曰，没有，列表是经济和信息化局和商务局内部的文件，市民就去京东上看就行，京东上支持什么，就有什么.&lt;/p>&lt;p>（我的感受：啊办事情好官僚，今年真的能把这个事情做起来吗？这个东西只是北京市的消费券啊，手机厂商都是全国卖货的，人家会配合你吗？以后每个城市都有一个自己的消费券，手机厂商真的情愿每个城市的流程都走一遍吗？）&lt;/p>-->
+&lt;div class='status_box'>
+&lt;button class='status_summary' onclick='hideContent(this)'>⛔️ 记一件关于北京绿色节能消费券的无聊小事（3/3）&lt;/button>
+&lt;div class='status_content content_hide'>
+&lt;p>原来这件事是从去年年底才刚刚开始做，做得非常不完善，流程必须是手机厂商去申请，他们经济与信息化局才能审批，然后才能通过认定，然后才会把名单给到北京市商务局，然后北京市商务局把名单给京东.&lt;/p>&lt;p>京东去年只支持 18 台手机，是因为确确实实只通过了这些，很多手机厂商不知道，没有申请，他们会找人家手机厂商谈，但不能强迫手机厂商参与，说今年应该能慢慢地支持更多. 说我们消费者能做的可以是去催一催手机厂商，让他们手机厂商主动去申请，他们经济和信息化局不会卡流程，基本都会通过的.&lt;/p>&lt;p>又问这个列表有没有在什么地方公示呢？答曰，没有，列表是经济和信息化局和商务局内部的文件，市民就去京东上看就行，京东上支持什么，就有什么.&lt;/p>&lt;p>（我的感受：啊办事情好官僚，今年真的能把这个事情做起来吗？这个东西只是北京市的消费券啊，手机厂商都是全国卖货的，人家会配合你吗？以后每个城市都有一个自己的消费券，手机厂商真的情愿每个城市的流程都走一遍吗？）&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109708679895811041" target="_blank">2023-01-18T06:00:04.854Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 0&lt;/div>
+&lt;div class='reblogs_count'>🔁 2&lt;/div>
+&lt;div class='favourites_count'>❤️ 7&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="瞎想">瞎想&lt;/h2>
+&lt;!--&lt;p>酒是不是都（/大多数）是装在玻璃瓶或金属罐里的？装在塑料瓶里有什么弊端吗？&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>酒是不是都（/大多数）是装在玻璃瓶或金属罐里的？装在塑料瓶里有什么弊端吗？&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109229803791909000" target="_blank">2022-10-25T16:15:35.401Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 2&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>有象友在下面回复了一个可能性，非常有道理，感兴趣的象友可以点开看看.&lt;/p>
+&lt;hr>
+&lt;!--&lt;p>突然想到一个问题：仅从照片能区分日出和日落吗？&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>突然想到一个问题：仅从照片能区分日出和日落吗？&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109238729476935938" target="_blank">2022-10-27T06:05:30.544Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 2&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;!--&lt;p>似乎很难：&lt;a href="https://www.zhihu.com/question/19747499" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://www.&lt;/span>&lt;span class="">zhihu.com/question/19747499&lt;/span>&lt;span class="invisible">&lt;/span>&lt;/a>&lt;br>:0560:&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>似乎很难：&lt;a href="https://www.zhihu.com/question/19747499" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://www.&lt;/span>&lt;span class="">zhihu.com/question/19747499&lt;/span>&lt;span class="invisible">&lt;/span>&lt;/a>&lt;br />:0560:&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109238739384290680" target="_blank">2022-10-27T06:08:01.727Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 0&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 2&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>感觉家长对着孩子大声喊“看车”的意义并不在提醒孩子注意车，而在于提醒过路的车注意孩子（指非机动车）；就像遛狗的人对着狗大喊“看人”、“你怎么又不听话，回家打你”的意义并不在提醒狗注意人或者威胁狗，而在于提醒过路的人注意狗，算是一个免责的表态.&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>感觉家长对着孩子大声喊“看车”的意义并不在提醒孩子注意车，而在于提醒过路的车注意孩子（指非机动车）；就像遛狗的人对着狗大喊“看人”、“你怎么又不听话，回家打你”的意义并不在提醒狗注意人或者威胁狗，而在于提醒过路的人注意狗，算是一个免责的表态.&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109364507150964802" target="_blank">2022-11-18T11:12:25.542Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 0&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 3&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>“说时迟，那时快”这六个字好奇怪，完全经不起细想：它们是如何组合在一起的构成这个意思的？ :0560:&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>“说时迟，那时快”这六个字好奇怪，完全经不起细想：它们是如何组合在一起的构成这个意思的？ :0560:&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109369432738112692" target="_blank">2022-11-19T08:05:04.040Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 3&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>这一条也有好心的象友在回复中做了解释！&lt;/p>
+&lt;hr>
+&lt;!--&lt;p>长毛象也应该有一个“提醒我看”机器人，类似于推特上的 Remind me of this tweet（&lt;a href="https://twitter.com/RemindMe_OfThis" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="">twitter.com/RemindMe_OfThis&lt;/span>&lt;span class="invisible">&lt;/span>&lt;/a> ）.&lt;/p>&lt;p>不知道现在有没有呢？如果没有，有没有人写一个呢？&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>长毛象也应该有一个“提醒我看”机器人，类似于推特上的 Remind me of this tweet（&lt;a href="https://twitter.com/RemindMe_OfThis" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="">twitter.com/RemindMe_OfThis&lt;/span>&lt;span class="invisible">&lt;/span>&lt;/a> ）.&lt;/p>&lt;p>不知道现在有没有呢？如果没有，有没有人写一个呢？&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109482199503025531" target="_blank">2022-12-09T06:03:08.316Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 1&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>咦，难道说，地下埋了电线的话可以让草不枯萎吗？ :0560: 这是什么原理？&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>咦，难道说，地下埋了电线的话可以让草不枯萎吗？ :0560: 这是什么原理？&lt;/p>
+&lt;button class='status_sens ' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_1 '>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/556/526/098/071/128/original/ea9d3b6c8b177e0c.jpeg" alt="在草坪上可以看到一条明显的未枯萎的绿色的草组成的一条线，穿过这里的路灯.">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109556532969895294" target="_blank">2022-12-22T09:07:07.006Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 5&lt;/div>
+&lt;div class='reblogs_count'>🔁 1&lt;/div>
+&lt;div class='favourites_count'>❤️ 12&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>有很多象友猜测是发热，也有两位认为是草种不同. 我本来是想着下雪的时候观察一下积雪看看能不能排除或验证电线发热的问题来着，结果上次下雪我给忘记了！今天才想起来……下次再说！&lt;/p>
+&lt;hr>
+&lt;!--&lt;p>前几天和朋友聊天时提到一篇 2015 年发表在一个杂志上的一篇文章，我 2016 年和别人讲起时在网上随随便便搜一下就能找到并分享给人家看，如今七年过去了，竟然无论如何也搜不到了. 我知道杂志名、那一本的出版日期、文章标题、作者名，可是我换遍了所有的搜索引擎也找不到它. 那篇文章在互联网上消失了，一点痕迹都没有，就像今天已经看不出三天前下过雪的痕迹.&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>前几天和朋友聊天时提到一篇 2015 年发表在一个杂志上的一篇文章，我 2016 年和别人讲起时在网上随随便便搜一下就能找到并分享给人家看，如今七年过去了，竟然无论如何也搜不到了. 我知道杂志名、那一本的出版日期、文章标题、作者名，可是我换遍了所有的搜索引擎也找不到它. 那篇文章在互联网上消失了，一点痕迹都没有，就像今天已经看不出三天前下过雪的痕迹.&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109697120126082489" target="_blank">2023-01-16T05:00:16.768Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 0&lt;/div>
+&lt;div class='reblogs_count'>🔁 1&lt;/div>
+&lt;div class='favourites_count'>❤️ 7&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;h2 id="技术">技术&lt;/h2>
+&lt;!--&lt;p>之前有象友推荐了一个健康码项目（&lt;a href="https://alive.bar/@boop/109265900174401155" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="ellipsis">alive.bar/@boop/10926590017440&lt;/span>&lt;span class="invisible">1155&lt;/span>&lt;/a> ），它给出了两个需要翻墙的在线地址. 这只是一个前端项目而已，有没有可能不联网，在本地运行呢？其实只要下载源码，并运行一个 HTTP server 就可以了. 具体的操作步骤如下（android 手机为例）：&lt;/p>&lt;p>1. 下载项目源码（&lt;a href="https://github.com/ilovexjp/health-code-index/releases" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="ellipsis">github.com/ilovexjp/health-cod&lt;/span>&lt;span class="invisible">e-index/releases&lt;/span>&lt;/a> ），将 &lt;br>health-code-index.zip 解压到手机上；&lt;br>2. 下载安装一个 HTTP server 服务，比如 ServDroid（&lt;a href="https://f-droid.org/en/packages/org.servDroid.web/" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="ellipsis">f-droid.org/en/packages/org.se&lt;/span>&lt;span class="invisible">rvDroid.web/&lt;/span>&lt;/a> ），仅 0.9 Mb；&lt;br>3. 打开 ServDroid，右上三个点，Settings，Document Path，改成步骤 1 那个文件夹；&lt;br>4. 回到 ServDroid 首页，点击那个 Off 将 server 打开（再点一下可以关闭）；&lt;br>5. 打开手机浏览器，输入 0.0.0.0:8080 即可正常使用；&lt;br>6. 可以添加到主屏幕（pwa 功能）以全屏.&lt;/p>&lt;p>其他系统如 ios 思路一样，找一个 HTTP server 就好了~&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>之前有象友推荐了一个健康码项目（&lt;a href="https://alive.bar/@boop/109265900174401155" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="ellipsis">alive.bar/@boop/10926590017440&lt;/span>&lt;span class="invisible">1155&lt;/span>&lt;/a> ），它给出了两个需要翻墙的在线地址. 这只是一个前端项目而已，有没有可能不联网，在本地运行呢？其实只要下载源码，并运行一个 HTTP server 就可以了. 具体的操作步骤如下（android 手机为例）：&lt;/p>&lt;p>1. 下载项目源码（&lt;a href="https://github.com/ilovexjp/health-code-index/releases" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="ellipsis">github.com/ilovexjp/health-cod&lt;/span>&lt;span class="invisible">e-index/releases&lt;/span>&lt;/a> ），将 &lt;br />health-code-index.zip 解压到手机上；&lt;br />2. 下载安装一个 HTTP server 服务，比如 ServDroid（&lt;a href="https://f-droid.org/en/packages/org.servDroid.web/" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="ellipsis">f-droid.org/en/packages/org.se&lt;/span>&lt;span class="invisible">rvDroid.web/&lt;/span>&lt;/a> ），仅 0.9 Mb；&lt;br />3. 打开 ServDroid，右上三个点，Settings，Document Path，改成步骤 1 那个文件夹；&lt;br />4. 回到 ServDroid 首页，点击那个 Off 将 server 打开（再点一下可以关闭）；&lt;br />5. 打开手机浏览器，输入 0.0.0.0:8080 即可正常使用；&lt;br />6. 可以添加到主屏幕（pwa 功能）以全屏.&lt;/p>&lt;p>其他系统如 ios 思路一样，找一个 HTTP server 就好了~&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109314051674948527" target="_blank">2022-11-09T13:20:56.080Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 19&lt;/div>
+&lt;div class='reblogs_count'>🔁 357&lt;/div>
+&lt;div class='favourites_count'>❤️ 258&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;!--&lt;p>补充：&lt;/p>&lt;p>根据象友反馈，如果连着 WiFi，软件上会给出一个局域网的地址，以 192.168 开头，那样的话就在浏览器里输入这个局域网地址就好~&lt;/p>&lt;p>使用流量或关掉网络时才会显示 0.0.0.0 的. 使用其他 HTTP server 也是类似，都按照软件上显示的地址输入就好，我这里只是举个例子，一般 0.0.0.0 也可能显示成 127.0.0.1 或 localhost.&lt;/p>&lt;p>可能原始嘟文写得过于简略了，有问题可以再问我，或者大家互相帮助！这不是啥牛逼的技术，我这里的主要贡献是找到了那个 ServDroid 软件. 这个软件巨难找，我试了乱七八糟一大堆（就差自己写一个了），最后总算找到这么一个能用/好用的.&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>补充：&lt;/p>&lt;p>根据象友反馈，如果连着 WiFi，软件上会给出一个局域网的地址，以 192.168 开头，那样的话就在浏览器里输入这个局域网地址就好~&lt;/p>&lt;p>使用流量或关掉网络时才会显示 0.0.0.0 的. 使用其他 HTTP server 也是类似，都按照软件上显示的地址输入就好，我这里只是举个例子，一般 0.0.0.0 也可能显示成 127.0.0.1 或 localhost.&lt;/p>&lt;p>可能原始嘟文写得过于简略了，有问题可以再问我，或者大家互相帮助！这不是啥牛逼的技术，我这里的主要贡献是找到了那个 ServDroid 软件. 这个软件巨难找，我试了乱七八糟一大堆（就差自己写一个了），最后总算找到这么一个能用/好用的.&lt;/p>
+&lt;button class='status_sens ' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_2 '>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/314/378/618/138/512/original/1596eb5502baa9bc.jpg" alt="局域网地址示例">
+&lt;/div>
+&lt;div class='media_2'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/314/378/651/653/839/original/bc722742493ded20.jpg" alt="本地地址示例">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109314398710144882" target="_blank">2022-11-09T14:49:11.424Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 0&lt;/div>
+&lt;div class='reblogs_count'>🔁 17&lt;/div>
+&lt;div class='favourites_count'>❤️ 20&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>这还是坚持清零政策时的一条嘟文呢，点赞转发居多，还有一大堆象友遇到了问题和我讨论，应该是帮到了不少人. 虽然那些出门要扫码的日子已经过去了，但这个技术还是很重要的~&lt;/p>
+&lt;hr>
+&lt;!--&lt;p>别人给我推荐了一个笔记本/日记本工具 eDiary，试用了一下，真的很好用啊，个人开发，长期维护，功能全面，软件小巧. 本地使用免费，同步要开会员（三年 99，买断 199）. 唯一的问题就是只支持 Windows……&lt;br>&lt;a href="http://ediary.haoxg.net/ediary/" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">http://&lt;/span>&lt;span class="">ediary.haoxg.net/ediary/&lt;/span>&lt;span class="invisible">&lt;/span>&lt;/a>&lt;/p>&lt;p>（目前遇到了一个小小的问题，就是不知道怎么默认选 markdown 格式，按理来说应该是“设置”-“编辑”-“新建文档的默认设置”-点击右面三个点进入模板管理器，这里在字体左边有那个切换普通和 markdown 的按钮，但在这里似乎就点不动……有象友知道是怎么回事吗？我正考虑要不要过两天去微博上或者去微信上联系作者问一下. 哎呀！这软件要是开源就好了，可以直接去提 issue，通过私下的方式联系别人总是要做些心理建设 :0120: ）&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>别人给我推荐了一个笔记本/日记本工具 eDiary，试用了一下，真的很好用啊，个人开发，长期维护，功能全面，软件小巧. 本地使用免费，同步要开会员（三年 99，买断 199）. 唯一的问题就是只支持 Windows……&lt;br />&lt;a href="http://ediary.haoxg.net/ediary/" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">http://&lt;/span>&lt;span class="">ediary.haoxg.net/ediary/&lt;/span>&lt;span class="invisible">&lt;/span>&lt;/a>&lt;/p>&lt;p>（目前遇到了一个小小的问题，就是不知道怎么默认选 markdown 格式，按理来说应该是“设置”-“编辑”-“新建文档的默认设置”-点击右面三个点进入模板管理器，这里在字体左边有那个切换普通和 markdown 的按钮，但在这里似乎就点不动……有象友知道是怎么回事吗？我正考虑要不要过两天去微博上或者去微信上联系作者问一下. 哎呀！这软件要是开源就好了，可以直接去提 issue，通过私下的方式联系别人总是要做些心理建设 :0120: ）&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109664701394350177" target="_blank">2023-01-10T11:35:46.186Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 0&lt;/div>
+&lt;div class='reblogs_count'>🔁 4&lt;/div>
+&lt;div class='favourites_count'>❤️ 8&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>当前状态：还没问……&lt;/p>
+&lt;hr>
+&lt;h2 id="瞎看">瞎看&lt;/h2>
+&lt;!--&lt;p>&lt;a href="https://ruanyifeng.com/blog/2010/03/unix_copyright_history.html" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="ellipsis">ruanyifeng.com/blog/2010/03/un&lt;/span>&lt;span class="invisible">ix_copyright_history.html&lt;/span>&lt;/a>&lt;br>版权这件事可以谈的角度好多 :0560:&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>&lt;a href="https://ruanyifeng.com/blog/2010/03/unix_copyright_history.html" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="ellipsis">ruanyifeng.com/blog/2010/03/un&lt;/span>&lt;span class="invisible">ix_copyright_history.html&lt;/span>&lt;/a>&lt;br />版权这件事可以谈的角度好多 :0560:&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109359202981407485" target="_blank">2022-11-17T12:43:30.342Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 0&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 0&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>有的电影/电视剧的翻译真的是差到没法看，就硬翻啊！&lt;br>（hit the nail on the head 应为“说得很对，一针见血”的意思）&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>有的电影/电视剧的翻译真的是差到没法看，就硬翻啊！&lt;br />（hit the nail on the head 应为“说得很对，一针见血”的意思）&lt;/p>
+&lt;button class='status_sens ' onclick='hideImage(this)'>👀 &lt;/button>
+&lt;div class='status_media_1 '>
+&lt;div class='media_1'>
+&lt;img loading='lazy' onclick='openImage(this)' src="https://files.1234.network/mastodon/media_attachments/files/109/427/087/271/926/101/original/57b92ddca44760a0.png" alt="来自伯格曼电视剧《婚姻生活》（瑞典语：Scener ur ett äktenskap）的一张截图，男女两位主人公面对面坐着，女人在说一句话。英文字幕为：You hit the nail on the head. 而中文字幕翻译为：你碰着钉子处事不顺而已.">
+&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109427105668211172" target="_blank">2022-11-29T12:32:03.111Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 0&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 8&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>中国哪里的大米更好吃？不同的米有什么区别？&lt;br>&lt;a href="https://www.bilibili.com/video/BV11W4y1N7QS/" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://www.&lt;/span>&lt;span class="ellipsis">bilibili.com/video/BV11W4y1N7Q&lt;/span>&lt;span class="invisible">S/&lt;/span>&lt;/a>&lt;/p>&lt;p>口感差异主要在于直链淀粉所占比例，不同米之间的好吃程度其实差异很小. 我其实这俩月做了几次对照试验，认真对比了普通大米、五常大米和盘锦大米三种，确实差异很小，可以忽略不计.&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>中国哪里的大米更好吃？不同的米有什么区别？&lt;br />&lt;a href="https://www.bilibili.com/video/BV11W4y1N7QS/" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://www.&lt;/span>&lt;span class="ellipsis">bilibili.com/video/BV11W4y1N7Q&lt;/span>&lt;span class="invisible">S/&lt;/span>&lt;/a>&lt;/p>&lt;p>口感差异主要在于直链淀粉所占比例，不同米之间的好吃程度其实差异很小. 我其实这俩月做了几次对照试验，认真对比了普通大米、五常大米和盘锦大米三种，确实差异很小，可以忽略不计.&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109568998133805531" target="_blank">2022-12-24T13:57:10.311Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 0&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 4&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>我们像林中迷路的孩子一样孤独。当你站在我面前看着我时，你知道什么是我心中的痛苦，而我又知道什么是你的痛苦呢？假如我跪倒在你面前，哭着倾诉，你又能了解多少我的情况呢？无非就像某人向你倾诉地狱里是酷热、可怕的时候，你从中所获得的对地狱的了解一样。仅为此缘故，我们面对面站立时就应该互相敬畏，互相思虑，互相挚爱，就像站在地狱入口处那样。&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>我们像林中迷路的孩子一样孤独。当你站在我面前看着我时，你知道什么是我心中的痛苦，而我又知道什么是你的痛苦呢？假如我跪倒在你面前，哭着倾诉，你又能了解多少我的情况呢？无非就像某人向你倾诉地狱里是酷热、可怕的时候，你从中所获得的对地狱的了解一样。仅为此缘故，我们面对面站立时就应该互相敬畏，互相思虑，互相挚爱，就像站在地狱入口处那样。&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109589610143621406" target="_blank">2022-12-28T05:19:04.624Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 1&lt;/div>
+&lt;div class='favourites_count'>❤️ 5&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>是卡夫卡说的，搜索即可找到出处.&lt;/p>
+&lt;hr>
+&lt;!--&lt;p>&lt;a href="https://www.bilibili.com/video/BV1XP4y127Lv/" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://www.&lt;/span>&lt;span class="ellipsis">bilibili.com/video/BV1XP4y127L&lt;/span>&lt;span class="invisible">v/&lt;/span>&lt;/a>&lt;br>&lt;a href="https://www.bilibili.com/video/BV15P4y1R7u2/" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://www.&lt;/span>&lt;span class="ellipsis">bilibili.com/video/BV15P4y1R7u&lt;/span>&lt;span class="invisible">2/&lt;/span>&lt;/a>&lt;br>&lt;a href="https://www.bilibili.com/video/BV1qM411U7ut/" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://www.&lt;/span>&lt;span class="ellipsis">bilibili.com/video/BV1qM411U7u&lt;/span>&lt;span class="invisible">t/&lt;/span>&lt;/a>&lt;br>这个 up 主做得这套视频很有意思，讲解了“语法参数”这个概念，最后提了几个现象用来佐证“动词吸引参数”的存在，超好玩儿！&lt;/p>&lt;p>&lt;a href="https://1234.as/tags/%E6%88%91%E5%9C%A8%E7%9C%8B%E4%BB%80%E4%B9%88" class="mention hashtag" rel="tag">#&lt;span>我在看什么&lt;/span>&lt;/a>&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>&lt;a href="https://www.bilibili.com/video/BV1XP4y127Lv/" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://www.&lt;/span>&lt;span class="ellipsis">bilibili.com/video/BV1XP4y127L&lt;/span>&lt;span class="invisible">v/&lt;/span>&lt;/a>&lt;br />&lt;a href="https://www.bilibili.com/video/BV15P4y1R7u2/" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://www.&lt;/span>&lt;span class="ellipsis">bilibili.com/video/BV15P4y1R7u&lt;/span>&lt;span class="invisible">2/&lt;/span>&lt;/a>&lt;br />&lt;a href="https://www.bilibili.com/video/BV1qM411U7ut/" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://www.&lt;/span>&lt;span class="ellipsis">bilibili.com/video/BV1qM411U7u&lt;/span>&lt;span class="invisible">t/&lt;/span>&lt;/a>&lt;br />这个 up 主做得这套视频很有意思，讲解了“语法参数”这个概念，最后提了几个现象用来佐证“动词吸引参数”的存在，超好玩儿！&lt;/p>&lt;p>&lt;a href="https://1234.as/tags/%E6%88%91%E5%9C%A8%E7%9C%8B%E4%BB%80%E4%B9%88" class="mention hashtag" rel="tag">#&lt;span>我在看什么&lt;/span>&lt;/a>&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109603903676033515" target="_blank">2022-12-30T17:54:06.622Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 0&lt;/div>
+&lt;div class='reblogs_count'>🔁 0&lt;/div>
+&lt;div class='favourites_count'>❤️ 6&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;hr>
+&lt;!--&lt;p>rt: &lt;a href="https://m.cmx.im/@hazel/109626498399653292" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="ellipsis">m.cmx.im/@hazel/10962649839965&lt;/span>&lt;span class="invisible">3292&lt;/span>&lt;/a>&lt;/p>&lt;p>哇，确实写得太好了，好精彩！而且内容非常丰富，我断断续续看了一整天……简单归纳总结一下：前面是关于化学渗透假说如何解决氧化场所（色素细胞酶）和 ATPase 物理上是分隔开的问题，顺便介绍了彼得·米切尔这个人，他弄的那个皈依表格哈哈哈笑死；中间讲了讲 ATPase 的结构和细菌的鞭毛（ATPase 是鞭毛的进化雏形）；最后讨论化学渗透理论在生命起源上的意义（还原法与反演法，米勒实验与原始汤假说及其衰落，生物膜与 DNA 悖论，一些新假说）.&lt;/p>-->
+&lt;div class='status_box'>
+&lt;div class='status_content '>
+&lt;p>rt: &lt;a href="https://m.cmx.im/@hazel/109626498399653292" target="_blank" rel="nofollow noopener noreferrer">&lt;span class="invisible">https://&lt;/span>&lt;span class="ellipsis">m.cmx.im/@hazel/10962649839965&lt;/span>&lt;span class="invisible">3292&lt;/span>&lt;/a>&lt;/p>&lt;p>哇，确实写得太好了，好精彩！而且内容非常丰富，我断断续续看了一整天……简单归纳总结一下：前面是关于化学渗透假说如何解决氧化场所（色素细胞酶）和 ATPase 物理上是分隔开的问题，顺便介绍了彼得·米切尔这个人，他弄的那个皈依表格哈哈哈笑死；中间讲了讲 ATPase 的结构和细菌的鞭毛（ATPase 是鞭毛的进化雏形）；最后讨论化学渗透理论在生命起源上的意义（还原法与反演法，米勒实验与原始汤假说及其衰落，生物膜与 DNA 悖论，一些新假说）.&lt;/p>
+&lt;/div>
+&lt;div class='status_stat'>
+&lt;div class='status_date'>🕗 &lt;a class='status_dt' href="https://1234.as/@zero/109637709202598847" target="_blank">2023-01-05T17:11:18.018Z&lt;/a>&lt;/div>
+&lt;div class='replies_count'>↩️ 1&lt;/div>
+&lt;div class='reblogs_count'>🔁 1&lt;/div>
+&lt;div class='favourites_count'>❤️ 3&lt;/div>
+&lt;/div>
+&lt;/div>
+&lt;p>这篇文章真的很不错，奈何转发不多（指的是最开始推荐这篇文章的那个嘟文）. 其实长毛象上转发点赞多的也是那种能够调动大家情绪的东西，真正的好东西往往不能掀起什么波澜，和所有的社交媒体也没什么两样.&lt;/p>
+&lt;hr>
+&lt;p>这个季度精选出来的好少好少啊！我自己一回顾，大部分都是在看球（世界杯），还有就是和象友讨论电影. 最主要的原因是：我的生活重心发生了一些变化，如果不出意外的话，未来我在长毛象上的活跃程度大概就和这个季度是一样的了. 我觉得这样其实挺不错的，之前两年太依赖象了，现在已经能够仅仅把象当作是一个休闲的方式，而非生活的重点.&lt;/p></description></item><item><title>季度嘟文精华展 - 2022 秋</title><link>/exhibition/2022-autumn/</link><pubDate>2022-10-18</pubDate><guid>/exhibition/2022-autumn/</guid><description>&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>谢谢你点了进来！这里除了有嘟文精选，还会简单写写发嘟的前因后果，以及少许的&lt;span style="background-color: #ff6600;">未来计划&lt;/span>. 对于陌生的路人，这是一个了解我的窗口；对于已经关注我的人，可以了解一些“幕后故事”；对于我自己，这是一个回顾过去、着眼未来的机会.&lt;/p>
 &lt;p>2022 年 7 月 18 日至 2022 年 10 月 17 日，一共发嘟 724 条，原创嘟文 409 条，包含媒体文件的 110 条. 精选了 73 条.&lt;/p>
 &lt;h2 id="生活碎片">生活碎片&lt;/h2>
